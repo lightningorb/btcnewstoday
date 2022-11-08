@@ -1,5 +1,6 @@
 build:
 	cd src/svelte_site && npm install && npm run build
+	cd src/api && python3 -m virtualenv venv && . venv/bin/activate && pip3 install -r requirements.txt
 	sudo supervisorctl reload
 
 build_remote: sync

@@ -3,6 +3,7 @@
   export let data;
   import Nav from '../components/Nav.svelte';
   import { Col, Container, Row } from 'sveltestrap';
+  export const prerender = true;
 </script>
 
 <Nav/>
