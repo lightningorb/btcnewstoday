@@ -1,32 +1,52 @@
 <script>
   import { Styles } from 'sveltestrap';
+  import { Button } from 'sveltestrap';
+  import { onMount } from "svelte";
+  import { Col, Container, Row } from 'sveltestrap';
+  import { Icon } from 'sveltestrap';
+
+  $: articles = [];
+  let domain = "http://127.0.0.1:8000";
+
+  onMount(async () => {
+    if (window.location.hostname == 'btcnews.today'){
+      domain = 'https://btcnews.today'
+    }
+
+    fetch(domain + '/api/articles?longform=true')
+    .then(response => response.json())
+    .then(data => {
+      articles = data;
+    }).catch(error => {
+      console.log(error);
+      return [];
+    });
+  });
+
 </script>
 
 <Styles/>
 
 <h1>Longform</h1>
 
-<cite><a href='https://bloomberg.com'>Bloomberg:</a></cite>
+{#each articles as article}
+  <Row>
+    <Col xs="3"><cite><a target='_blank' href='https://bloomberg.com'>{article.outlet}</a></cite></Col>
+    <Col xs="2"><Button secondary><Icon name="twitter" /></Button></Col>
+    <Col xs="2"><Button secondary><Icon name="facebook" /></Button></Col>
+    <Col xs="2"><Button secondary><Icon name="link" /></Button></Col>
+  </Row>
 
-<h3>Sources: Twitter is asking dozens of laid-off staff to return, after realizing some are needed for building prioritized features and some were sacked by mistake  —</h3>
+  <h3><a target='_blank' href='{article.link}'>{article.title}</a></h3>
 
-Twitter Inc., after laying off roughly half the company on Friday following Elon Musk's $44 billion acquisition …
+  {article.blurb} …
 
-<h4>More:</h4> Insider, International Business Times, Reuters, Neowin, Engadget, SlashGear, and The Information
+  <h4>More:</h4> Insider, International Business Times, Reuters, Neowin, Engadget, SlashGear, and The Information
 
-<h4>Tweets:</h4>
-@caseynewton, @mattnavarra, @elonmusk, @rakyll, @caseynewton, @taylorlorenz, @arctictony, @chillmage, @chrismatyszczyk, @iron_spike, @gergelyorosz, @chenchenwrites, @golikehellmachi, @tante, @owasow, @edbott, @willknight, @coreyhogan, @stevemullis, @epro, @gergelyorosz, @parismarx, @justkelly_ok, @mmasnick, @lizthegrey, @mattnavarra, @econ_marshall, @erinkwoo, @roslyntalusan, @mattnavarra, and @openculture
+  <h4>Tweets:</h4>
+  @caseynewton and @openculture
 
-<hr/>
+  <hr/>
 
-<cite><a href='https://cnbc.com'>Ashley Capoot / CNBC:</a></cite>
 
-<h3>Jack Dorsey apologizes for growing Twitter “too quickly” amid mass layoffs; Twitter's headcount jumped from ~2,000 to 7,500+ between June 2013 and December 2021 </h3>
-
-Twitter co-founder Jack Dorsey apologized Saturday for growing the company “too quickly,” a day after hundreds …
-
-<h4>More:</h4>  SlashGear, PCMag, Tech Xplore, and Insider
-
-<h4>Tweets:</h4> @goldman, @stan_okl, @zombaekillz, @reichenstein, and @clarajeffery
-
-<hr/>
+{/each}

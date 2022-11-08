@@ -1,6 +1,25 @@
 <script>
-  import { Table } from 'sveltestrap';
-  import { Styles } from 'sveltestrap';
+  import { Table, Styles } from 'sveltestrap';
+  import { onMount } from "svelte";
+
+  $: events = [];
+  let domain = "http://127.0.0.1:8000";
+
+  onMount(async () => {
+    if (window.location.hostname == 'btcnews.today'){
+      domain = 'https://btcnews.today'
+    }
+
+    fetch(domain + '/api/events')
+    .then(response => response.json())
+    .then(data => {
+      events = data;
+    }).catch(error => {
+      console.log(error);
+      return [];
+    });
+  });
+
 </script>
 
 <Styles/>
@@ -17,23 +36,13 @@
     </tr>
   </thead>
   <tbody>
+    {#each events as event}
     <tr>
       <th scope="row">1</th>
-      <td>Nov 4-7</td>
-      <td>Breakpoint</td>
-      <td>Lisbon</td>
+      <td>{(new Date(event.date*1000)).toISOString().slice(0, 10)}</td>
+      <td><a target='_blank' href='{event.link}'>{event.name}</a></td>
+      <td>{event.place}</td>
     </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>Nov 10</td>
-      <td>VMWare Explore Europe</td>
-      <td>Lapland Europe</td>
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td>Nov 12</td>
-      <td>The Boat</td>
-      <td>Early Bird</td>
-    </tr>
+    {/each}
   </tbody>
 </Table>

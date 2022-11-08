@@ -13,7 +13,7 @@
       domain = 'https://btcnews.today'
     }
 
-    fetch(domain + '/articles')
+    fetch(domain + '/api/articles')
     .then(response => response.json())
     .then(data => {
       articles = data;
@@ -31,13 +31,13 @@
 
 {#each articles as article}
   <Row>
-    <Col xs="3"><cite><a href='https://bloomberg.com'>{article.outlet}</a></cite></Col>
+    <Col xs="3"><cite><a target='_blank' href='https://bloomberg.com'>{article.outlet}</a></cite></Col>
     <Col xs="2"><Button secondary><Icon name="twitter" /></Button></Col>
     <Col xs="2"><Button secondary><Icon name="facebook" /></Button></Col>
     <Col xs="2"><Button secondary><Icon name="link" /></Button></Col>
   </Row>
 
-  <h3><a href='{article.link}'>{article.title}</a></h3>
+  <h3><a target='_blank' href='{article.link}'>{article.title}</a></h3>
 
   {article.blurb} …
 
