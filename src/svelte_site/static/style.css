@@ -1,0 +1,29 @@
+body {
+  font-family: Optima, "Century Gothic", sans-serif;
+  padding: 10px;
+}
+
+p {
+  font-size: 0.9em;
+}
+
+body div nav {
+  padding-left: 10px;
+  background-color: #ff9500;
+  line-height: 24px;
+  font-size: .8em;
+}
+
+
+body div nav a {
+  padding-left: 10px;
+  text-transform: uppercase;
+  text-align: left;
+  color: #000000;
+  text-decoration: none;
+}
+
+
+h1,h2 {
+  color: #660000;
+}
