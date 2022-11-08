@@ -1,39 +1,46 @@
 <script>
-  import { Table } from 'sveltestrap';
-  import { Styles } from 'sveltestrap';
+  import { Table, Styles } from 'sveltestrap';
+  import { onMount } from "svelte";
+
+  $: jobs = [];
+  let domain = "http://127.0.0.1:8000";
+
+  onMount(async () => {
+    if (window.location.hostname == 'btcnews.today'){
+      domain = 'https://btcnews.today'
+    }
+
+    fetch(domain + '/api/jobs')
+    .then(response => response.json())
+    .then(data => {
+      jobs = data;
+    }).catch(error => {
+      console.log(error);
+      return [];
+    });
+  });
+
 </script>
 
 <Styles/>
 
-<h2>Events</h2>
+<h2>Jobs</h2>
 
 <Table striped>
   <thead>
     <tr>
       <th>#</th>
-      <th>Date</th>
-      <th>Name</th>
-      <th>Location</th>
+      <th>Company</th>
+      <th>Role</th>
     </tr>
   </thead>
   <tbody>
+    {#each jobs as job}
     <tr>
       <th scope="row">1</th>
-      <td>Nov 4-7</td>
-      <td>Breakpoint</td>
-      <td>Lisbon</td>
+      <td>{job.company}</td>
+      <td><a target='_blank' href='{job.link}'>{job.role}</a></td>
     </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>Nov 10</td>
-      <td>VMWare Explore Europe</td>
-      <td>Lapland Europe</td>
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td>Nov 12</td>
-      <td>The Boat</td>
-      <td>Early Bird</td>
-    </tr>
+    {/each}
   </tbody>
 </Table>

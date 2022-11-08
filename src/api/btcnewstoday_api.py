@@ -1,5 +1,6 @@
 import os
-from typing import Optional
+from typing import Optional, List
+import arrow
 
 from fastapi import FastAPI
 from sqlmodel import Field, Session, SQLModel, create_engine, select
@@ -12,6 +13,30 @@ class Article(SQLModel, table=True):
     blurb: str = Field(index=True)
     link: str = Field(index=True)
     outlet: str = Field(index=True)
+    is_longform: bool = Field(index=True, default=False)
+
+
+class Podcast(SQLModel, table=True):
+    id: Optional[int] = Field(default=None, primary_key=True)
+    link: str = Field(index=True)
+    outlet: str = Field(index=True)
+    date: int = Field(index=True)
+
+
+class Event(SQLModel, table=True):
+    id: Optional[int] = Field(default=None, primary_key=True)
+    link: str = Field(index=True)
+    name: str = Field(index=True)
+    date: int = Field(index=True)
+    place: str = Field(index=True)
+
+
+class Job(SQLModel, table=True):
+    id: Optional[int] = Field(default=None, primary_key=True)
+    link: str = Field(index=True)
+    company: str = Field(index=True)
+    role: str = Field(index=True)
+    date: int = Field(index=True)
 
 
 sqlite_file_name = "database.db"
@@ -46,7 +71,7 @@ def on_startup():
     add_fixtures()
 
 
-@app.post("/articles/", response_model=Article)
+@app.post("/api/articles/", response_model=Article)
 def create_Article(Article: Article):
     with Session(engine) as session:
         session.add(Article)
@@ -55,11 +80,31 @@ def create_Article(Article: Article):
         return Article
 
 
-@app.get("/articles/")
-def read_articles():
+@app.get("/api/articles/", response_model=List[Article])
+def get_articles(longform: bool = False):
     with Session(engine) as session:
-        articles = session.exec(select(Article)).all()
+        articles = session.exec(
+            select(Article).where(Article.is_longform == longform)
+        ).all()
         return articles
+
+
+@app.get("/api/podcasts/", response_model=List[Podcast])
+def get_podcasts():
+    with Session(engine) as session:
+        return session.exec(select(Podcast)).all()
+
+
+@app.get("/api/events/", response_model=List[Event])
+def get_events():
+    with Session(engine) as session:
+        return session.exec(select(Event)).all()
+
+
+@app.get("/api/jobs/", response_model=List[Job])
+def get_jobs():
+    with Session(engine) as session:
+        return session.exec(select(Job)).all()
 
 
 def add_fixtures():
@@ -87,5 +132,68 @@ def add_fixtures():
                 link="https://www.theblock.co/post/183646/digital-euro-transaction-limits-store-value-caps",
                 outlet="The Block",
             )
+        )
+        session.add(
+            Article(
+                title="FTX Agrees to Sell Itself to Rival Binance Amid Liquidity Scare at Crypto Exchange",
+                blurb="The two crypto exchange giants signed a a non-binding letter of intent, Binance CEO Changpeng 'CZ' Zhao confirmed on Twitter.",
+                link="https://www.coindesk.com/business/2022/11/08/ftx-reaches-deal-with-binance-amid-liquidity-scare-sam-bankman-fried-says/",
+                outlet="Coindesk",
+            )
+        )
+        session.add(
+            Article(
+                title="A Look at the Lightning Network",
+                blurb="This article examines the relationship between a monetary asset being a store of value vs being a medium of exchange.",
+                link="https://www.lynalden.com/lightning-network/",
+                outlet="Lyn Alden",
+                is_longform=True,
+            )
+        )
+        session.add(
+            Podcast(
+                link="https://podcasts.google.com/feed/aHR0cHM6Ly9yc3MuYXJ0MTkuY29tL2xhdGUtY29uZmlybWF0aW9u/episode/Z2lkOi8vYXJ0MTktZXBpc29kZS1sb2NhdG9yL1YwLzJuOW4zdlQxVXEzY09BNTJVSlk5TFQ5ckpJZ2I5elRFRnZhNTJpeUZweEU",
+                outlet="The Breakdown",
+                date=arrow.get("2022-11-07T00:00:00Z").timestamp(),
+            )
+        )
+        session.add(
+            Podcast(
+                link="https://www.whatbitcoindid.com/podcast/the-fundamentals-of-bitcoins-value",
+                outlet="What Bitcoin Did",
+                date=arrow.get("2022-11-07T00:00:00Z").timestamp(),
+            )
+        )
+        session.add(
+            Event(
+                link="https://events.bizzabo.com/crypto_state_world_tour",
+                name="Crypto Slate by Coindesk",
+                place="Southeast Asia",
+                date=arrow.get("2022-02-24T00:00:00Z").timestamp(),
+            )
+        )
+        session.add(
+            Job(
+                link="https://example.com",
+                company="Exodus",
+                role="Senior PR Manager",
+                date=arrow.get("2022-02-24T00:00:00Z").timestamp(),
+            ),
+        )
+        session.add(
+            Job(
+                link="https://example.com",
+                company="Google",
+                role="Lightning Engineer",
+                date=arrow.get("2022-02-24T00:00:00Z").timestamp(),
+            ),
+        )
+        session.add(
+            Job(
+                link="https://example.com",
+                company="AWS",
+                role="BLockchain Infrastructure",
+                date=arrow.get("2022-02-24T00:00:00Z").timestamp(),
+            ),
         )
         session.commit()
