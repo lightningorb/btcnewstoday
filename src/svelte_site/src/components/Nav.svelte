@@ -1,10 +1,10 @@
 <nav>
-  <a href="/">Home</a>
-  <a href="/latest">Latest</a>
-  <a href="/longform">Longform</a>
-  <a href="/about">About</a>
-  <a href="/events">Events</a>
-  <a href="/podcasts">Podcasts</a>
-  <a href="/jobs">Jobs</a>
-  <a href="/settings">Settings</a>
+  <a href="/" data-sveltekit-prefetch>Home</a>
+  <a href="/latest" data-sveltekit-prefetch>Latest</a>
+  <a href="/longform" data-sveltekit-prefetch>Longform</a>
+  <a href="/about" data-sveltekit-prefetch>About</a>
+  <a href="/events" data-sveltekit-prefetch>Events</a>
+  <a href="/podcasts" data-sveltekit-prefetch>Podcasts</a>
+  <a href="/jobs" data-sveltekit-prefetch>Jobs</a>
+  <a href="/dashboard" data-sveltekit-prefetch>Dashboard</a>
 </nav>

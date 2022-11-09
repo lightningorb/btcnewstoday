@@ -3,8 +3,8 @@
 export function load() {
   return {
     sections: [
-      { slug: 'profile', title: 'Profile' },
-      { slug: 'notifications', title: 'Notifications' }
+      // { slug: 'login', title: 'Log In' },
+      { slug: 'add_article', title: 'Add Article' }
     ]
   };
 }

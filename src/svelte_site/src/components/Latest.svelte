@@ -4,30 +4,13 @@
   import { onMount } from "svelte";
   import { Col, Container, Row } from 'sveltestrap';
   import { Icon } from 'sveltestrap';
-
-  $: articles = [];
-  let domain = "http://127.0.0.1:8000";
-
-  onMount(async () => {
-    if (window.location.hostname == 'btcnews.today'){
-      domain = 'https://btcnews.today'
-    }
-
-    fetch(domain + '/api/articles')
-    .then(response => response.json())
-    .then(data => {
-      articles = data;
-    }).catch(error => {
-      console.log(error);
-      return [];
-    });
-  });
-
+  export let articles;
+  export let title;
 </script>
 
 <Styles/>
 
-<h1>Latest</h1>
+<h1>{title}</h1>
 
 {#each articles as article}
   <Row>

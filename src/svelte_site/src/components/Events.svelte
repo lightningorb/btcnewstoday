@@ -1,25 +1,7 @@
 <script>
   import { Table, Styles } from 'sveltestrap';
   import { onMount } from "svelte";
-
-  $: events = [];
-  let domain = "http://127.0.0.1:8000";
-
-  onMount(async () => {
-    if (window.location.hostname == 'btcnews.today'){
-      domain = 'https://btcnews.today'
-    }
-
-    fetch(domain + '/api/events')
-    .then(response => response.json())
-    .then(data => {
-      events = data;
-    }).catch(error => {
-      console.log(error);
-      return [];
-    });
-  });
-
+  export let events;
 </script>
 
 <Styles/>

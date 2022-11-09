@@ -1,5 +1,7 @@
 <script>
   import Latest from '../../components/Latest.svelte';
+  /** @type {import('./$types').PageData} */
+  export let data;
 </script>
 
-<Latest/>
+<Latest articles={data.articles} title='Latest'/>
