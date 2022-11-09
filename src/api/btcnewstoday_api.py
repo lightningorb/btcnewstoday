@@ -102,7 +102,7 @@ def create_db_and_tables():
 
 app = FastAPI()
 
-origins = ["http://127.0.0.1:5173", "https://btcnews.today"]
+origins = ["http://127.0.0.1:5173", "https://btcnews.today", "*"]
 
 app.add_middleware(
     CORSMiddleware,
@@ -207,10 +207,12 @@ def on_startup():
     add_fixtures()
 
 
+# , current_user: User = Depends(get_current_active_user)
 @app.post("/api/articles/", response_model=Article)
 def create_Article(
-    Article: Article, current_user: User = Depends(get_current_active_user)
+    Article: Article
 ):
+    print("CREATING ARTICLE")
     with Session(engine) as session:
         session.add(Article)
         session.commit()

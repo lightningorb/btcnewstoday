@@ -1,24 +1,7 @@
 <script>
   import { Table, Styles } from 'sveltestrap';
   import { onMount } from "svelte";
-
-  $: jobs = [];
-  let domain = "http://127.0.0.1:8000";
-
-  onMount(async () => {
-    if (window.location.hostname == 'btcnews.today'){
-      domain = 'https://btcnews.today'
-    }
-
-    fetch(domain + '/api/jobs')
-    .then(response => response.json())
-    .then(data => {
-      jobs = data;
-    }).catch(error => {
-      console.log(error);
-      return [];
-    });
-  });
+  export let jobs;
 
 </script>
 

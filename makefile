@@ -1,5 +1,7 @@
 build:
+	echo 'export const API_FQDN = "https://btcnews.today";' > src/svelte_site/src/lib/constants.js
 	cd src/svelte_site && npm install && npm run build
+	rm -rf src/api/venv
 	cd src/api && python3 -m virtualenv venv && . venv/bin/activate && pip3 install -r requirements.txt
 	sudo supervisorctl reload
 

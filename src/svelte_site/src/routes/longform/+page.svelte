@@ -1,5 +1,7 @@
 <script>
-  import Longform from '../../components/Longform.svelte';
+  import Latest from '../../components/Latest.svelte';
+  /** @type {import('./$types').PageData} */
+  export let data;
 </script>
 
-<Longform/>
+<Latest articles={data.articles} title='Longform'/>
