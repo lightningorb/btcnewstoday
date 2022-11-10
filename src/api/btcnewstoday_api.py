@@ -157,7 +157,7 @@ def on_startup():
 
 # , current_user: User = Depends(get_current_active_user)
 @app.post("/api/articles/", response_model=Article)
-def create_Article(
+def create_article(
     Article: Article
 ):
     print("CREATING ARTICLE")
@@ -176,6 +176,18 @@ def get_articles(longform: bool = False):
         ).all()
         return articles
 
+
+# , current_user: User = Depends(get_current_active_user)
+@app.post("/api/podcasts/", response_model=Podcast)
+def create_podcast(
+    Podcast: Podcast
+):
+    print("CREATING PODCAST")
+    with Session(engine) as session:
+        session.add(Podcast)
+        session.commit()
+        session.refresh(Podcast)
+        return Podcast
 
 @app.get("/api/podcasts/", response_model=List[Podcast])
 def get_podcasts():
