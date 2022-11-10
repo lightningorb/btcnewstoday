@@ -5,3 +5,8 @@ sqlmodel
 passlib[bcrypt]
 python-jose
 python-multipart
+#mysql-connector-python
+#mysql-python
+#MySQL-python
+#MySQL-python-connector
+#mysqlclient

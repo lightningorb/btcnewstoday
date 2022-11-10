@@ -2,6 +2,7 @@ import os
 from typing import Optional, List
 import arrow
 
+from models import *
 from fastapi import FastAPI
 from sqlmodel import Field, Session, SQLModel, create_engine, select
 from fastapi.middleware.cors import CORSMiddleware
@@ -12,7 +13,6 @@ from fastapi import Depends, FastAPI, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from jose import JWTError, jwt
 from passlib.context import CryptContext
-from pydantic import BaseModel
 
 # to get a string like this run:
 # openssl rand -hex 32
@@ -32,61 +32,9 @@ fake_users_db = {
 }
 
 
-class Token(BaseModel):
-    access_token: str
-    token_type: str
-
-
-class TokenData(BaseModel):
-    username: Union[str, None] = None
-
-
-class User(BaseModel):
-    username: str
-    email: Union[str, None] = None
-    full_name: Union[str, None] = None
-    disabled: Union[bool, None] = None
-
-
-class UserInDB(User):
-    hashed_password: str
-
-
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
-
-
-class Article(SQLModel, table=True):
-    id: Optional[int] = Field(default=None, primary_key=True)
-    title: str = Field(index=True)
-    blurb: str = Field(index=True)
-    link: str = Field(index=True)
-    outlet: str = Field(index=True)
-    is_longform: bool = Field(index=True, default=False)
-
-
-class Podcast(SQLModel, table=True):
-    id: Optional[int] = Field(default=None, primary_key=True)
-    link: str = Field(index=True)
-    outlet: str = Field(index=True)
-    date: int = Field(index=True)
-
-
-class Event(SQLModel, table=True):
-    id: Optional[int] = Field(default=None, primary_key=True)
-    link: str = Field(index=True)
-    name: str = Field(index=True)
-    date: int = Field(index=True)
-    place: str = Field(index=True)
-
-
-class Job(SQLModel, table=True):
-    id: Optional[int] = Field(default=None, primary_key=True)
-    link: str = Field(index=True)
-    company: str = Field(index=True)
-    role: str = Field(index=True)
-    date: int = Field(index=True)
 
 
 sqlite_file_name = "database.db"
@@ -201,8 +149,8 @@ async def read_own_items(current_user: User = Depends(get_current_active_user)):
 
 @app.on_event("startup")
 def on_startup():
-    if os.path.exists("database.db"):
-        os.unlink("database.db")
+    # if os.path.exists("database.db"):
+    #     os.unlink("database.db")
     create_db_and_tables()
     add_fixtures()
 

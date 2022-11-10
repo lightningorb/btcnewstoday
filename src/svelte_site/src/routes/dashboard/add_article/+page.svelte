@@ -14,12 +14,14 @@
         const headers = {
             'Content-Type': 'application/json',
         }
+        const date = new Date().getTime() / 1000;
         let body = JSON.stringify({
                 title,
                 blurb,
                 link,
                 outlet,
-                is_longform
+                is_longform,
+                date
             })
         axios.post('/api/articles/', body, {headers: headers})
           .then(function (response) {
@@ -55,6 +57,10 @@
     <Label for="exampleText">Outlet</Label>
     <br/>
     <Input type="textarea" name="text" id="exampleText" bind:value={outlet}/>
+</FormGroup>
+
+<FormGroup>
+    <Input id="c1" type="checkbox" label="Longform" bind:checked={is_longform}/>
 </FormGroup>
 
 <button type="button" on:click={doPost}>

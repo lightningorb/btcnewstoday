@@ -9,7 +9,25 @@ build_remote: sync
 	ssh btcnewstoday 'bash -ic "cd dev/btcnewstoday && make build"'
 
 sync:
-	rsync -azv . btcnewstoday:~/dev/btcnewstoday/ --delete --exclude src/svelte_site/node_modules/ --exclude src/svelte_site/build/
+	rsync -azv . btcnewstoday:~/dev/btcnewstoday/ --delete --exclude src/svelte_site/node_modules/ --exclude src/svelte_site/build/ --exclude src/api/venv/
 
 run:
 	cd src/svelte_site && npm run dev
+
+get_db:
+	rsync btcnewstoday:/home/ubuntu/dev/btcnewstoday/src/api/database.db src/api/
+
+put_db:
+	rsync src/api/database.db btcnewstoday:/home/ubuntu/dev/btcnewstoday/src/api/
+
+
+# @task
+# def revision(c, message, env=os.environ):
+#     with c.cd("server"):
+#         c.run(f'alembic revision -m "{message}" --autogenerate', env=env)
+
+
+# @task
+# def upgrade(c, env=os.environ):
+#     with c.cd("server"):
+#         c.run(f"alembic upgrade head", env=env)
