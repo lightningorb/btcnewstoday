@@ -4,7 +4,8 @@ export function load() {
   return {
     sections: [
       // { slug: 'login', title: 'Log In' },
-      { slug: 'add_article', title: 'Add Article' }
+      { slug: 'add_article', title: 'Add Article' },
+      { slug: 'add_podcast', title: 'Add Podcast' }
     ]
   };
 }
