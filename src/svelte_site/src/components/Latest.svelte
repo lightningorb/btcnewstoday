@@ -20,6 +20,8 @@
     <Col xs="2"><Button secondary><Icon name="link" /></Button></Col>
   </Row>
 
+  <td>{(new Date(article.date*1000)).toISOString().slice(0, 10)}</td>
+
   <h3><a target='_blank' href='{article.link}'>{article.title}</a></h3>
 
   {article.blurb} …
