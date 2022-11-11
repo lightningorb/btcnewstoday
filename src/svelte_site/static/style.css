@@ -31,3 +31,16 @@ body div nav a {
 h1,h2 {
   color: #660000;
 }
+
+
+.show-on-hover {
+  color: #00000000;
+  background-color:  #00000000;
+  border-color: #00000000;
+}
+
+.show-on-hover:hover {
+  color: white;
+  background-color: gray;
+  border-color: darkgray;
+}
