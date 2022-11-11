@@ -12,7 +12,6 @@
 <Table striped>
   <thead>
     <tr>
-      <th>#</th>
       <th>Company</th>
       <th>Role</th>
     </tr>
@@ -20,7 +19,6 @@
   <tbody>
     {#each jobs as job}
     <tr>
-      <th scope="row">1</th>
       <td>{job.company}</td>
       <td><a target='_blank' href='{job.link}'>{job.role}</a></td>
     </tr>

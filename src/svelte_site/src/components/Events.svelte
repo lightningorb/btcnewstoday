@@ -11,7 +11,6 @@
 <Table striped>
   <thead>
     <tr>
-      <th>#</th>
       <th>Date</th>
       <th>Name</th>
       <th>Location</th>
@@ -20,7 +19,6 @@
   <tbody>
     {#each events as event}
     <tr>
-      <th scope="row">1</th>
       <td>{(new Date(event.date*1000)).toISOString().slice(0, 10)}</td>
       <td><a target='_blank' href='{event.link}'>{event.name}</a></td>
       <td>{event.place}</td>
