@@ -152,14 +152,12 @@ def on_startup():
     # if os.path.exists("database.db"):
     #     os.unlink("database.db")
     create_db_and_tables()
-    add_fixtures()
+    # add_fixtures()
 
 
 # , current_user: User = Depends(get_current_active_user)
 @app.post("/api/articles/", response_model=Article)
-def create_article(
-    Article: Article
-):
+def create_article(Article: Article):
     print("CREATING ARTICLE")
     with Session(engine) as session:
         session.add(Article)
@@ -179,15 +177,36 @@ def get_articles(longform: bool = False):
 
 # , current_user: User = Depends(get_current_active_user)
 @app.post("/api/podcasts/", response_model=Podcast)
-def create_podcast(
-    Podcast: Podcast
-):
+def create_podcast(Podcast: Podcast):
     print("CREATING PODCAST")
     with Session(engine) as session:
         session.add(Podcast)
         session.commit()
         session.refresh(Podcast)
         return Podcast
+
+
+# , current_user: User = Depends(get_current_active_user)
+@app.post("/api/jobs/", response_model=Job)
+def create_job(Job: Job):
+    print("CREATING Job")
+    with Session(engine) as session:
+        session.add(Job)
+        session.commit()
+        session.refresh(Job)
+        return Job
+
+
+# , current_user: User = Depends(get_current_active_user)
+@app.post("/api/events/", response_model=Event)
+def create_event(Event: Event):
+    print("CREATING Event")
+    with Session(engine) as session:
+        session.add(Event)
+        session.commit()
+        session.refresh(Event)
+        return Event
+
 
 @app.get("/api/podcasts/", response_model=List[Podcast])
 def get_podcasts():
