@@ -1,15 +1,16 @@
 <script>
-  import { Styles } from 'sveltestrap';
-  export let articles;
-  export let title;
   import Article from './Article/Article.svelte';
+  import { Table, Styles } from 'sveltestrap';
+  import { onMount } from "svelte";
+  export let articles;
 </script>
 
 <Styles/>
 
-<h1>{title}</h1>
+<h2>Drafts</h2>
 
 {#each articles as article}
   <Article article={article}/>
+  <br/>
   <hr/>
 {/each}

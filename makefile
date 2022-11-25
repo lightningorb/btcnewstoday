@@ -9,10 +9,13 @@ build_remote: sync
 	ssh btcnewstoday 'bash -ic "cd dev/btcnewstoday && make build"'
 
 sync:
-	rsync -azv . btcnewstoday:~/dev/btcnewstoday/ --delete --exclude src/svelte_site/node_modules/ --exclude src/svelte_site/build/ --exclude src/api/venv/
+	rsync -azv . btcnewstoday:~/dev/btcnewstoday/ --delete --exclude src/svelte_site/node_modules/ --exclude src/svelte_site/build/ --exclude src/api/venv/ --exclude src/api/database.db
 
-run:
+front:
 	cd src/svelte_site && npm run dev
+
+back:
+	cd src/api && ./venv/bin/uvicorn btcnewstoday_api:app --reload
 
 get_db:
 	rsync btcnewstoday:/home/ubuntu/dev/btcnewstoday/src/api/database.db src/api/

@@ -1,3 +1,4 @@
+secrets.py
 tmp.py
 *.db
 __pycache__

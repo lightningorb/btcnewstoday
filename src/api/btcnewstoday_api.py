@@ -1,13 +1,17 @@
 import os
+import requests
+import simplexml
+import json
 from typing import Optional, List
 import arrow
-
+from functools import lru_cache
 from models import *
 from fastapi import FastAPI
 from sqlmodel import Field, Session, SQLModel, create_engine, select
 from fastapi.middleware.cors import CORSMiddleware
 from datetime import datetime, timedelta
 from typing import Union
+from secrets import *
 
 from fastapi import Depends, FastAPI, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
@@ -156,25 +160,79 @@ def on_startup():
 
 
 # , current_user: User = Depends(get_current_active_user)
-@app.post("/api/articles/", response_model=Article)
-def create_article(Article: Article):
-    with Session(engine) as session:
-        session.add(Article)
-        session.commit()
-        session.refresh(Article)
-        return Article
-
-
-@app.get("/api/articles/", response_model=List[Article])
-def get_articles(longform: bool = False):
+@app.post("/api/articles/", response_model=Optional[Article])
+def create_article(article: Article):
     with Session(engine) as session:
         articles = session.exec(
-            select(Article)
-            .order_by(Article.date.desc())
-            .limit(25)
-            .where(Article.is_longform == longform)
+            select(Article).where(Article.link == article.link)
         ).all()
-        return articles
+        if articles:
+            print("Already exists")
+            return None
+        session.add(article)
+        session.commit()
+        print("added")
+        session.refresh(article)
+        return article
+
+
+# , current_user: User = Depends(get_current_active_user)
+@app.post("/api/update_article/{article_id}/", response_model=Optional[Article])
+def update_article(article: Article):
+    with Session(engine) as session:
+        db_article = session.exec(
+            select(Article).where(Article.link == article.link)
+        ).one()
+        if not db_article:
+            print("Article ID not found")
+            return None
+        db_article.title = article.title
+        db_article.blurb = article.blurb
+        db_article.link = article.link
+        db_article.outlet = article.outlet
+        db_article.category = article.category
+        db_article.is_draft = article.is_draft
+        db_article.is_longform = article.is_longform
+        db_article.date = article.date
+        session.commit()
+        print("updated")
+        session.refresh(db_article)
+        return db_article
+
+
+# , current_user: User = Depends(get_current_active_user)
+@app.post("/api/tweets/", response_model=Tweet)
+def add_tweet(tweet: Tweet):
+    with Session(engine) as session:
+        print(f'adding tweet: {tweet.id}')
+        session.add(tweet)
+        session.commit()
+        session.refresh(tweet)
+        return tweet
+
+
+@app.get("/api/articles/", response_model=List[ArticleReadWithTweets])
+def get_articles(longform: bool = False, is_draft: bool = False):
+    session = Session(engine)
+    articles = session.exec(
+        select(Article)
+        .order_by(Article.date.desc())
+        .limit(25)
+        .where(Article.is_longform == longform)
+        .where(Article.is_draft == is_draft)
+    ).all()
+    return articles
+    res = []
+    for a in articles:
+        tweets = [json.loads(t.json()) for t in a.tweets]
+        ids = [t.id for t in a.tweets]
+        for t, i in zip(tweets, ids):
+            t['id'] = i
+        a = json.loads(a.json())
+        a['tweets'] = tweets
+        res.append(a)
+    print(res)
+    return res
 
 
 @app.get("/api/past_articles/")
@@ -187,7 +245,13 @@ def get_articles():
             select(Article).order_by(Article.date.desc()).limit(100)
         ).all()
         for a in articles:
-            dd[a.date].append(a)
+            date = int(
+                arrow.get(a.date)
+                .replace(hour=0, minute=0, second=0, microsecond=0)
+                .timestamp()
+            )
+            dd[date].append(a)
+
         return [x for x in dict(dd).items()]
 
 
@@ -224,7 +288,7 @@ def create_event(Event: Event):
 @app.get("/api/podcasts/", response_model=List[Podcast])
 def get_podcasts():
     with Session(engine) as session:
-        return session.exec(select(Podcast)).all()
+        return session.exec(select(Podcast).order_by(Podcast.date.desc())).all()
 
 
 @app.get("/api/events/", response_model=List[Event])
@@ -236,4 +300,70 @@ def get_events():
 @app.get("/api/jobs/", response_model=List[Job])
 def get_jobs():
     with Session(engine) as session:
-        return session.exec(select(Job)).all()
+        return session.exec(select(Job).order_by(Job.date.desc())).all()
+
+
+@lru_cache(maxsize=None)
+@app.get("/api/third_party/tweet_text/")
+def get_tweet_text(tweet_id: int):
+    import tweepy
+
+    auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
+    auth.set_access_token(access_token, access_token_secret)
+    api = tweepy.API(auth)
+
+    client = tweepy.Client(
+        bearer_token=bearer_token,
+        consumer_key=consumer_key,
+        consumer_secret=consumer_secret,
+        access_token=access_token,
+        access_token_secret=access_token_secret,
+    )
+
+    tweet = client.get_tweet(id=tweet_id)
+    return tweet[0].text
+
+
+# , current_user: User = Depends(get_current_active_user)
+@app.post("/api/events/", response_model=Event)
+def create_event(Event: Event):
+    with Session(engine) as session:
+        session.add(Event)
+        session.commit()
+        session.refresh(Event)
+        return Event
+
+
+@app.post("/api/ingest/decrypt")
+def ingest_decrypt():
+    r = requests.get("https://decrypt.co/feed").text
+    d = simplexml.loads(r)
+    for channel in list(d["rss"]["channel"].values()):
+        if type(channel) is list:
+            for item in channel:
+                print("=" * 100)
+                print(item["title"])
+                date = arrow.get(
+                    item["pubDate"][5:-6], "DD MMM YYYY HH:mm:ss"
+                ).timestamp()
+
+                doc = {
+                    "title": item["title"],
+                    "blurb": item["description"],
+                    "link": item["link"],
+                    "outlet": "Decrypt.co",
+                    "author": item.get("dc:author"),
+                    "category": item["category"],
+                    "is_draft": True,
+                    "is_longform": False,
+                    "date": date,
+                }
+                headers = {
+                    "Content-Type": "application/json",
+                }
+                r = requests.post(
+                    "http://localhost:8000/api/articles/",
+                    data=json.dumps(doc),
+                    headers=headers,
+                )
+                print(r.text)
