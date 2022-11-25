@@ -1,3 +1,4 @@
+python-simplexml
 arrow
 fastapi
 uvicorn[standard]
@@ -5,6 +6,7 @@ sqlmodel
 passlib[bcrypt]
 python-jose
 python-multipart
+tweepy
 #mysql-connector-python
 #mysql-python
 #MySQL-python

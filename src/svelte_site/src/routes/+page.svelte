@@ -18,15 +18,16 @@
       <Row cols={1}>
         <Col><Events events={data.events}/></Col>
         <Col><Podcasts podcasts={data.podcasts}/></Col>
+        <Col><Jobs jobs={data.jobs}/></Col>
       </Row>
     </Col>
   </Row>
   <Row cols={{ lg: 2, md: 2, sm: 1 }}>
     <Col><Latest articles={data.longforms} title='Longform'/></Col>
-    <Col>
+<!--     <Col>
       <Row cols={1}>
         <Col><Jobs jobs={data.jobs}/></Col>
       </Row>
-    </Col>
+    </Col> -->
   </Row>
 </Container>

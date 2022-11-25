@@ -7,7 +7,8 @@ export function load() {
       { slug: 'add_article', title: 'Add Article' },
       { slug: 'add_podcast', title: 'Add Podcast' },
       { slug: 'add_event', title: 'Add Event' },
-      { slug: 'add_job', title: 'Add Job' }
+      { slug: 'add_job', title: 'Add Job' },
+      { slug: 'drafts', title: 'View Drafs' }
     ]
   };
 }

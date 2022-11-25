@@ -34,13 +34,14 @@ h1,h2 {
 
 
 .show-on-hover {
-  color: #00000000;
-  background-color:  #00000000;
-  border-color: #00000000;
+  color: #00000000 !important;
+  background-color:  #00000000  !important;
+  border-color: #00000000  !important;
 }
 
 .show-on-hover:hover {
-  color: white;
-  background-color: gray;
-  border-color: darkgray;
+  color: white  !important;
+  background-color: gray  !important;
+  border-color: darkgray  !important;
 }
+

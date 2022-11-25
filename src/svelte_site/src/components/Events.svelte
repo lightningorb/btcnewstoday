@@ -19,7 +19,7 @@
   <tbody>
     {#each events as event}
     <tr>
-      <td>{(new Date(event.date*1000)).toISOString().slice(0, 10)}</td>
+      <td width='120px'>{(new Date(event.date*1000)).toISOString().slice(0, 10)}</td>
       <td><a target='_blank' href='{event.link}'>{event.name}</a></td>
       <td>{event.place}</td>
     </tr>
