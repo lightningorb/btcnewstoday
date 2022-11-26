@@ -2,10 +2,13 @@
   /** @type {import('./$types').LayoutData} */
   export let data;
   import Nav from '../components/Nav.svelte';
+  import Banner from '../components/Banner.svelte';
   import Footer from '../components/Footer.svelte';
   import { Col, Container, Row } from 'sveltestrap';
   export const prerender = true;
 </script>
+
+<Banner/>
 
 <Nav/>
 

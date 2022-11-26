@@ -2,6 +2,10 @@
   import Events from '../../components/Events.svelte';
   /** @type {import('./$types').PageData} */
   export let data;
+  import { onMount } from 'svelte';
+  onMount(() => {
+    document.title = 'Events - ₿News.daily';
+  });
 </script>
 
 <Events events={data.events}/>

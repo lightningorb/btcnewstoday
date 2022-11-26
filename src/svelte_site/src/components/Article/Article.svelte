@@ -35,6 +35,19 @@
     });
   }
 
+  function _delete(){
+    axios.post(`${API_FQDN}/api/delete_article/${article.id}/`)
+      .then(function (response) {
+        console.log(response);
+        edit = false;
+    })
+      .catch(function (error) {
+        console.log(error);
+        confirm("Error");
+    });
+  }
+
+
 </script>
 
 <Social article={article}/>
@@ -49,6 +62,7 @@
       <Input id="c2" type="checkbox" label="Draft" bind:checked={article.is_draft}/>
   </FormGroup>
   <button on:click={() => save()}>Save.</button>
+  <button on:click={() => _delete()}>Delete.</button>
 {:else}
   <Row>
     <Col xs='2'>

@@ -2,6 +2,7 @@
   import { Popover } from 'sveltestrap';
   export let article;
   export let edit;
+  article.tweets.sort((a, b) => a.id - b.id);
 </script>
 
 <div style='padding-bottom: 10px;'><b>Tweets:</b>

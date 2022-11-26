@@ -169,11 +169,31 @@ def create_article(article: Article):
         if articles:
             print("Already exists")
             return None
+        deleted_article = session.exec(
+            select(ArticleDeleted).where(ArticleDeleted.link == article.link)
+        ).all()
+        if deleted_article:
+            print("article previously deleted")
+            return None
         session.add(article)
         session.commit()
         print("added")
         session.refresh(article)
         return article
+
+
+# , current_user: User = Depends(get_current_active_user)
+@app.post("/api/delete_article/{article_id}/")
+def delete_article(article_id: int):
+    with Session(engine) as session:
+        db_article = session.exec(select(Article).where(Article.id == article_id)).one()
+        if not db_article:
+            print("Article ID not found")
+            return None
+        session.add(ArticleDeleted(link=db_article.link))
+        session.delete(db_article)
+        session.commit()
+        print("deleted")
 
 
 # , current_user: User = Depends(get_current_active_user)
@@ -204,7 +224,7 @@ def update_article(article: Article):
 @app.post("/api/tweets/", response_model=Tweet)
 def add_tweet(tweet: Tweet):
     with Session(engine) as session:
-        print(f'adding tweet: {tweet.id}')
+        print(f"adding tweet: {tweet.id}")
         session.add(tweet)
         session.commit()
         session.refresh(tweet)
@@ -227,9 +247,9 @@ def get_articles(longform: bool = False, is_draft: bool = False):
         tweets = [json.loads(t.json()) for t in a.tweets]
         ids = [t.id for t in a.tweets]
         for t, i in zip(tweets, ids):
-            t['id'] = i
+            t["id"] = i
         a = json.loads(a.json())
-        a['tweets'] = tweets
+        a["tweets"] = tweets
         res.append(a)
     print(res)
     return res
