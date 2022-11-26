@@ -2,6 +2,10 @@
   import Latest from '../../components/Latest.svelte';
   /** @type {import('./$types').PageData} */
   export let data;
+  import { onMount } from 'svelte';
+  onMount(() => {
+    document.title = 'Longform - ₿News.daily';
+  });
 </script>
 
 <Latest articles={data.articles} title='Longform'/>

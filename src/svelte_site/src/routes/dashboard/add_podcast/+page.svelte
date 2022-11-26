@@ -6,6 +6,7 @@
     import {API_FQDN} from '$lib/constants.js';
     let link = '';
     let outlet = '';
+    let episode_title = '';
     
     function doPost () {
         const headers = {
@@ -15,6 +16,7 @@
         let body = JSON.stringify({
                 link,
                 outlet,
+                episode_title,
                 date
             })
         axios.post('/api/podcasts/', body, {headers: headers})
@@ -39,6 +41,12 @@
     <Label for="outlets">Outlet</Label>
     <br/>
     <Input type="textarea" name="text" id="outlets" bind:value={outlet}/>
+</FormGroup>
+
+<FormGroup>
+    <Label for="episode_title">Episode title</Label>
+    <br/>
+    <Input type="textarea" name="text" id="episode_title" bind:value={episode_title}/>
 </FormGroup>
 
 <br/>
