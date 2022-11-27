@@ -1,4 +1,5 @@
 <script>
+  import { preferences } from '$lib/store.js';
   import axios from 'axios';
   import AddTweet from './AddTweet.svelte';
   import Blurb from './Blurb.svelte';
@@ -64,12 +65,14 @@
   <button on:click={() => save()}>Save.</button>
   <button on:click={() => _delete()}>Delete.</button>
 {:else}
-  <Row>
-    <Col xs='2'>
-      <button on:click={() => edit=true}><Icon name="pencil-square"/></button>
-    </Col>
-    <Col xs='2'>
-      <AddTweet article_id={article.id}/><br/>
-    </Col>
-  </Row>
+  {#if $preferences.access_token != ''}
+    <Row>
+      <Col xs='2'>
+        <button on:click={() => edit=true}><Icon name="pencil-square"/></button>
+      </Col>
+      <Col xs='2'>
+        <AddTweet article_id={article.id}/><br/>
+      </Col>
+    </Row>
+  {/if}
 {/if}
