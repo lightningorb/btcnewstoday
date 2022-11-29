@@ -88,3 +88,57 @@ server {
 ### Secrets
 
 The site uses a bunch of secrets, currently for the Twitter API, but there may be more to come. Just ask another dev for the secrets.py file, and save it in `src/api`.
+
+
+### SSH access to the server
+
+Add the following to your `~/.ssh/config`
+
+```
+Host btcnewstoday
+    Hostname 52.15.149.220
+    User ubuntu
+    Port 22
+    IdentityFile ~/.ssh/btcnewstoday.cer
+```
+
+Then ask for dev for `btcnewstoday.cer` and save it in `~/.ssh/btcnewstoday.cer` then `chmod 400 ~/.ssh/btcnewstoday.cer`.
+
+### Getting the production database
+
+Currently we're using a simple sqlite database. This reduces time spent on DB admin, makes backups super easy, as well as upgrades, restoring etc.
+
+sqlite is fine for sites with less than 100k requests per day. Once the site grows, we'll need to move to something more production oriented like postgres.
+
+cd ${repo_root}
+make get_db
+
+### Modifying the DB schema
+
+Make the changes you need in `src/api/models.py` then run:
+
+```
+cd ${repo_root}/src/api
+python3 -m virtualenv venv
+. venv/bin/activate
+alembic revision -m "my message here" --autogenerate
+```
+
+Check the newly generated migration script in `src/api/alembic/versions/` and try the upgrade with:
+
+```
+alembic upgrade head
+```
+
+### Deploying the DB
+
+If the migration was successful, you can push the db back to the server:
+
+```
+cd ${repo_root}
+make put_db
+```
+
+### Deploying
+
+Ask if you want to deploy. Really easy to do but needs documenting.
