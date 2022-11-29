@@ -314,6 +314,45 @@ def create_event(Event: Event):
         return Event
 
 
+# , current_user: User = Depends(get_current_active_user)
+@app.post("/api/delete_event/{event_id}/")
+def delete_event(event_id: int):
+    with Session(engine) as session:
+        db_event = session.exec(select(Event).where(Event.id == event_id)).one()
+        if not db_event:
+            print("Event ID not found")
+            return None
+        session.delete(db_event)
+        session.commit()
+        print("deleted")
+
+
+# , current_user: User = Depends(get_current_active_user)
+@app.post("/api/delete_podcast/{podcast_id}/")
+def delete_podcast(podcast_id: int):
+    with Session(engine) as session:
+        db_podcast = session.exec(select(Podcast).where(Podcast.id == podcast_id)).one()
+        if not db_podcast:
+            print("Podcast ID not found")
+            return None
+        session.delete(db_podcast)
+        session.commit()
+        print("deleted")
+
+
+# , current_user: User = Depends(get_current_active_user)
+@app.post("/api/delete_job/{job_id}/")
+def delete_podcast(job_id: int):
+    with Session(engine) as session:
+        db_job = session.exec(select(Job).where(Job.id == job_id)).one()
+        if not db_job:
+            print("Job ID not found")
+            return None
+        session.delete(db_job)
+        session.commit()
+        print("deleted")
+
+
 @app.get("/api/podcasts/", response_model=List[Podcast])
 def get_podcasts():
     with Session(engine) as session:

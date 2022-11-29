@@ -1,12 +1,22 @@
 <script>
-  import { Table, Styles } from 'sveltestrap';
+  import { preferences } from '$lib/store.js';
+  import { Table, Styles, Icon } from 'sveltestrap';
   import { onMount } from "svelte";
+  import Event from './Event.svelte';
   export let events;
+  $: edit = false;
 </script>
 
 <Styles/>
 
 <h2>Events</h2>
+
+{#if $preferences.access_token != ''}
+  {#if edit}
+  {:else}
+    <button on:click={() => edit=true}><Icon name="pencil-square"/></button>
+  {/if}
+{/if}
 
 <Table striped>
   <thead>
@@ -18,11 +28,8 @@
   </thead>
   <tbody>
     {#each events as event}
-    <tr>
-      <td width='120px'>{(new Date(event.date*1000)).toISOString().slice(0, 10)}</td>
-      <td><a target='_blank' href='{event.link}'>{event.name}</a></td>
-      <td>{event.place}</td>
-    </tr>
+      <Event event={event} edit={edit}/>
     {/each}
   </tbody>
 </Table>
+

@@ -1,13 +1,23 @@
 <script>
-  import { Table, Styles } from 'sveltestrap';
+  import { preferences } from '$lib/store.js';
+  import { Table, Styles, Icon } from 'sveltestrap';
   import { onMount } from "svelte";
+  import Podcast from './Podcast.svelte';
   export let podcasts;
+  $: edit = false;
 
 </script>
 
 <Styles/>
 
 <h2>Podcasts</h2>
+
+{#if $preferences.access_token != ''}
+  {#if edit}
+  {:else}
+    <button on:click={() => edit=true}><Icon name="pencil-square"/></button>
+  {/if}
+{/if}
 
 <Table striped>
   <thead>
@@ -19,11 +29,7 @@
   </thead>
   <tbody>
     {#each podcasts as podcast}
-    <tr>
-      <td>{(new Date(podcast.date*1000)).toISOString().slice(0, 10)}</td>
-      <td><a target='_blank' href='{podcast.link}'>{podcast.outlet}</a></td>
-      <td>{podcast.episode_title}</td>
-    </tr>
+      <Podcast podcast={podcast} edit={edit} />
     {/each}
   </tbody>
 </Table>
