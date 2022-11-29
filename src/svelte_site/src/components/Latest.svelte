@@ -7,9 +7,10 @@
 
 <Styles/>
 
-<h1>{title}</h1>
-
-{#each articles as article}
-  <Article article={article}/>
-  <hr/>
-{/each}
+<div class='section'>
+  <h2>{title}</h2>
+  {#each articles as article}
+    <Article article={article}/>
+    <hr/>
+  {/each}
+</div>
