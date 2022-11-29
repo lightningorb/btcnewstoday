@@ -85,3 +85,6 @@ server {
 }
 ```
 
+### Secrets
+
+The site uses a bunch of secrets, currently for the Twitter API, but there may be more to come. Just ask another dev for the secrets.py file, and save it in `src/api`.
