@@ -1,3 +1,7 @@
+<script lang="ts">
+  import { preferences } from '$lib/store.js';
+</script>
+
 <nav>
   <a href="/" data-sveltekit-prefetch>Home</a>
   <a href="/latest" data-sveltekit-prefetch>Latest</a>
@@ -7,4 +11,7 @@
   <a href="/events" data-sveltekit-prefetch>Events</a>
   <a href="/podcasts" data-sveltekit-prefetch>Podcasts</a>
   <a href="/jobs" data-sveltekit-prefetch>Jobs</a>
+{#if $preferences.access_token != ''}
+  <a href="/dashboard" data-sveltekit-prefetch>Dashboard</a>
+{/if}
 </nav>

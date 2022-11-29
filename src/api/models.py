@@ -29,6 +29,7 @@ class ArticleDeleted(SQLModel, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
     link: str = Field(index=True)
 
+
 class ArticleBase(SQLModel):
     title: str = Field(index=True)
     blurb: str = Field(index=True)
@@ -60,8 +61,10 @@ class Tweet(TweetBase, table=True):
 class TweetRead(TweetBase):
     id: str
 
+
 class ArticleRead(ArticleBase):
     id: int
+
 
 class ArticleReadWithTweets(ArticleRead):
     tweets: List[TweetRead] = []
@@ -72,7 +75,7 @@ class Podcast(SQLModel, table=True):
     link: str = Field(index=True)
     outlet: str = Field(index=True)
     date: int = Field(index=True)
-    episode_title: str = Field(index=True, default='', nullable=True)
+    episode_title: str = Field(index=True, default="", nullable=True)
 
 
 class Event(SQLModel, table=True):
