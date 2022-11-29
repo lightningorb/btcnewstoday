@@ -268,7 +268,10 @@ def get_articles():
     dd = defaultdict(list)
     with Session(engine) as session:
         articles = session.exec(
-            select(Article).order_by(Article.date.desc()).limit(100)
+            select(Article)
+            .where(Article.is_draft == False)
+            .order_by(Article.date.desc())
+            .limit(100)
         ).all()
         for a in articles:
             date = int(
