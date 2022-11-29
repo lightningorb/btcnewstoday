@@ -110,8 +110,18 @@ Currently we're using a simple sqlite database. This reduces time spent on DB ad
 
 sqlite is fine for sites with less than 100k requests per day. Once the site grows, we'll need to move to something more production oriented like postgres.
 
+```
 cd ${repo_root}
 make get_db
+```
+
+The db lives in:
+
+```
+src/api/database.db
+```
+
+Take a look at it with something like: https://sqlitebrowser.org/
 
 ### Modifying the DB schema
 
@@ -141,4 +151,11 @@ make put_db
 
 ### Deploying
 
-Ask if you want to deploy. Really easy to do but needs documenting.
+Once you're ready to deploy our changes:
+
+```
+cd ${repo_root}
+make build_remote
+```
+
+Or check your changes into a branch, and ask another dev to review and deploy.
