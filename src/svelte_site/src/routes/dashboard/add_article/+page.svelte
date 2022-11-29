@@ -30,7 +30,12 @@
         })
           .catch(function (error) {
             console.log(error);
-            confirm("Error");
+            if (error.response != undefined){
+                confirm(error.response.data.detail);
+            }
+            else {
+                confirm("Error");
+            }
         });
     }
 </script>

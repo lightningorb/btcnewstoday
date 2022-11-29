@@ -156,14 +156,31 @@ def create_article(article: Article):
             select(Article).where(Article.link == article.link)
         ).all()
         if articles:
-            print("Already exists")
-            return None
+            raise HTTPException(
+                status_code=400,
+                detail="Article with this link already exists",
+            )
+        if not (
+            article.link.startswith("https://") or article.link.startswith("http://")
+        ):
+            raise HTTPException(
+                status_code=400,
+                detail="Link looks invalid, it should contain http:// or https://",
+            )
+        for field in ["title", "blurb", "outlet"]:
+            if not getattr(article, field):
+                raise HTTPException(
+                    status_code=400,
+                    detail=f"field: {field} is required",
+                )
         deleted_article = session.exec(
             select(ArticleDeleted).where(ArticleDeleted.link == article.link)
         ).all()
         if deleted_article:
-            print("article previously deleted")
-            return None
+            raise HTTPException(
+                status_code=400,
+                detail="This link was previously added, then deleted",
+            )
         session.add(article)
         session.commit()
         print("added")
