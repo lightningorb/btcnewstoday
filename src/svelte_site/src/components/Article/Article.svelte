@@ -54,7 +54,7 @@
 <Social article={article}/>
 <Title article={article} edit={edit}/>
 <Blurb article={article} edit={edit}/>
-<More article={article}/>
+<!-- <More article={article}/> -->
 <Tweets article={article} edit={edit}/>
 
 {#if edit}
