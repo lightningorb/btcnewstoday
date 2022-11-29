@@ -46,7 +46,7 @@ h1,h2 {
 }
 
 a.nav-link {
-  color: #000000;
+  color: #000000  !important;
   padding-top: 0px;
   padding-bottom: 0px;
 }
@@ -54,5 +54,33 @@ a.nav-link {
 
 a {
   text-decoration: none !important;
+  color: #002a64 !important;
 }
 
+
+div cite a {
+  color: #666666 !important; 
+}
+
+div div b {
+  color: #3a4a64 !important;;
+  background-color: #efefef !important;;
+}
+
+a.tweet {
+  color: #0e2a4e !important;
+  font-size: 14px !important;
+}
+
+
+div.section {
+  padding-top: 10px;
+}
+
+div div h1 {
+  color: #152e56 !important;
+}
+
+div div h2 {
+  color: #152e56  !important;
+}
