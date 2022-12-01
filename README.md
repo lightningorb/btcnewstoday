@@ -21,7 +21,7 @@ repo_root=`pwd`
 
 Currently, recommended versions are:
 
-- node >= v12.18.3
+- node >=16.14
 - npm >= 6.14.6
 - python >= 3.8
 
