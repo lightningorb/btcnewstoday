@@ -4,7 +4,7 @@
   export let data;
   import { onMount } from 'svelte';
   onMount(() => {
-    document.title = 'Latest - ₿News.daily';
+    document.title = 'Latest - BTCNews.today';
   });
 </script>
 

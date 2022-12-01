@@ -2,7 +2,7 @@
   import { Styles } from 'sveltestrap';
   import { onMount } from 'svelte';
   onMount(() => {
-    document.title = 'Dashboard - ₿News.daily';
+    document.title = 'Dashboard - BTCNews.today';
   });
 </script>
 
