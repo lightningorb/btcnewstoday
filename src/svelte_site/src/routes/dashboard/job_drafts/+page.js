@@ -2,8 +2,8 @@ import { API_FQDN } from "$lib/constants.js"
 
 /** @type {import('./$types').PageLoad} */
 export async function load({fetch}) {
-  const res = await fetch(API_FQDN+'/api/podcasts/?is_draft=0');
-  const podcasts = await res.json();
-  return {podcasts};
+  const res = await fetch(API_FQDN+'/api/articles/?is_draft=true');
+  const articles = await res.json();
+  return {articles};
 }
 

@@ -7,7 +7,7 @@
 
 <Styles/>
 
-<h2>Drafts</h2>
+<h2>Article Drafts</h2>
 
 {#each articles as article}
   <Article article={article}/>
