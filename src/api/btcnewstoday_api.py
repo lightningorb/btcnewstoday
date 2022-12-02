@@ -262,7 +262,7 @@ def get_articles(longform: bool = False, is_draft: bool = False):
 
 
 @app.get("/api/past_articles/")
-def get_articles():
+def get_past_articles():
     from collections import defaultdict
 
     dd = defaultdict(list)
@@ -285,13 +285,37 @@ def get_articles():
 
 
 # , current_user: User = Depends(get_current_active_user)
-@app.post("/api/podcasts/", response_model=Podcast)
-def create_podcast(Podcast: Podcast):
+@app.post("/api/podcasts/", response_model=Optional[Podcast])
+def create_podcast(podcast: Podcast):
     with Session(engine) as session:
-        session.add(Podcast)
+        db_podcast = session.exec(
+            select(Podcast).where(Podcast.link == podcast.link)
+        ).all()
+        if db_podcast:
+            print("already exists")
+            return None
+        session.add(podcast)
         session.commit()
-        session.refresh(Podcast)
-        return Podcast
+        session.refresh(podcast)
+        return podcast
+
+# , current_user: User = Depends(get_current_active_user)
+@app.post("/api/update_podcast/", response_model=Optional[Podcast])
+def update_podcast(podcast: PodcastUpdate):
+    with Session(engine) as session:
+        db_podcast = session.exec(
+            select(Podcast).where(Podcast.id == podcast.id)
+        ).one()
+        if not db_podcast:
+            print("Podcast ID not found")
+            return None
+        db_podcast.outlet = podcast.outlet
+        db_podcast.is_draft = podcast.is_draft
+        db_podcast.episode_title = podcast.episode_title
+        session.commit()
+        print("updated")
+        session.refresh(db_podcast)
+        return db_podcast
 
 
 # , current_user: User = Depends(get_current_active_user)
@@ -354,9 +378,15 @@ def delete_podcast(job_id: int):
 
 
 @app.get("/api/podcasts/", response_model=List[Podcast])
-def get_podcasts():
+def get_podcasts(is_draft: bool = False, limit: int = 25):
     with Session(engine) as session:
-        return session.exec(select(Podcast).order_by(Podcast.date.desc())).all()
+        podcasts = session.exec(
+            select(Podcast)
+            .order_by(Podcast.date.desc())
+            .limit(limit)
+            .where(Podcast.is_draft == is_draft)
+        ).all()
+        return podcasts
 
 
 @app.get("/api/events/", response_model=List[Event])
@@ -473,3 +503,39 @@ def ingest_coindesk():
                         headers=headers,
                     )
                     print(r.text)
+
+
+@app.post("/api/ingest/volatilityviews")
+def ingest_coindesk():
+    url = "https://volatilityviews.libsyn.com/rss"
+    r = requests.get(url).text
+    d = simplexml.loads(r)
+    for channel in list(d["rss"]["channel"].values()):
+        if type(channel) is list:
+            for item in channel:
+                if type(item) == dict and "title" in item and "enclosure" in item:
+                    print("=" * 100)
+                    print(item["title"])
+                    date = arrow.get(
+                        item["pubDate"][5:-6], "DD MMM YYYY HH:mm:ss"
+                    ).timestamp()
+
+                    doc = {
+                        "episode_title": item["title"],
+                        "link": item["link"],
+                        "outlet": item.get('itunes:author', 'Volatility Views'),
+                        "is_draft": True,
+                        "date": date,
+                    }
+
+                    headers = {
+                        "Content-Type": "application/json",
+                    }
+                    r = requests.post(
+                        "http://localhost:8000/api/podcasts/",
+                        data=json.dumps(doc),
+                        headers=headers,
+                    )
+                    print(r.text)
+
+

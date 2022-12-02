@@ -12,13 +12,6 @@
 
 <h2>Podcasts</h2>
 
-{#if $preferences.access_token != ''}
-  {#if edit}
-  {:else}
-    <button on:click={() => edit=true}><Icon name="pencil-square"/></button>
-  {/if}
-{/if}
-
 <Table striped>
   <thead>
     <tr>
@@ -29,7 +22,7 @@
   </thead>
   <tbody>
     {#each podcasts as podcast}
-      <Podcast podcast={podcast} edit={edit} />
+      <Podcast podcast={podcast} />
     {/each}
   </tbody>
 </Table>

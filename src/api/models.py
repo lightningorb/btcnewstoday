@@ -70,12 +70,20 @@ class ArticleReadWithTweets(ArticleRead):
     tweets: List[TweetRead] = []
 
 
+class PodcastUpdate(SQLModel):
+    id: Optional[int] = Field(default=None, primary_key=True)
+    outlet: str = Field(index=True)
+    episode_title: str = Field(index=True, default="", nullable=True)
+    is_draft: Optional[bool] = Field(index=True, default=False)
+    
+
 class Podcast(SQLModel, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
     link: str = Field(index=True)
     outlet: str = Field(index=True)
     date: int = Field(index=True)
     episode_title: str = Field(index=True, default="", nullable=True)
+    is_draft: Optional[bool] = Field(index=True, default=False)
 
 
 class Event(SQLModel, table=True):
