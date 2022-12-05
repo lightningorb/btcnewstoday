@@ -14,6 +14,12 @@ sync:
 front:
 	cd src/svelte_site && npm run dev
 
+install_front:
+	rm -rf src/svelte_site/node_modules
+	cd src/svelte_site && npm install
+# 	nvm use 12.18.3
+#	src/svelte_site/node_modules/@popperjs/core/package.json
+
 back:
 	cd src/api && ./venv/bin/uvicorn btcnewstoday_api:app --reload
 

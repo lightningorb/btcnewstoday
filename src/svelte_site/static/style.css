@@ -84,3 +84,34 @@ div div h1 {
 div div h2 {
   color: #152e56  !important;
 }
+
+button.play-button {
+  position: relative;
+  top: 5px;
+  border-color: transparent;
+  width: 20px;
+  height: 20px;
+  border-radius: 10px;
+}
+
+button.pause-button {
+  position: relative;
+  top: 5px;
+  background-color: #ff9900;
+  border-color: transparent;
+  width: 20px;
+  height: 20px;
+  border-radius: 10px;
+}
+
+i.bi-play {
+  position: relative;
+  top: -5px;
+  left: -5px;
+}
+
+i.bi-pause {
+  position: relative;
+  top: -5px;
+  left: -6px;
+}
