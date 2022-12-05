@@ -53,6 +53,9 @@
 
 <Social article={article}/>
 <Title article={article} edit={edit}/>
+{#if $preferences.access_token != ''}
+  <p>{article.id}</p>
+{/if}
 <Blurb article={article} edit={edit}/>
 <!-- <More article={article}/> -->
 <Tweets article={article} edit={edit}/>
