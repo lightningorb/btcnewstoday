@@ -197,6 +197,8 @@ def delete_article(article_id: int):
             print("Article ID not found")
             return None
         session.add(ArticleDeleted(link=db_article.link))
+        for tweet in db_article.tweets:
+            session.delete(tweet)
         session.delete(db_article)
         session.commit()
         print("deleted")
