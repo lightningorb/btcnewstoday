@@ -8,4 +8,4 @@
   });
 </script>
 
-<Latest articles={data.articles} title='Latest'/>
+<Latest articles={data.articles} title='Latest' show_dates={true}/>

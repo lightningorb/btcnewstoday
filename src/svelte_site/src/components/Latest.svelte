@@ -2,6 +2,7 @@
   import { Styles } from 'sveltestrap';
   export let articles;
   export let title;
+  export let show_dates = false;
   import Article from './Article/Article.svelte';
 </script>
 
@@ -10,7 +11,7 @@
 <div class='section'>
   <h2>{title}</h2>
   {#each articles as article}
-    <Article article={article}/>
+    <Article article={article} show_dates={show_dates}/>
     <hr/>
   {/each}
 </div>
