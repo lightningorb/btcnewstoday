@@ -14,6 +14,7 @@
   import { Col, Row } from 'sveltestrap';
   import {API_FQDN} from '$lib/constants.js';
   export let article;
+  export let show_dates = false;
   $: edit = false;
 
   function save(){
@@ -52,12 +53,8 @@
 </script>
 
 <Social article={article}/>
-<Title article={article} edit={edit}/>
-{#if $preferences.access_token != ''}
-  <p>{article.id}</p>
-{/if}
+<Title article={article} edit={edit} show_dates={show_dates}/>
 <Blurb article={article} edit={edit}/>
-<!-- <More article={article}/> -->
 <Tweets article={article} edit={edit}/>
 
 {#if edit}

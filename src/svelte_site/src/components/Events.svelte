@@ -23,7 +23,7 @@
   <Table striped>
     <thead>
       <tr>
-        <th>Date</th>
+        <th width='110px'>Date</th>
         <th>Name</th>
         <th>Location</th>
       </tr>
