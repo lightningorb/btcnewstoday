@@ -1,0 +1,5 @@
+https://decrypt.co/feed
+https://coindesk.com/arc/outboundfeeds/rss/?outputType=xml
+https://cointelegraph.com/rss
+https://newsbtc.com/feed
+https://bitcoinist.com/feed

@@ -10,7 +10,7 @@
 <h2>Article Drafts</h2>
 
 {#each articles as article}
-  <Article article={article}/>
+  <Article article={article} show_dates={true}/>
   <br/>
   <hr/>
 {/each}
