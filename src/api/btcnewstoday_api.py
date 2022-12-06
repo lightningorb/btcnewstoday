@@ -12,6 +12,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from datetime import datetime, timedelta
 from typing import Union
 from secrets import *
+from ingest_articles import main as ingest_articles_func
 
 from fastapi import Depends, FastAPI, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
@@ -240,12 +241,12 @@ def add_tweet(tweet: Tweet):
 
 
 @app.get("/api/articles/", response_model=List[ArticleReadWithTweets])
-def get_articles(longform: bool = False, is_draft: bool = False):
+def get_articles(longform: bool = False, is_draft: bool = False, limit: int = 25):
     session = Session(engine)
     articles = session.exec(
         select(Article)
         .order_by(Article.date.desc())
-        .limit(25)
+        .limit(limit)
         .where(Article.is_longform == longform)
         .where(Article.is_draft == is_draft)
     ).all()
@@ -434,110 +435,6 @@ def create_event(Event: Event):
         return Event
 
 
-@app.post("/api/ingest/decrypt")
-def ingest_decrypt():
-    r = requests.get("https://decrypt.co/feed").text
-    d = simplexml.loads(r)
-    for channel in list(d["rss"]["channel"].values()):
-        if type(channel) is list:
-            for item in channel:
-                print("=" * 100)
-                print(item["title"])
-                date = arrow.get(
-                    item["pubDate"][5:-6], "DD MMM YYYY HH:mm:ss"
-                ).timestamp()
-
-                doc = {
-                    "title": item["title"],
-                    "blurb": item["description"],
-                    "link": item["link"],
-                    "outlet": "Decrypt.co",
-                    "author": item.get("dc:author"),
-                    "category": item["category"],
-                    "is_draft": True,
-                    "is_longform": False,
-                    "date": date,
-                }
-                headers = {
-                    "Content-Type": "application/json",
-                }
-                r = requests.post(
-                    "http://localhost:8000/api/articles/",
-                    data=json.dumps(doc),
-                    headers=headers,
-                )
-                print(r.text)
-
-
-@app.post("/api/ingest/coindesk")
-def ingest_coindesk():
-    url = "https://www.coindesk.com/arc/outboundfeeds/rss/?outputType=xml"
-    r = requests.get(url).text
-    d = simplexml.loads(r)
-    for channel in list(d["rss"]["channel"].values()):
-        if type(channel) is list:
-            for item in channel:
-                if type(item) == dict and "title" in item:
-                    print("=" * 100)
-                    print(item["title"])
-                    date = arrow.get(
-                        item["pubDate"][5:-6], "DD MMM YYYY HH:mm:ss"
-                    ).timestamp()
-
-                    doc = {
-                        "title": item["title"],
-                        "blurb": item["description"],
-                        "link": item["link"][0],
-                        "outlet": "Coindesk",
-                        "author": item.get("dc:author"),
-                        "category": item["category"],
-                        "is_draft": True,
-                        "is_longform": False,
-                        "date": date,
-                    }
-
-                    headers = {
-                        "Content-Type": "application/json",
-                    }
-                    r = requests.post(
-                        "http://localhost:8000/api/articles/",
-                        data=json.dumps(doc),
-                        headers=headers,
-                    )
-                    print(r.text)
-
-
-@app.post("/api/ingest/volatilityviews")
-def ingest_coindesk():
-    url = "https://volatilityviews.libsyn.com/rss"
-    r = requests.get(url).text
-    d = simplexml.loads(r)
-    for channel in list(d["rss"]["channel"].values()):
-        if type(channel) is list:
-            for item in channel:
-                if type(item) == dict and "title" in item and "enclosure" in item:
-                    print("=" * 100)
-                    print(item["title"])
-                    date = arrow.get(
-                        item["pubDate"][5:-6], "DD MMM YYYY HH:mm:ss"
-                    ).timestamp()
-
-                    doc = {
-                        "episode_title": item["title"],
-                        "link": item["link"],
-                        "outlet": item.get('itunes:author', 'Volatility Views'),
-                        "is_draft": True,
-                        "date": date,
-                    }
-
-                    headers = {
-                        "Content-Type": "application/json",
-                    }
-                    r = requests.post(
-                        "http://localhost:8000/api/podcasts/",
-                        data=json.dumps(doc),
-                        headers=headers,
-                    )
-                    print(r.text)
-
-
+@app.post("/api/ingest/articles/")
+def ingest_articles():
+    ingest_articles_func()

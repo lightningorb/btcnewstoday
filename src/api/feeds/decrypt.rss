@@ -1,0 +1,2428 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<rss
+  version="2.0"
+  xmlns:content="http://purl.org/rss/1.0/modules/content/"
+  xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+  xmlns:dc="http://purl.org/dc/elements/1.1/"
+  xmlns:atom="http://www.w3.org/2005/Atom"
+  xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+  xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+  xmlns:media="http://search.yahoo.com/mrss/"
+  xmlns:snf="http://www.smartnews.be/snf"
+>
+  <channel>
+    <title>Decrypt</title>
+    <description>What&amp;#039;s new in crypto and the advent of the decentralized web.</description>
+    <language>en</language>
+    
+    <atom:link
+      href="https://decrypt.co/feed"
+      rel="self"
+      type="application/rss+xml"
+    />
+    
+    
+      
+        <link>https://decrypt.co/feed</link>
+      
+    
+    
+      <copyright>Decrypt Media</copyright>
+    
+    
+    
+    
+      <lastBuildDate>Tue, 06 Dec 2022 02:02:57 +0000</lastBuildDate>
+    
+    
+      <sy:updatePeriod>hourly</sy:updatePeriod>
+    
+    
+      <sy:updateFrequency>1</sy:updateFrequency>
+    
+    
+    
+    
+    
+      <item>
+  <title>Why Isn’t Sam Bankman-Fried Behind Bars Yet?</title>
+  <link>https://decrypt.co/116506/why-isnt-sam-bankman-fried-behind-bars-yet</link>
+  <pubDate>Tue, 06 Dec 2022 02:02:57 +0000</pubDate>
+  
+    <description>Spoiler alert: it hasn’t yet been determined whether he did anything criminal.</description>
+  
+  <dc:creator>Mathew Di Salvo</dc:creator>
+  
+  
+    <guid isPermaLink="false">https://decrypt.co/?p=116506</guid>
+  
+  
+    <enclosure url="https://img.decrypt.co/insecure/rs:fill:1024:512:1:0/plain/https://cdn.decrypt.co/wp-content/uploads/2022/07/sam-bankman-fried-ftx-ceo-congress-gID_2.jpg@png" length="1000000" type="image/png" />
+  
+  
+    
+      <category>ftx-token</category>
+    
+      <category>Business</category>
+    
+  
+  
+  
+  
+  
+  
+    
+      <media:thumbnail url="https://cdn.decrypt.co/wp-content/uploads/2022/07/sam-bankman-fried-ftx-ceo-congress-gID_2.jpg" height="720" width="1280"/>
+    
+    
+  
+  
+  
+  
+  
+  
+  
+  
+</item>
+    
+      <item>
+  <title>GameStop Cuts More Staff—Including Crypto Wallet Engineers</title>
+  <link>https://decrypt.co/116497/gamestop-more-layoffs-crypto-wallet</link>
+  <pubDate>Mon, 05 Dec 2022 22:36:22 +0000</pubDate>
+  
+    <description>Former employees say they were laid off from the gaming retail giant today, including engineers focused on its crypto efforts.</description>
+  
+  <dc:creator>Andrew Hayward</dc:creator>
+  
+  
+    <guid isPermaLink="false">https://decrypt.co/?p=116497</guid>
+  
+  
+    <enclosure url="https://img.decrypt.co/insecure/rs:fill:1024:512:1:0/plain/https://cdn.decrypt.co/wp-content/uploads/2021/09/gamestop-corner-store-gID_4.jpeg@png" length="1000000" type="image/png" />
+  
+  
+    
+      <category>ethereum</category>
+    
+      <category>Business</category>
+    
+  
+  
+  
+  
+  
+  
+    
+      <media:thumbnail url="https://cdn.decrypt.co/wp-content/uploads/2021/09/gamestop-corner-store-gID_4.jpeg" height="720" width="1280"/>
+    
+    
+  
+  
+  
+  
+  
+  
+  
+  
+</item>
+    
+      <item>
+  <title>U.S. Rep. Maxine Waters Insists SBF Attend FTX Hearing on Capitol Hill</title>
+  <link>https://decrypt.co/116489/maxine-waters-insists-sbf-attend-ftx-hearing</link>
+  <pubDate>Mon, 05 Dec 2022 21:43:08 +0000</pubDate>
+  
+    <description>The ranking member of the House Financial Services Committee tells the embattled ex-CEO that skipping out not an option.</description>
+  
+  <dc:creator>Jason Nelson</dc:creator>
+  
+  
+    <guid isPermaLink="false">https://decrypt.co/?p=116489</guid>
+  
+  
+    <enclosure url="https://img.decrypt.co/insecure/rs:fill:1024:512:1:0/plain/https://cdn.decrypt.co/wp-content/uploads/2020/12/maxine-waters-scaled-gID_1.jpeg@png" length="1000000" type="image/png" />
+  
+  
+    
+      <category>ftx-token</category>
+    
+      <category>Business</category>
+    
+  
+  
+  
+  
+  
+  
+    
+      <media:thumbnail url="https://cdn.decrypt.co/wp-content/uploads/2020/12/maxine-waters-scaled-gID_1.jpeg" height="1707" width="2560"/>
+    
+    
+  
+  
+  
+  
+  
+  
+  
+  
+</item>
+    
+      <item>
+  <title>Nexo to Phase Out Service in US After Hitting &#39;Dead End&#39; With Regulators</title>
+  <link>https://decrypt.co/116476/nexo-crypto-lending-dead-end-us-regulators</link>
+  <pubDate>Mon, 05 Dec 2022 18:28:01 +0000</pubDate>
+  
+    <description>The U.K. crypto lender said it would suspend access to its Earn product in eight states from tomorrow. </description>
+  
+  <dc:creator>Mathew Di Salvo</dc:creator>
+  
+  
+    <guid isPermaLink="false">https://decrypt.co/?p=116476</guid>
+  
+  
+    <enclosure url="https://img.decrypt.co/insecure/rs:fill:1024:512:1:0/plain/https://cdn.decrypt.co/wp-content/uploads/2022/12/nexo-phone-gID_1.jpeg@png" length="1000000" type="image/png" />
+  
+  
+    
+      <category>Business</category>
+    
+  
+  
+  
+  
+  
+  
+    
+      <media:thumbnail url="https://cdn.decrypt.co/wp-content/uploads/2022/12/nexo-phone-gID_1.jpeg" height="720" width="1280"/>
+    
+    
+  
+  
+  
+  
+  
+  
+  
+  
+</item>
+    
+      <item>
+  <title>DeFi Lender Maple Finance Cuts Off Orthogonal Trading for &#39;Misrepresenting Its Financial Position&#39;</title>
+  <link>https://decrypt.co/116466/maple-finance-cuts-off-orthogonal-trading</link>
+  <pubDate>Mon, 05 Dec 2022 18:08:50 +0000</pubDate>
+  
+    <description>After allegedly misrepresenting its finances to a lender on Maple Finance, the credit platform has cut all ties with Orthogonal Trading.</description>
+  
+  <dc:creator>Liam J. Kelly</dc:creator>
+  
+  
+    <guid isPermaLink="false">https://decrypt.co/?p=116466</guid>
+  
+  
+    <enclosure url="https://img.decrypt.co/insecure/rs:fill:1024:512:1:0/plain/https://cdn.decrypt.co/wp-content/uploads/2022/12/maple-finance-crypto-gID_4.jpg@png" length="1000000" type="image/png" />
+  
+  
+    
+      <category>ethereum</category>
+    
+      <category>Business</category>
+    
+  
+  
+  
+  
+  
+  
+    
+      <media:thumbnail url="https://cdn.decrypt.co/wp-content/uploads/2022/12/maple-finance-crypto-gID_4.jpg" height="720" width="1280"/>
+    
+    
+  
+  
+  
+  
+  
+  
+  
+  
+</item>
+    
+      <item>
+  <title>Aave Companies Acquires Social Metaverse Developer Sonar</title>
+  <link>https://decrypt.co/116443/aave-companies-acquires-social-metaverse-developer-sonar</link>
+  <pubDate>Mon, 05 Dec 2022 14:59:07 +0000</pubDate>
+  
+    <description>The acquisition will see Sonar integrate Aave’s Lens protocol to introduce decentralized account profiles for its social mobile metaverse app. </description>
+  
+  <dc:creator>Andrew Asmakov</dc:creator>
+  
+  
+    <guid isPermaLink="false">https://decrypt.co/?p=116443</guid>
+  
+  
+    <enclosure url="https://img.decrypt.co/insecure/rs:fill:1024:512:1:0/plain/https://cdn.decrypt.co/wp-content/uploads/2022/12/sonar-mojis-gID_2.jpg@png" length="1000000" type="image/png" />
+  
+  
+    
+      <category>aave</category>
+    
+      <category>Business</category>
+    
+  
+  
+  
+  
+  
+  
+    
+      <media:thumbnail url="https://cdn.decrypt.co/wp-content/uploads/2022/12/sonar-mojis-gID_2.jpg" height="720" width="1280"/>
+    
+    
+  
+  
+  
+  
+  
+  
+  
+  
+</item>
+    
+      <item>
+  <title>Circle, SPAC Call Off Plan to Take USDC Issuer Public</title>
+  <link>https://decrypt.co/116465/circle-spac-call-off-plan-take-usdc-issuer-public</link>
+  <pubDate>Mon, 05 Dec 2022 14:58:02 +0000</pubDate>
+  
+    <description>The mutual termination comes after over a year and a half of deliberating around the terms of Circle’s potential multibillion-dollar listing.</description>
+  
+  <dc:creator>Will McCurdy</dc:creator>
+  
+  
+    <guid isPermaLink="false">https://decrypt.co/?p=116465</guid>
+  
+  
+    <enclosure url="https://img.decrypt.co/insecure/rs:fill:1024:512:1:0/plain/https://cdn.decrypt.co/wp-content/uploads/2020/06/circle-centre-coinbase-usdc-ethereum-algorand-gID_1.jpg@png" length="1000000" type="image/png" />
+  
+  
+    
+      <category>Business</category>
+    
+  
+  
+  
+  
+  
+  
+    
+      <media:thumbnail url="https://cdn.decrypt.co/wp-content/uploads/2020/06/circle-centre-coinbase-usdc-ethereum-algorand-gID_1.jpg" height="720" width="1280"/>
+    
+    
+  
+  
+  
+  
+  
+  
+  
+  
+</item>
+    
+      <item>
+  <title>Former IRS Agents at Binance Seek to Keep Crypto Crime-Free</title>
+  <link>https://decrypt.co/113985/former-irs-agents-at-binance-are-keeping-crypto-crime-free</link>
+  <pubDate>Mon, 05 Dec 2022 14:01:02 +0000</pubDate>
+  
+    <description>The world’s biggest exchange has recruited top talent from law enforcement to take on cryptocurrency criminals.</description>
+  
+  <dc:creator>Decrypt Staff</dc:creator>
+  
+  
+    <guid isPermaLink="false">https://decrypt.co/?p=113985</guid>
+  
+  
+    <enclosure url="https://img.decrypt.co/insecure/rs:fill:1024:512:1:0/plain/https://cdn.decrypt.co/wp-content/uploads/2022/11/crypto-crime-scene-bitcoin-gID_6.jpeg@png" length="1000000" type="image/png" />
+  
+  
+    
+      <category>Long Reads</category>
+    
+  
+  
+  
+  
+  
+  
+    
+      <media:thumbnail url="https://cdn.decrypt.co/wp-content/uploads/2022/11/crypto-crime-scene-bitcoin-gID_6.jpeg" height="720" width="1280"/>
+    
+    
+  
+  
+  
+  
+  
+  
+  
+  
+</item>
+    
+      <item>
+  <title>Bitcoin Could Drop to $5,000 in 2023 ‘Surprise’: Standard Chartered</title>
+  <link>https://decrypt.co/116439/bitcoin-could-drop-5000-2023-surprise-standard-chartered</link>
+  <pubDate>Mon, 05 Dec 2022 11:11:13 +0000</pubDate>
+  
+    <description>Biden gets impeached, food prices collapse, and Bitcoin hits $5,000 all made Standard Chartered’s list of surprises for next year.</description>
+  
+  <dc:creator>Alys Key</dc:creator>
+  
+  
+    <guid isPermaLink="false">https://decrypt.co/?p=116439</guid>
+  
+  
+    <enclosure url="https://img.decrypt.co/insecure/rs:fill:1024:512:1:0/plain/https://cdn.decrypt.co/wp-content/uploads/2020/10/standard-chartered-gID_6.jpg@png" length="1000000" type="image/png" />
+  
+  
+    
+      <category>bitcoin</category>
+    
+      <category>Business</category>
+    
+  
+  
+  
+  
+  
+  
+    
+      <media:thumbnail url="https://cdn.decrypt.co/wp-content/uploads/2020/10/standard-chartered-gID_6.jpg" height="667" width="1000"/>
+    
+    
+  
+  
+  
+  
+  
+  
+  
+  
+</item>
+    
+      <item>
+  <title>Bybit, Swyftx Join List of Crypto Firms Reducing Workforce</title>
+  <link>https://decrypt.co/116434/bybit-swyftx-join-list-crypto-firms-reducing-workforce</link>
+  <pubDate>Mon, 05 Dec 2022 10:25:07 +0000</pubDate>
+  
+    <description>Two more crypto exchanges, Bybit and Swyftx, join the long list of companies to announce headcount reductions as crypto winter bites harder.</description>
+  
+  <dc:creator>Andrew Asmakov</dc:creator>
+  
+  
+    <guid isPermaLink="false">https://decrypt.co/?p=116434</guid>
+  
+  
+    <enclosure url="https://img.decrypt.co/insecure/rs:fill:1024:512:1:0/plain/https://cdn.decrypt.co/wp-content/uploads/2022/12/crypto-winter-bitcoin-gID_4.jpg@png" length="1000000" type="image/png" />
+  
+  
+    
+      <category>Business</category>
+    
+  
+  
+  
+  
+  
+  
+    
+      <media:thumbnail url="https://cdn.decrypt.co/wp-content/uploads/2022/12/crypto-winter-bitcoin-gID_4.jpg" height="720" width="1280"/>
+    
+    
+  
+  
+  
+  
+  
+  
+  
+  
+</item>
+    
+      <item>
+  <title>Axie Infinity Leads Metaverse, NFT Token Rally as Trade Volumes Surge</title>
+  <link>https://decrypt.co/116431/axie-infinity-leads-metaverse-nft-token-rally-trade-volumes-surge</link>
+  <pubDate>Mon, 05 Dec 2022 10:05:22 +0000</pubDate>
+  
+    <description>Amid a wider crypto market recovery, metaverse and NFT-related tokens in Apecoin, AXS, Sandbox, and others are benefitting the most. </description>
+  
+  <dc:creator>Sujith Somraaj</dc:creator>
+  
+  
+    <guid isPermaLink="false">https://decrypt.co/?p=116431</guid>
+  
+  
+    <enclosure url="https://img.decrypt.co/insecure/rs:fill:1024:512:1:0/plain/https://cdn.decrypt.co/wp-content/uploads/2021/12/metaverse-gID_4.jpg@png" length="1000000" type="image/png" />
+  
+  
+    
+      <category>Markets</category>
+    
+  
+  
+  
+  
+  
+  
+    
+      <media:thumbnail url="https://cdn.decrypt.co/wp-content/uploads/2021/12/metaverse-gID_4.jpg" height="653" width="1000"/>
+    
+    
+  
+  
+  
+  
+  
+  
+  
+  
+</item>
+    
+      <item>
+  <title>Many DAOs and Web3 Projects Are ‘Decentralization Theater’: Tezos Co-Founder</title>
+  <link>https://decrypt.co/116428/dao-web3-projects-decentralization-theater-tezos</link>
+  <pubDate>Mon, 05 Dec 2022 02:55:45 +0000</pubDate>
+  
+    <description>Kathleen Breitman says a focus on decentralization is critical to achieving longevity in Web3.</description>
+  
+  <dc:creator>André Beganski</dc:creator>
+  
+  
+    <guid isPermaLink="false">https://decrypt.co/?p=116428</guid>
+  
+  
+    <enclosure url="https://img.decrypt.co/insecure/rs:fill:1024:512:1:0/plain/https://cdn.decrypt.co/wp-content/uploads/2022/11/GM_Podcastcover_Breitman3-gID_2.jpg@png" length="1000000" type="image/png" />
+  
+  
+    
+      <category>Business</category>
+    
+  
+  
+  
+  
+  
+  
+    
+      <media:thumbnail url="https://cdn.decrypt.co/wp-content/uploads/2022/11/GM_Podcastcover_Breitman3-gID_2.jpg" height="512" width="1024"/>
+    
+    
+  
+  
+  
+  
+  
+  
+  
+  
+</item>
+    
+      <item>
+  <title>SBF Publicly Punts on U.S. House Hearing Invitation</title>
+  <link>https://decrypt.co/116419/sbf-publicly-punts-on-u-s-house-hearing-invitation</link>
+  <pubDate>Mon, 05 Dec 2022 00:48:22 +0000</pubDate>
+  
+    <description>Lawmakers wanted the disgraced cryptocurrency exchange founder to testify about the collapse of FTX.</description>
+  
+  <dc:creator>Jason Nelson</dc:creator>
+  
+  
+    <guid isPermaLink="false">https://decrypt.co/?p=116419</guid>
+  
+  
+    <enclosure url="https://img.decrypt.co/insecure/rs:fill:1024:512:1:0/plain/https://cdn.decrypt.co/wp-content/uploads/2022/12/SBF-Capitol-Hill-gID_6.jpg@png" length="1000000" type="image/png" />
+  
+  
+    
+      <category>ftx-token</category>
+    
+      <category>Business</category>
+    
+  
+  
+  
+  
+  
+  
+    
+      <media:thumbnail url="https://cdn.decrypt.co/wp-content/uploads/2022/12/SBF-Capitol-Hill-gID_6.jpg" height="1350" width="2400"/>
+    
+    
+  
+  
+  
+  
+  
+  
+  
+  
+</item>
+    
+      <item>
+  <title>TIMEX Launches $2,500 Bored Ape Watches and Matching NFTs</title>
+  <link>https://decrypt.co/116412/timex-launches-2500-bored-ape-watches-and-matching-nfts</link>
+  <pubDate>Sun, 04 Dec 2022 22:06:25 +0000</pubDate>
+  
+    <description>The luxury watchmaker unveiled a line of 500 one-of-one customizable timepieces.</description>
+  
+  <dc:creator>André Beganski</dc:creator>
+  
+  
+    <guid isPermaLink="false">https://decrypt.co/?p=116412</guid>
+  
+  
+    <enclosure url="https://img.decrypt.co/insecure/rs:fill:1024:512:1:0/plain/https://cdn.decrypt.co/wp-content/uploads/2022/12/Timex-Bored-Ape-16x9-1-gID_4.jpg@png" length="1000000" type="image/png" />
+  
+  
+    
+      <category>NFTs</category>
+    
+  
+  
+  
+  
+  
+  
+    
+      <media:thumbnail url="https://cdn.decrypt.co/wp-content/uploads/2022/12/Timex-Bored-Ape-16x9-1-gID_4.jpg" height="1152" width="2048"/>
+    
+    
+  
+  
+  
+  
+  
+  
+  
+  
+</item>
+    
+      <item>
+  <title>This Week on Crypto Twitter: Sam Bankman-Fried Won&#39;t Stop Talking, Coinbase Challenges Apple</title>
+  <link>https://decrypt.co/116395/this-week-on-crypto-twitter-sam-bankman-fried-wont-stop-talking-coinbase-challenges-apple</link>
+  <pubDate>Sun, 04 Dec 2022 20:10:31 +0000</pubDate>
+  
+    <description>Also, the Caribbean island of Dominica is issuing the “world’s first national coin,” entitling holders to Dominican passports.</description>
+  
+  <dc:creator>Tim Hakki</dc:creator>
+  
+  
+    <guid isPermaLink="false">https://decrypt.co/?p=116395</guid>
+  
+  
+    <enclosure url="https://img.decrypt.co/insecure/rs:fill:1024:512:1:0/plain/https://cdn.decrypt.co/wp-content/uploads/2022/12/Crypto-Shrimp-gID_6.jpg@png" length="1000000" type="image/png" />
+  
+  
+    
+      <category>Coins</category>
+    
+  
+  
+  
+  
+  
+  
+    
+      <media:thumbnail url="https://cdn.decrypt.co/wp-content/uploads/2022/12/Crypto-Shrimp-gID_6.jpg" height="1350" width="2400"/>
+    
+    
+  
+  
+  
+  
+  
+  
+  
+  
+</item>
+    
+      <item>
+  <title>Coinbase CEO Rejects FTX ‘Accounting Error,’ Says Funds Were Obviously ‘Stolen’</title>
+  <link>https://decrypt.co/116394/coinbase-ceo-doubts-ftx-accounting-error-explanation-funds-obviously-stolen</link>
+  <pubDate>Sun, 04 Dec 2022 19:50:42 +0000</pubDate>
+  
+    <description>Brian Armstrong says only the “most gullible person” would believe an $8 billion hole was due to lackluster accounting.</description>
+  
+  <dc:creator>André Beganski</dc:creator>
+  
+  
+    <guid isPermaLink="false">https://decrypt.co/?p=116394</guid>
+  
+  
+    <enclosure url="https://img.decrypt.co/insecure/rs:fill:1024:512:1:0/plain/https://cdn.decrypt.co/wp-content/uploads/2019/04/Brian-Armstrong-e1614439457296-gID_2.jpg@png" length="1000000" type="image/png" />
+  
+  
+    
+      <category>Coins</category>
+    
+  
+  
+  
+  
+  
+  
+    
+      <media:thumbnail url="https://cdn.decrypt.co/wp-content/uploads/2019/04/Brian-Armstrong-e1614439457296-gID_2.jpg" height="234" width="416"/>
+    
+    
+  
+  
+  
+  
+  
+  
+  
+  
+</item>
+    
+      <item>
+  <title>Genesis Owes Gemini Earn Users $900M: Report</title>
+  <link>https://decrypt.co/116387/genesis-gemini-earn-900-million-owed-users-ftx</link>
+  <pubDate>Sat, 03 Dec 2022 19:17:12 +0000</pubDate>
+  
+    <description>Gemini has yet to reopen withdrawals for users of its Earn service due to crypto market contagion from FTX.</description>
+  
+  <dc:creator>Will McCurdy</dc:creator>
+  
+  
+    <guid isPermaLink="false">https://decrypt.co/?p=116387</guid>
+  
+  
+    <enclosure url="https://img.decrypt.co/insecure/rs:fill:1024:512:1:0/plain/https://cdn.decrypt.co/wp-content/uploads/2022/11/Genesis-Trading-Down-shutterstock_2227571015-16x9-1-gID_2.jpg@png" length="1000000" type="image/png" />
+  
+  
+    
+      <category>Coins</category>
+    
+  
+  
+  
+  
+  
+  
+    
+      <media:thumbnail url="https://cdn.decrypt.co/wp-content/uploads/2022/11/Genesis-Trading-Down-shutterstock_2227571015-16x9-1-gID_2.jpg" height="1350" width="2400"/>
+    
+    
+  
+  
+  
+  
+  
+  
+  
+  
+</item>
+    
+      <item>
+  <title>This Week in Coins: Twitter Speculation Sends Dogecoin Higher, Bitcoin and Ethereum See Green</title>
+  <link>https://decrypt.co/116378/this-week-in-coins-twitter-speculation-sends-dogecoin-higher-bitcoin-and-ethereum-see-green</link>
+  <pubDate>Sat, 03 Dec 2022 16:13:00 +0000</pubDate>
+  
+    <description>ETH rose nicely even as the FTX drama continues. Brazilian lawmakers also took a significant step towards regulating cryptocurrencies.</description>
+  
+  <dc:creator>Tim Hakki</dc:creator>
+  
+  
+    <guid isPermaLink="false">https://decrypt.co/?p=116378</guid>
+  
+  
+    <enclosure url="https://img.decrypt.co/insecure/rs:fill:1024:512:1:0/plain/https://cdn.decrypt.co/wp-content/uploads/2022/10/ethereum-blockchain-decentralization-gID_5.jpeg@png" length="1000000" type="image/png" />
+  
+  
+    
+      <category>Coins</category>
+    
+  
+  
+  
+  
+  
+  
+    
+      <media:thumbnail url="https://cdn.decrypt.co/wp-content/uploads/2022/10/ethereum-blockchain-decentralization-gID_5.jpeg" height="720" width="1280"/>
+    
+    
+  
+  
+  
+  
+  
+  
+  
+  
+</item>
+    
+      <item>
+  <title>Let’s Dispel Some Misconceptions About Wrapped Bitcoin and Ethereum</title>
+  <link>https://decrypt.co/116291/lets-dispel-some-misconceptions-about-wrapped-bitcoin-and-ethereum</link>
+  <pubDate>Sat, 03 Dec 2022 16:00:04 +0000</pubDate>
+  
+    <description>This week saw misinformation on Twitter about potential &#34;insolvency&#34; of WETH. None of that was accurate. Here&#39;s how wrapped coins work.</description>
+  
+  <dc:creator>Liam J. Kelly</dc:creator>
+  
+  
+    <guid isPermaLink="false">https://decrypt.co/?p=116291</guid>
+  
+  
+    <enclosure url="https://img.decrypt.co/insecure/rs:fill:1024:512:1:0/plain/https://cdn.decrypt.co/wp-content/uploads/2022/12/wrapped-crypto-bitcoin-ethereum-gID_5.jpg@png" length="1000000" type="image/png" />
+  
+  
+    
+      <category>Coins</category>
+    
+  
+  
+  
+  
+  
+  
+    
+      <media:thumbnail url="https://cdn.decrypt.co/wp-content/uploads/2022/12/wrapped-crypto-bitcoin-ethereum-gID_5.jpg" height="720" width="1280"/>
+    
+    
+  
+  
+  
+  
+  
+  
+  
+  
+</item>
+    
+      <item>
+  <title>How to Move Bitcoin, Ethereum and Other Crypto to Self-Custody</title>
+  <link>https://decrypt.co/116349/how-move-bitcoin-ethereum-crypto-self-custody</link>
+  <pubDate>Fri, 02 Dec 2022 22:52:12 +0000</pubDate>
+  
+    <description>Worried about your Bitcoin, Ethereum, and other crypto being trapped on a centralized exchange like FTX? Here&#39;s how to change that.</description>
+  
+  <dc:creator>Alyssa Hertig</dc:creator>
+  
+  
+    <guid isPermaLink="false">https://decrypt.co/?p=116349</guid>
+  
+  
+    <enclosure url="https://img.decrypt.co/insecure/rs:fill:1024:512:1:0/plain/https://cdn.decrypt.co/wp-content/uploads/2022/12/bitcoin-wallet-gID_4.jpeg@png" length="1000000" type="image/png" />
+  
+  
+    
+      <category>bitcoin</category>
+    
+      <category>ethereum</category>
+    
+      <category>Technology</category>
+    
+  
+  
+  
+  
+  
+  
+    
+      <media:thumbnail url="https://cdn.decrypt.co/wp-content/uploads/2022/12/bitcoin-wallet-gID_4.jpeg" height="720" width="1280"/>
+    
+    
+  
+  
+  
+  
+  
+  
+  
+  
+</item>
+    
+      <item>
+  <title>Blocknative CEO Matt Cutler at 0xpo Crossroads</title>
+  <link>https://decrypt.co/videos/live-events/uelkvd51/blocknative-ceo-matt-cutler-at-0xpo-crossroads</link>
+  <pubDate>Fri, 02 Dec 2022 20:51:22 +0000</pubDate>
+  
+    <description>Blocknative&#39;s Matt Cutler sat down with Decrypt&#39;s Jason Nelson at 0xpo Crossroads in San Francisco on November 3 to tell his Web3 origin story and Blocknative&#39;s business—plus misconceptions in the crypto space.</description>
+  
+  <dc:creator></dc:creator>
+  
+  
+    <guid isPermaLink="false">https://decrypt.co/videos/live-events/uelkvd51/blocknative-ceo-matt-cutler-at-0xpo-crossroads</guid>
+  
+  
+    <enclosure url="https://cdn.jwplayer.com/v2/media/uelkvd51/poster.jpg" length="1000000" type="image/png" />
+  
+  
+    
+      <category>Sports</category>
+    
+  
+  
+  
+  
+  
+  
+    
+    
+      <media:thumbnail url="https://cdn.jwplayer.com/v2/media/uelkvd51/poster.jpg"/>
+    
+  
+  
+  
+  
+  
+  
+  
+  
+</item>
+    
+      <item>
+  <title>Three Arrows Liquidators Seize $35M, Seek $30M More for &#39;Much Wow&#39; Superyacht</title>
+  <link>https://decrypt.co/116357/three-arrows-capital-liquidators-much-wow-superyacht</link>
+  <pubDate>Fri, 02 Dec 2022 20:50:40 +0000</pubDate>
+  
+    <description>But the bust firm’s co-founders still aren’t cooperating, a Friday document shows.</description>
+  
+  <dc:creator>Mathew Di Salvo</dc:creator>
+  
+  
+    <guid isPermaLink="false">https://decrypt.co/?p=116357</guid>
+  
+  
+    <enclosure url="https://img.decrypt.co/insecure/rs:fill:1024:512:1:0/plain/https://cdn.decrypt.co/wp-content/uploads/2022/12/much-wow-superyacht-three-arrows-3ac-gID_1.jpeg@png" length="1000000" type="image/png" />
+  
+  
+    
+      <category>Business</category>
+    
+  
+  
+  
+  
+  
+  
+    
+      <media:thumbnail url="https://cdn.decrypt.co/wp-content/uploads/2022/12/much-wow-superyacht-three-arrows-3ac-gID_1.jpeg" height="720" width="1280"/>
+    
+    
+  
+  
+  
+  
+  
+  
+  
+  
+</item>
+    
+      <item>
+  <title>Coinbase Pauses Plans for Bored Ape Yacht Club NFT Short Film Trilogy</title>
+  <link>https://decrypt.co/116346/coinbase-pauses-bored-ape-yacht-club-nft-film</link>
+  <pubDate>Fri, 02 Dec 2022 20:25:43 +0000</pubDate>
+  
+    <description>The “Degen Trilogy” series is on hold, the company confirmed to Decrypt, months after the widely panned first entry was released.</description>
+  
+  <dc:creator>Andrew Hayward</dc:creator>
+  
+  
+    <guid isPermaLink="false">https://decrypt.co/?p=116346</guid>
+  
+  
+    <enclosure url="https://img.decrypt.co/insecure/rs:fill:1024:512:1:0/plain/https://cdn.decrypt.co/wp-content/uploads/2022/12/coinbase-degen-trilogy-bored-apes-gID_4.png@png" length="1000000" type="image/png" />
+  
+  
+    
+      <category>ethereum</category>
+    
+      <category>NFTs</category>
+    
+  
+  
+  
+  
+  
+  
+    
+      <media:thumbnail url="https://cdn.decrypt.co/wp-content/uploads/2022/12/coinbase-degen-trilogy-bored-apes-gID_4.png" height="675" width="1200"/>
+    
+    
+  
+  
+  
+  
+  
+  
+  
+  
+</item>
+    
+      <item>
+  <title>MetaMask Co-Founder Wants to &#39;Dump&#39; Apple, Calls iOS Purchase Tax &#39;Abuse&#39;</title>
+  <link>https://decrypt.co/116337/metamask-co-founder-dump-apple-ios-tax</link>
+  <pubDate>Fri, 02 Dec 2022 19:14:33 +0000</pubDate>
+  
+    <description>MetaMask’s co-founder and co-lead developer Dan Finlay says he’s prepared to take a stand against Apple in solidarity with Coinbase Wallet.</description>
+  
+  <dc:creator>Kate Irwin</dc:creator>
+  
+  
+    <guid isPermaLink="false">https://decrypt.co/?p=116337</guid>
+  
+  
+    <enclosure url="https://img.decrypt.co/insecure/rs:fill:1024:512:1:0/plain/https://cdn.decrypt.co/wp-content/uploads/2022/08/metamask-ethereum-wallet-gID_4.jpeg@png" length="1000000" type="image/png" />
+  
+  
+    
+      <category>ethereum</category>
+    
+      <category>Technology</category>
+    
+  
+  
+  
+  
+  
+  
+    
+      <media:thumbnail url="https://cdn.decrypt.co/wp-content/uploads/2022/08/metamask-ethereum-wallet-gID_4.jpeg" height="720" width="1280"/>
+    
+    
+  
+  
+  
+  
+  
+  
+  
+  
+</item>
+    
+      <item>
+  <title>Maxine Waters Thanks SBF for Being &#39;Candid&#39; About FTX Collapse</title>
+  <link>https://decrypt.co/116308/maxine-waters-thanks-sam-bankman-fried-ftx</link>
+  <pubDate>Fri, 02 Dec 2022 17:56:44 +0000</pubDate>
+  
+    <description>The lawmaker has invited Bankman-Fried to testify before the House Financial Services Committee this month.</description>
+  
+  <dc:creator>Mathew Di Salvo</dc:creator>
+  
+  
+    <guid isPermaLink="false">https://decrypt.co/?p=116308</guid>
+  
+  
+    <enclosure url="https://img.decrypt.co/insecure/rs:fill:1024:512:1:0/plain/https://cdn.decrypt.co/wp-content/uploads/2020/12/maxine-waters-house-financial-services-committee-gID_4.jpg@png" length="1000000" type="image/png" />
+  
+  
+    
+      <category>Business</category>
+    
+  
+  
+  
+  
+  
+  
+    
+      <media:thumbnail url="https://cdn.decrypt.co/wp-content/uploads/2020/12/maxine-waters-house-financial-services-committee-gID_4.jpg" height="720" width="1280"/>
+    
+    
+  
+  
+  
+  
+  
+  
+  
+  
+</item>
+    
+      <item>
+  <title>Yahoo to Offer Retail Stock Trading—Is Crypto Next?</title>
+  <link>https://decrypt.co/116288/yahoo-to-offer-retail-stock-trading-is-crypto-next</link>
+  <pubDate>Fri, 02 Dec 2022 17:15:50 +0000</pubDate>
+  
+    <description>Sources have told Decrypt that Apollo wants to offer retail crypto trading on Yahoo Finance. </description>
+  
+  <dc:creator>Jason Nelson,Daniel Roberts</dc:creator>
+  
+  
+    <guid isPermaLink="false">https://decrypt.co/?p=116288</guid>
+  
+  
+    <enclosure url="https://img.decrypt.co/insecure/rs:fill:1024:512:1:0/plain/https://cdn.decrypt.co/wp-content/uploads/2020/01/shutterstock_179539388-gID_6.jpg@png" length="1000000" type="image/png" />
+  
+  
+    
+      <category>Business</category>
+    
+  
+  
+  
+  
+  
+  
+    
+      <media:thumbnail url="https://cdn.decrypt.co/wp-content/uploads/2020/01/shutterstock_179539388-gID_6.jpg" height="667" width="1000"/>
+    
+    
+  
+  
+  
+  
+  
+  
+  
+  
+</item>
+    
+      <item>
+  <title>Crypto Holiday Gift Guide 2022</title>
+  <link>https://decrypt.co/115333/decrypts-crypto-holiday-gift-guide-2022</link>
+  <pubDate>Fri, 02 Dec 2022 16:17:40 +0000</pubDate>
+  
+    <description>&#39;Tis the season to be jolly—spread some festive cheer with our guide to the best holiday crypto gifts for all budgets.</description>
+  
+  <dc:creator>Decrypt Staff</dc:creator>
+  
+  
+    <guid isPermaLink="false">https://decrypt.co/?p=115333</guid>
+  
+  
+    <enclosure url="https://img.decrypt.co/insecure/rs:fill:1024:512:1:0/plain/https://cdn.decrypt.co/wp-content/uploads/2022/11/crypto-bitcoin-christmas-holiday-gID_2.jpg@png" length="1000000" type="image/png" />
+  
+  
+    
+      <category>Long Reads</category>
+    
+  
+  
+  
+  
+  
+  
+    
+      <media:thumbnail url="https://cdn.decrypt.co/wp-content/uploads/2022/11/crypto-bitcoin-christmas-holiday-gID_2.jpg" height="720" width="1280"/>
+    
+    
+  
+  
+  
+  
+  
+  
+  
+  
+</item>
+    
+      <item>
+  <title>Galaxy Digital Wins Celsius Bankruptcy Auction to Acquire Crypto Custodian GK8</title>
+  <link>https://decrypt.co/116295/galaxy-digital-wins-celsius-bankruptcy-auction-acquire-crypto-custodian-gk8</link>
+  <pubDate>Fri, 02 Dec 2022 15:46:27 +0000</pubDate>
+  
+    <description>GK8, one of the assets put up for auction during Celsius’ bankruptcy proceedings, will play a role in Galaxy Digital’s institutional offering.</description>
+  
+  <dc:creator>Liam J. Kelly</dc:creator>
+  
+  
+    <guid isPermaLink="false">https://decrypt.co/?p=116295</guid>
+  
+  
+    <enclosure url="https://img.decrypt.co/insecure/rs:fill:1024:512:1:0/plain/https://cdn.decrypt.co/wp-content/uploads/2019/04/Michael-Novogratz-gID_6.jpg@png" length="1000000" type="image/png" />
+  
+  
+    
+      <category>Business</category>
+    
+  
+  
+  
+  
+  
+  
+    
+      <media:thumbnail url="https://cdn.decrypt.co/wp-content/uploads/2019/04/Michael-Novogratz-gID_6.jpg" height="298" width="530"/>
+    
+    
+  
+  
+  
+  
+  
+  
+  
+  
+</item>
+    
+      <item>
+  <title>Australian Stock Exchange Fires 200 Contractors Working on Canceled Blockchain Project</title>
+  <link>https://decrypt.co/116276/australian-stock-exchange-fires-200-contractors-working-canceled-blockchain-project</link>
+  <pubDate>Fri, 02 Dec 2022 12:03:25 +0000</pubDate>
+  
+    <description>Shortly after axing its blockchain project, the Australian Securities Exchange has now laid off 200 contractors working on the project.</description>
+  
+  <dc:creator>Will McCurdy</dc:creator>
+  
+  
+    <guid isPermaLink="false">https://decrypt.co/?p=116276</guid>
+  
+  
+    <enclosure url="https://img.decrypt.co/insecure/rs:fill:1024:512:1:0/plain/https://cdn.decrypt.co/wp-content/uploads/2020/10/asx-australian-securities-exchange-gID_5.jpg@png" length="1000000" type="image/png" />
+  
+  
+    
+      <category>Business</category>
+    
+  
+  
+  
+  
+  
+  
+    
+      <media:thumbnail url="https://cdn.decrypt.co/wp-content/uploads/2020/10/asx-australian-securities-exchange-gID_5.jpg" height="720" width="1280"/>
+    
+    
+  
+  
+  
+  
+  
+  
+  
+  
+</item>
+    
+      <item>
+  <title>Korean Prosecutors Seek Arrest of Terra Co-Founder Over $105M LUNA Sale</title>
+  <link>https://decrypt.co/116275/korean-prosecutors-seek-arrest-of-terra-co-founder-over-105m-luna-sale</link>
+  <pubDate>Fri, 02 Dec 2022 11:49:57 +0000</pubDate>
+  
+    <description>Daniel Shin attended a court hearing over whether he should be arrested for allegedly extracting illegal profits prior to Terra&#39;s collapse.</description>
+  
+  <dc:creator>Stephen Graves</dc:creator>
+  
+  
+    <guid isPermaLink="false">https://decrypt.co/?p=116275</guid>
+  
+  
+    <enclosure url="https://img.decrypt.co/insecure/rs:fill:1024:512:1:0/plain/https://cdn.decrypt.co/wp-content/uploads/2022/06/luna-crash-gID_6.jpg@png" length="1000000" type="image/png" />
+  
+  
+    
+      <category>Business</category>
+    
+  
+  
+  
+  
+  
+  
+    
+      <media:thumbnail url="https://cdn.decrypt.co/wp-content/uploads/2022/06/luna-crash-gID_6.jpg" height="720" width="1280"/>
+    
+    
+  
+  
+  
+  
+  
+  
+  
+  
+</item>
+    
+      <item>
+  <title>Binance Pauses Withdrawals Amid $5M Ankr &#39;Infinite Mint&#39; Hack</title>
+  <link>https://decrypt.co/116268/binance-pauses-withdrawals-amid-5m-ankr-hack</link>
+  <pubDate>Fri, 02 Dec 2022 11:09:56 +0000</pubDate>
+  
+    <description>Binance CEO Changpeng Zhao announced that the exchange had paused withdrawals following an exploit on the crypto node project Ankr.</description>
+  
+  <dc:creator>Liam J. Kelly</dc:creator>
+  
+  
+    <guid isPermaLink="false">https://decrypt.co/?p=116268</guid>
+  
+  
+    <enclosure url="https://img.decrypt.co/insecure/rs:fill:1024:512:1:0/plain/https://cdn.decrypt.co/wp-content/uploads/2022/12/ankr-crypto-attack-gID_1.jpg@png" length="1000000" type="image/png" />
+  
+  
+    
+      <category>Business</category>
+    
+  
+  
+  
+  
+  
+  
+    
+      <media:thumbnail url="https://cdn.decrypt.co/wp-content/uploads/2022/12/ankr-crypto-attack-gID_1.jpg" height="720" width="1280"/>
+    
+    
+  
+  
+  
+  
+  
+  
+  
+  
+</item>
+    
+      <item>
+  <title>DOJ Watchdog Seeks Independent Examiner of FTX Collapse</title>
+  <link>https://decrypt.co/116265/doj-watchdog-seeks-independent-examiner-of-ftx</link>
+  <pubDate>Fri, 02 Dec 2022 02:00:00 +0000</pubDate>
+  
+    <description>The internal agency compares the failure of FTX to that of Lehman Brothers and New Century Financial.</description>
+  
+  <dc:creator>Jason Nelson</dc:creator>
+  
+  
+    <guid isPermaLink="false">https://decrypt.co/?p=116265</guid>
+  
+  
+    <enclosure url="https://img.decrypt.co/insecure/rs:fill:1024:512:1:0/plain/https://cdn.decrypt.co/wp-content/uploads/2020/07/shutterstock_1384089728-gID_2.jpg@png" length="1000000" type="image/png" />
+  
+  
+    
+      <category>ftx-token</category>
+    
+      <category>Business</category>
+    
+  
+  
+  
+  
+  
+  
+    
+      <media:thumbnail url="https://cdn.decrypt.co/wp-content/uploads/2020/07/shutterstock_1384089728-gID_2.jpg" height="900" width="1600"/>
+    
+    
+  
+  
+  
+  
+  
+  
+  
+  
+</item>
+    
+      <item>
+  <title>Three Arrows Founders Have One Week to Provide Key Financial Documents: Singapore Court</title>
+  <link>https://decrypt.co/116249/three-arrows-documents-singapore-court</link>
+  <pubDate>Thu, 01 Dec 2022 22:36:38 +0000</pubDate>
+  
+    <description>The documents would help liquidators locate funds and settle claims with the creditors of the bankrupt hedge fund.</description>
+  
+  <dc:creator>Stacy Elliott</dc:creator>
+  
+  
+    <guid isPermaLink="false">https://decrypt.co/?p=116249</guid>
+  
+  
+    <enclosure url="https://img.decrypt.co/insecure/rs:fill:1024:512:1:0/plain/https://cdn.decrypt.co/wp-content/uploads/2022/07/3AC-Three-Arrows-Capital-Su-Zhu-gID_4.jpeg@png" length="1000000" type="image/png" />
+  
+  
+    
+      <category>ftx-token</category>
+    
+      <category>Business</category>
+    
+  
+  
+  
+  
+  
+  
+    
+      <media:thumbnail url="https://cdn.decrypt.co/wp-content/uploads/2022/07/3AC-Three-Arrows-Capital-Su-Zhu-gID_4.jpeg" height="576" width="1024"/>
+    
+    
+  
+  
+  
+  
+  
+  
+  
+  
+</item>
+    
+      <item>
+  <title>Solana Soars, Flow Falls as NFT Market Declines Further in November</title>
+  <link>https://decrypt.co/116246/solana-soars-flow-falls-nft-sales-decline-november</link>
+  <pubDate>Thu, 01 Dec 2022 21:51:43 +0000</pubDate>
+  
+    <description>Trading in November is about 88% lower than January as overall volume and total NFTs sold both slump even further.</description>
+  
+  <dc:creator>Andrew Hayward</dc:creator>
+  
+  
+    <guid isPermaLink="false">https://decrypt.co/?p=116246</guid>
+  
+  
+    <enclosure url="https://img.decrypt.co/insecure/rs:fill:1024:512:1:0/plain/https://cdn.decrypt.co/wp-content/uploads/2022/12/nft-tokens-shutterstock-gID_2.png@png" length="1000000" type="image/png" />
+  
+  
+    
+      <category>ethereum</category>
+    
+      <category>solana</category>
+    
+      <category>NFTs</category>
+    
+  
+  
+  
+  
+  
+  
+    
+      <media:thumbnail url="https://cdn.decrypt.co/wp-content/uploads/2022/12/nft-tokens-shutterstock-gID_2.png" height="675" width="1200"/>
+    
+    
+  
+  
+  
+  
+  
+  
+  
+  
+</item>
+    
+      <item>
+  <title>Politicians Are Giving Back Their Donations From Disgraced FTX Founder</title>
+  <link>https://decrypt.co/116236/politicians-giving-back-ftx-sam-bankman-fried-donations</link>
+  <pubDate>Thu, 01 Dec 2022 21:07:59 +0000</pubDate>
+  
+    <description>Among the politicians who haven&#39;t commented on their SBF donations: Sens. Boozman and Stabenow, who co-sponsored the DCCPA bill.</description>
+  
+  <dc:creator>Stacy Elliott</dc:creator>
+  
+  
+    <guid isPermaLink="false">https://decrypt.co/?p=116236</guid>
+  
+  
+    <enclosure url="https://img.decrypt.co/insecure/rs:fill:1024:512:1:0/plain/https://cdn.decrypt.co/wp-content/uploads/2022/12/closeup-of-usd-gID_6.jpg@png" length="1000000" type="image/png" />
+  
+  
+    
+      <category>ftx-token</category>
+    
+      <category>Business</category>
+    
+  
+  
+  
+  
+  
+  
+    
+      <media:thumbnail url="https://cdn.decrypt.co/wp-content/uploads/2022/12/closeup-of-usd-gID_6.jpg" height="576" width="1024"/>
+    
+    
+  
+  
+  
+  
+  
+  
+  
+  
+</item>
+    
+      <item>
+  <title>The Inaugural Crypties Awards: In Pictures!</title>
+  <link>https://decrypt.co/116163/the-inaugural-crypties-awards-in-pictures</link>
+  <pubDate>Thu, 01 Dec 2022 21:00:14 +0000</pubDate>
+  
+    <description>Crypto&#39;s leading lights gathered for the inaugural Crypties Awards at Art Basel Miami. Check out the winners and the highlights.</description>
+  
+  <dc:creator>Decrypt Staff</dc:creator>
+  
+  
+    <guid isPermaLink="false">https://decrypt.co/?p=116163</guid>
+  
+  
+    <enclosure url="https://img.decrypt.co/insecure/rs:fill:1024:512:1:0/plain/https://cdn.decrypt.co/wp-content/uploads/2022/12/crypties-01-gID_4.jpg@png" length="1000000" type="image/png" />
+  
+  
+    
+      <category>Our Company</category>
+    
+  
+  
+  
+  
+  
+  
+    
+      <media:thumbnail url="https://cdn.decrypt.co/wp-content/uploads/2022/12/crypties-01-gID_4.jpg" height="720" width="1280"/>
+    
+    
+  
+  
+  
+  
+  
+  
+  
+  
+</item>
+    
+      <item>
+  <title>Apple Forces Coinbase to Disable NFT Transfers on Its Wallet App</title>
+  <link>https://decrypt.co/116230/apple-coinbase-wallet-nft-transfers</link>
+  <pubDate>Thu, 01 Dec 2022 19:23:10 +0000</pubDate>
+  
+    <description>Apple has begun enforcing its 30% tax on NFT transactions, and Coinbase isn’t happy.</description>
+  
+  <dc:creator>Kate Irwin</dc:creator>
+  
+  
+    <guid isPermaLink="false">https://decrypt.co/?p=116230</guid>
+  
+  
+    <enclosure url="https://img.decrypt.co/insecure/rs:fill:1024:512:1:0/plain/https://cdn.decrypt.co/wp-content/uploads/2020/03/shutterstock_1443654098-gID_1.jpg@png" length="1000000" type="image/png" />
+  
+  
+    
+      <category>NFTs</category>
+    
+  
+  
+  
+  
+  
+  
+    
+      <media:thumbnail url="https://cdn.decrypt.co/wp-content/uploads/2020/03/shutterstock_1443654098-gID_1.jpg" height="720" width="1280"/>
+    
+    
+  
+  
+  
+  
+  
+  
+  
+  
+</item>
+    
+      <item>
+  <title>CFTC Chair: Crypto &#39;Potentially a Threat to National Security&#39; After FTX Crash</title>
+  <link>https://decrypt.co/116222/crypto-threat-national-security-cftc-rostin-behnam-ftx</link>
+  <pubDate>Thu, 01 Dec 2022 19:12:33 +0000</pubDate>
+  
+    <description>CFTC Chairman Rostin Behnam told Senators today that his agency needs more power to regulate crypto following the collapse of FTX.</description>
+  
+  <dc:creator>Mathew Di Salvo</dc:creator>
+  
+  
+    <guid isPermaLink="false">https://decrypt.co/?p=116222</guid>
+  
+  
+    <enclosure url="https://img.decrypt.co/insecure/rs:fill:1024:512:1:0/plain/https://cdn.decrypt.co/wp-content/uploads/2022/12/cftc-chair-Rostin-Behnam-gID_4.jpg@png" length="1000000" type="image/png" />
+  
+  
+    
+      <category>ftx-token</category>
+    
+      <category>Business</category>
+    
+  
+  
+  
+  
+  
+  
+    
+      <media:thumbnail url="https://cdn.decrypt.co/wp-content/uploads/2022/12/cftc-chair-Rostin-Behnam-gID_4.jpg" height="720" width="1280"/>
+    
+    
+  
+  
+  
+  
+  
+  
+  
+  
+</item>
+    
+      <item>
+  <title>Magic Eden Launches Solana NFT Tool to Enforce Creator Royalties</title>
+  <link>https://decrypt.co/116215/magic-eden-solana-nft-tool-enforce-creator-royalties</link>
+  <pubDate>Thu, 01 Dec 2022 18:59:02 +0000</pubDate>
+  
+    <description>The Open Creator Protocol lets creators of new NFT collections block marketplaces that refuse to honor royalties on OCP-enabled assets.</description>
+  
+  <dc:creator>Andrew Hayward</dc:creator>
+  
+  
+    <guid isPermaLink="false">https://decrypt.co/?p=116215</guid>
+  
+  
+    <enclosure url="https://img.decrypt.co/insecure/rs:fill:1024:512:1:0/plain/https://cdn.decrypt.co/wp-content/uploads/2022/06/FVOjfDwXwAMACJo-gID_6.jpeg@png" length="1000000" type="image/png" />
+  
+  
+    
+      <category>solana</category>
+    
+      <category>NFTs</category>
+    
+  
+  
+  
+  
+  
+  
+    
+      <media:thumbnail url="https://cdn.decrypt.co/wp-content/uploads/2022/06/FVOjfDwXwAMACJo-gID_6.jpeg" height="900" width="1600"/>
+    
+    
+  
+  
+  
+  
+  
+  
+  
+  
+</item>
+    
+      <item>
+  <title>Crown Ribbon is Shaking Up the $300B Horse Racing Industry With NFTs</title>
+  <link>https://decrypt.co/116146/crown-ribbon-is-shaking-up-the-300b-horse-racing-industry-with-nfts</link>
+  <pubDate>Thu, 01 Dec 2022 17:31:23 +0000</pubDate>
+  
+    <description>The fully-regulated NFT platform lets users buy NFT shares of a racehorse syndicate that maps to one horse, or a collection of horses.</description>
+  
+  <dc:creator>Decrypt Staff</dc:creator>
+  
+  
+    <guid isPermaLink="false">https://decrypt.co/?p=116146</guid>
+  
+  
+    <enclosure url="https://img.decrypt.co/insecure/rs:fill:1024:512:1:0/plain/https://cdn.decrypt.co/wp-content/uploads/2022/12/horse-racing-gID_1.jpg@png" length="1000000" type="image/png" />
+  
+  
+    
+      <category>NFTs</category>
+    
+  
+  
+  
+  
+  
+  
+    
+      <media:thumbnail url="https://cdn.decrypt.co/wp-content/uploads/2022/12/horse-racing-gID_1.jpg" height="720" width="1280"/>
+    
+    
+  
+  
+  
+  
+  
+  
+  
+  
+</item>
+    
+      <item>
+  <title>KuCoin Draws Ire for Sky-High Yields on Bitcoin Dual Investment Earn Products</title>
+  <link>https://decrypt.co/116168/kucoin-draws-ire-sky-high-yields-bitcoin-dual-investment-earn</link>
+  <pubDate>Thu, 01 Dec 2022 17:03:50 +0000</pubDate>
+  
+    <description>The KuCoin Earn page has been advertising APRs of 233.15% on Ethereum, 253.28% on Bitcoin, and 100% on Tether deposits.</description>
+  
+  <dc:creator>Stacy Elliott</dc:creator>
+  
+  
+    <guid isPermaLink="false">https://decrypt.co/?p=116168</guid>
+  
+  
+    <enclosure url="https://img.decrypt.co/insecure/rs:fill:1024:512:1:0/plain/https://cdn.decrypt.co/wp-content/uploads/2020/09/shutterstock_1213623928-gID_6.jpg@png" length="1000000" type="image/png" />
+  
+  
+    
+      <category>bitcoin</category>
+    
+      <category>ethereum</category>
+    
+      <category>Business</category>
+    
+  
+  
+  
+  
+  
+  
+    
+      <media:thumbnail url="https://cdn.decrypt.co/wp-content/uploads/2020/09/shutterstock_1213623928-gID_6.jpg" height="900" width="1600"/>
+    
+    
+  
+  
+  
+  
+  
+  
+  
+  
+</item>
+    
+      <item>
+  <title>Fintech Lawyer: Crypto Companies Need to Seek Legal Advice Before Launch</title>
+  <link>https://decrypt.co/videos/live-events/3L4KbTDS/fintech-lawyer-crypto-companies-need-to-seek-legal-advice-before-launch</link>
+  <pubDate>Tue, 29 Nov 2022 21:32:11 +0000</pubDate>
+  
+    <description>Lisa Rubin, a blockchain attorney with Paul Hastings, sat down with Decrypt&#39;s Jason Nelson at 0xpo Crossroads in San Francisco on November 3 to discuss legal misconceptions the industry still holds.</description>
+  
+  <dc:creator></dc:creator>
+  
+  
+    <guid isPermaLink="false">https://decrypt.co/videos/live-events/3L4KbTDS/fintech-lawyer-crypto-companies-need-to-seek-legal-advice-before-launch</guid>
+  
+  
+    <enclosure url="https://cdn.jwplayer.com/v2/media/3L4KbTDS/poster.jpg" length="1000000" type="image/png" />
+  
+  
+    
+      <category>Technology &amp; Computing</category>
+    
+  
+  
+  
+  
+  
+  
+    
+    
+      <media:thumbnail url="https://cdn.jwplayer.com/v2/media/3L4KbTDS/poster.jpg"/>
+    
+  
+  
+  
+  
+  
+  
+  
+  
+</item>
+    
+      <item>
+  <title>Phantom Co-Founder Francesco Agosti at 0xpo Crossroads</title>
+  <link>https://decrypt.co/videos/live-events/ZqEXp4iR/phantom-co-founder-francesco-agosti-at-0xpo-crossroads</link>
+  <pubDate>Tue, 29 Nov 2022 15:57:51 +0000</pubDate>
+  
+    <description>One of the minds behind the popular Solana dapp sits down with Decrypt&#39;s Jason Nelson at 0xpo Crossroads in San Francisco on November 3 to discuss the history of Phantom and what he’s looking forward to in Web3.</description>
+  
+  <dc:creator></dc:creator>
+  
+  
+    <guid isPermaLink="false">https://decrypt.co/videos/live-events/ZqEXp4iR/phantom-co-founder-francesco-agosti-at-0xpo-crossroads</guid>
+  
+  
+    <enclosure url="https://cdn.jwplayer.com/v2/media/ZqEXp4iR/poster.jpg" length="1000000" type="image/png" />
+  
+  
+    
+      <category>Music and Audio</category>
+    
+  
+  
+  
+  
+  
+  
+    
+    
+      <media:thumbnail url="https://cdn.jwplayer.com/v2/media/ZqEXp4iR/poster.jpg"/>
+    
+  
+  
+  
+  
+  
+  
+  
+  
+</item>
+    
+      <item>
+  <title>NFT Storytelling: Jason Michael Primrose, Amanda Terry, Artemysia-X, Kas Vegas at Camp Decrypt 2022</title>
+  <link>https://decrypt.co/videos/live-events/h9IkPVcS/nft-storytelling-jason-michael-primrose-amanda-terry-artemysia-x-kas-vegas-at-camp-decrypt-2022</link>
+  <pubDate>Mon, 21 Nov 2022 15:15:27 +0000</pubDate>
+  
+    <description>&#34;Lost Children of Andromeda&#34; author Jason Michael Primrose, Amanda Terry of Metagood and ACTAI Ventures, Artemysia-X of Rug Radio program LorePlay, and Kas Vegas of NFT INT, Huxley, and Feature.io all discussed how their work utilizes NFTs for storytelling, on a lively panel at Camp Decrypt moderated by What&#39;s Trending podcast host Shira Lazar.</description>
+  
+  <dc:creator></dc:creator>
+  
+  
+    <guid isPermaLink="false">https://decrypt.co/videos/live-events/h9IkPVcS/nft-storytelling-jason-michael-primrose-amanda-terry-artemysia-x-kas-vegas-at-camp-decrypt-2022</guid>
+  
+  
+    <enclosure url="https://cdn.jwplayer.com/v2/media/h9IkPVcS/poster.jpg" length="1000000" type="image/png" />
+  
+  
+    
+      <category></category>
+    
+  
+  
+  
+  
+  
+  
+    
+    
+      <media:thumbnail url="https://cdn.jwplayer.com/v2/media/h9IkPVcS/poster.jpg"/>
+    
+  
+  
+  
+  
+  
+  
+  
+  
+</item>
+    
+      <item>
+  <title>Edward Snowden Talks Tornado Cash Sanctions, Ethereum Merge, DAOs and NFTs at Camp Decrypt 2022</title>
+  <link>https://decrypt.co/videos/live-events/PEhewv2h/edward-snowden-talks-tornado-cash-sanctions-ethereum-merge-daos-and-nfts-at-camp-decrypt-2022</link>
+  <pubDate>Fri, 18 Nov 2022 13:54:51 +0000</pubDate>
+  
+    <description>In an extensive talk with Decrypt&#39;s Dan Roberts at Camp Decrypt in Napa CA in October, Edward Snowden gave his candid views on the Ethereum merge, the sanctioning of Ethereum mixer Tornado Cash by the U.S. government, the privacy shortcomings of Bitcoin and Ethereum, and his view on using DAOs to source tips from whistleblowers.</description>
+  
+  <dc:creator></dc:creator>
+  
+  
+    <guid isPermaLink="false">https://decrypt.co/videos/live-events/PEhewv2h/edward-snowden-talks-tornado-cash-sanctions-ethereum-merge-daos-and-nfts-at-camp-decrypt-2022</guid>
+  
+  
+    <enclosure url="https://cdn.jwplayer.com/v2/media/PEhewv2h/poster.jpg" length="1000000" type="image/png" />
+  
+  
+    
+      <category>News and Politics</category>
+    
+  
+  
+  
+  
+  
+  
+    
+    
+      <media:thumbnail url="https://cdn.jwplayer.com/v2/media/PEhewv2h/poster.jpg"/>
+    
+  
+  
+  
+  
+  
+  
+  
+  
+</item>
+    
+      <item>
+  <title>The New Landscape for NFT Drops: Bad Grrls Creative Club, BeetsDAO, and Cymbal at Camp Decrypt 2022</title>
+  <link>https://decrypt.co/videos/live-events/w7s4MxmT/the-new-landscape-for-nft-drops-bad-grrls-creative-club-beetsdao-and-cymbal-at-camp-decrypt-2022</link>
+  <pubDate>Thu, 17 Nov 2022 20:25:32 +0000</pubDate>
+  
+    <description>Amid a crypto bear market and recent declines in NFT sales volume, what&#39;s the new roadmap for new NFT collections? What&#39;s expected by community members and collectors? Toni Thai Sterrett of Bad Grrls Creative Club, Jordan Garbis of BeetsDAO, and Eric Feng of NFT block explorer discussed with Decrypt&#39;s Kate Irwin at Camp Decrypt Napa.</description>
+  
+  <dc:creator></dc:creator>
+  
+  
+    <guid isPermaLink="false">https://decrypt.co/videos/live-events/w7s4MxmT/the-new-landscape-for-nft-drops-bad-grrls-creative-club-beetsdao-and-cymbal-at-camp-decrypt-2022</guid>
+  
+  
+    <enclosure url="https://cdn.jwplayer.com/v2/media/w7s4MxmT/poster.jpg" length="1000000" type="image/png" />
+  
+  
+    
+      <category>Home &amp; Garden</category>
+    
+  
+  
+  
+  
+  
+  
+    
+    
+      <media:thumbnail url="https://cdn.jwplayer.com/v2/media/w7s4MxmT/poster.jpg"/>
+    
+  
+  
+  
+  
+  
+  
+  
+  
+</item>
+    
+      <item>
+  <title>Musician 3LAU on His Music NFT Platform Royal: &#39;We Take Compliance Really Seriously&#39;</title>
+  <link>https://decrypt.co/videos/interviews/4Ldo2ojR/musician-3lau-on-his-music-nft-platform-royal-we-take-compliance-really-seriously</link>
+  <pubDate>Thu, 17 Nov 2022 17:41:45 +0000</pubDate>
+  
+    <description>Justin Blau aka 3LAU, CEO of Royal, talks to Decrypt&#39;s Kate Irwin about building his company around compliance from the start. &#34;We take compliance so seriously that it might make us move a little bit slower... but we think that&#39;s really how we have to build in the space.&#34; He also said he looks to Coinbase as a model.</description>
+  
+  <dc:creator></dc:creator>
+  
+  
+    <guid isPermaLink="false">https://decrypt.co/videos/interviews/4Ldo2ojR/musician-3lau-on-his-music-nft-platform-royal-we-take-compliance-really-seriously</guid>
+  
+  
+    <enclosure url="https://cdn.jwplayer.com/v2/media/4Ldo2ojR/poster.jpg" length="1000000" type="image/png" />
+  
+  
+    
+      <category>Music and Audio</category>
+    
+  
+  
+  
+  
+  
+  
+    
+    
+      <media:thumbnail url="https://cdn.jwplayer.com/v2/media/4Ldo2ojR/poster.jpg"/>
+    
+  
+  
+  
+  
+  
+  
+  
+  
+</item>
+    
+      <item>
+  <title>FTX Meltdown 101: What the Hell Happened and What Comes Next</title>
+  <link>https://decrypt.co/videos/interviews/XTEZEmpn/ftx-meltdown-101-what-the-hell-happened-and-what-comes-next</link>
+  <pubDate>Tue, 15 Nov 2022 17:56:57 +0000</pubDate>
+  
+    <description>In less than a week, one of the largest and most trusted crypto exchanges went up in flames, along with its crypto celebrity founder and CEO Sam Bankman-Fried. Dan Roberts, Stacy Elliott, and Kate Irwin walk you through exactly how it happened, what it means for you, their own takes on the most interesting subplots, and what we can learn from it all. Plus: We review some comments SBF and CZ made on this podcast that look remarkable in hindsight. Watch Episode 23 of the gm podcast and make sure to subscribe on Apple or Spotify.</description>
+  
+  <dc:creator></dc:creator>
+  
+  
+    <guid isPermaLink="false">https://decrypt.co/videos/interviews/XTEZEmpn/ftx-meltdown-101-what-the-hell-happened-and-what-comes-next</guid>
+  
+  
+    <enclosure url="https://cdn.jwplayer.com/v2/media/XTEZEmpn/poster.jpg" length="1000000" type="image/png" />
+  
+  
+    
+      <category></category>
+    
+  
+  
+  
+  
+  
+  
+    
+    
+      <media:thumbnail url="https://cdn.jwplayer.com/v2/media/XTEZEmpn/poster.jpg"/>
+    
+  
+  
+  
+  
+  
+  
+  
+  
+</item>
+    
+      <item>
+  <title>Justin Sun On the Future of Tron&#39;s USDD Stablecoin</title>
+  <link>https://decrypt.co/videos/interviews/LTznDQc9/justin-sun-on-the-future-of-trons-usdd-stablecoin</link>
+  <pubDate>Tue, 15 Nov 2022 14:24:32 +0000</pubDate>
+  
+    <description>The Tron founder tells Decrypt about the network&#39;s decentralized stablecoin USDD, and how Tron aims to &#34;bridge the Web3 world with the real world.</description>
+  
+  <dc:creator></dc:creator>
+  
+  
+    <guid isPermaLink="false">https://decrypt.co/videos/interviews/LTznDQc9/justin-sun-on-the-future-of-trons-usdd-stablecoin</guid>
+  
+  
+    <enclosure url="https://cdn.jwplayer.com/v2/media/LTznDQc9/poster.jpg" length="1000000" type="image/png" />
+  
+  
+    
+      <category>Video Gaming</category>
+    
+  
+  
+  
+  
+  
+  
+    
+    
+      <media:thumbnail url="https://cdn.jwplayer.com/v2/media/LTznDQc9/poster.jpg"/>
+    
+  
+  
+  
+  
+  
+  
+  
+  
+</item>
+    
+      <item>
+  <title>Decrypt Learn: What Is A Blockchain API?</title>
+  <link>https://decrypt.co/videos/explainers/DlGZb8bJ/decrypt-learn-what-is-a-blockchain-api</link>
+  <pubDate>Tue, 15 Nov 2022 09:22:54 +0000</pubDate>
+  
+    <description>As the unsung heroes of digital connectivity, APIs are the engine under the hood making all the interactivity we’ve come to expect online possible. In video five of the Infura Web3 Dev Series, you’ll learn what blockchain APIs are, how they work, and explore the different types of APIs to improve your dapp’s connectivity. Author: Clarissa Watson, Senior Tech Writer at ConsenSys.</description>
+  
+  <dc:creator></dc:creator>
+  
+  
+    <guid isPermaLink="false">https://decrypt.co/videos/explainers/DlGZb8bJ/decrypt-learn-what-is-a-blockchain-api</guid>
+  
+  
+    <enclosure url="https://cdn.jwplayer.com/v2/media/DlGZb8bJ/poster.jpg" length="1000000" type="image/png" />
+  
+  
+    
+      <category>Science</category>
+    
+  
+  
+  
+  
+  
+  
+    
+    
+      <media:thumbnail url="https://cdn.jwplayer.com/v2/media/DlGZb8bJ/poster.jpg"/>
+    
+  
+  
+  
+  
+  
+  
+  
+  
+</item>
+    
+      <item>
+  <title>When DAOs Meet NFTs: Zora, Chainlink, PubDAO and RugDAO at Camp Decrypt 2022</title>
+  <link>https://decrypt.co/videos/live-events/6hgu1F6L/when-daos-meet-nfts-zora-chainlink-pubdao-and-rugdao-at-camp-decrypt-2022</link>
+  <pubDate>Wed, 09 Nov 2022 13:45:37 +0000</pubDate>
+  
+    <description>Rug Radio founder Farokh hosted a lively panel at Camp Decrypt Napa on how DAOs are utilizing NFTs, with panelists Lauren Halstead from Chainlink, Tyson Battistella from Zora, Reza Jafery from PubDAO, and Loxley from Rug Radio&#39;s associated RugDAO.</description>
+  
+  <dc:creator></dc:creator>
+  
+  
+    <guid isPermaLink="false">https://decrypt.co/videos/live-events/6hgu1F6L/when-daos-meet-nfts-zora-chainlink-pubdao-and-rugdao-at-camp-decrypt-2022</guid>
+  
+  
+    <enclosure url="https://cdn.jwplayer.com/v2/media/6hgu1F6L/poster.jpg" length="1000000" type="image/png" />
+  
+  
+    
+      <category>Science</category>
+    
+  
+  
+  
+  
+  
+  
+    
+    
+      <media:thumbnail url="https://cdn.jwplayer.com/v2/media/6hgu1F6L/poster.jpg"/>
+    
+  
+  
+  
+  
+  
+  
+  
+  
+</item>
+    
+      <item>
+  <title>How Stepn Plans to Keep Running Through the Bear Market</title>
+  <link>https://decrypt.co/videos/live-events/gi2r4mqx/how-stepn-plans-to-keep-running-through-the-bear-market</link>
+  <pubDate>Sat, 05 Nov 2022 17:14:00 +0000</pubDate>
+  
+    <description>Stepn COO Shiti Manghani speaks to Decrypt&#39;s Stephen Graves at Solana Breakpoint in Lisbon to discuss how the move-to-earn app is weathering the bear market, its partnership with sportswear manufacturer Asics, and creator royalties on NFT marketplaces.</description>
+  
+  <dc:creator></dc:creator>
+  
+  
+    <guid isPermaLink="false">https://decrypt.co/videos/live-events/gi2r4mqx/how-stepn-plans-to-keep-running-through-the-bear-market</guid>
+  
+  
+    <enclosure url="https://cdn.jwplayer.com/v2/media/gi2r4mqx/poster.jpg" length="1000000" type="image/png" />
+  
+  
+    
+      <category>News and Politics</category>
+    
+  
+  
+  
+  
+  
+  
+    
+    
+      <media:thumbnail url="https://cdn.jwplayer.com/v2/media/gi2r4mqx/poster.jpg"/>
+    
+  
+  
+  
+  
+  
+  
+  
+  
+</item>
+    
+      <item>
+  <title>Brave CEO Brendan Eich: Web3 Isn&#39;t Taking Privacy Seriously Enough</title>
+  <link>https://decrypt.co/videos/live-events/DkekOS6c/brave-ceo-brendan-eich-web3-isnt-taking-privacy-seriously-enough</link>
+  <pubDate>Fri, 04 Nov 2022 15:21:38 +0000</pubDate>
+  
+    <description>Brave founder and CEO Brendan Eich joined Decrypt&#39;s Stephen Graves at Web Summit 2022 to discuss how the  crypto-powered browser is weathering the bear market—and why Web3 needs to get serious about privacy.</description>
+  
+  <dc:creator></dc:creator>
+  
+  
+    <guid isPermaLink="false">https://decrypt.co/videos/live-events/DkekOS6c/brave-ceo-brendan-eich-web3-isnt-taking-privacy-seriously-enough</guid>
+  
+  
+    <enclosure url="https://cdn.jwplayer.com/v2/media/DkekOS6c/poster.jpg" length="1000000" type="image/png" />
+  
+  
+    
+      <category>Technology &amp; Computing</category>
+    
+  
+  
+  
+  
+  
+  
+    
+    
+      <media:thumbnail url="https://cdn.jwplayer.com/v2/media/DkekOS6c/poster.jpg"/>
+    
+  
+  
+  
+  
+  
+  
+  
+  
+</item>
+    
+      <item>
+  <title>The View from Rug Radio: Farokh Speaks at Camp Decrypt 2022</title>
+  <link>https://decrypt.co/videos/live-events/WmqTKwY3/the-view-from-rug-radio-farokh-speaks-at-camp-decrypt-2022</link>
+  <pubDate>Fri, 04 Nov 2022 14:28:21 +0000</pubDate>
+  
+    <description>Farokh, founder of the DAO-governed NFT media brand Rug Radio, speaks to Mike Kriak of ConsenSys Mesh at Camp Decrypt: Napa. He talked about Rug Radio&#39;s origins, tokenization, sponsorship money during the bear market, and why it&#39;s called Rug Radio.</description>
+  
+  <dc:creator></dc:creator>
+  
+  
+    <guid isPermaLink="false">https://decrypt.co/videos/live-events/WmqTKwY3/the-view-from-rug-radio-farokh-speaks-at-camp-decrypt-2022</guid>
+  
+  
+    <enclosure url="https://cdn.jwplayer.com/v2/media/WmqTKwY3/poster.jpg" length="1000000" type="image/png" />
+  
+  
+    
+      <category>News and Politics</category>
+    
+  
+  
+  
+  
+  
+  
+    
+    
+      <media:thumbnail url="https://cdn.jwplayer.com/v2/media/WmqTKwY3/poster.jpg"/>
+    
+  
+  
+  
+  
+  
+  
+  
+  
+</item>
+    
+      <item>
+  <title>gm: Aave Founder Stani Talks Stablecoins and Next Era of DeFi</title>
+  <link>https://decrypt.co/videos/interviews/8W6PejVC/gm-aave-founder-stani-talks-stablecoins-and-next-era-of-defi</link>
+  <pubDate>Thu, 03 Nov 2022 14:06:46 +0000</pubDate>
+  
+    <description>Aave founder Stani Kulechov joined Dan Roberts and Stacy Elliott to talk about his vision for the next iteration of DeFi, Aave V3 and Lens Protocol, the Web3 company he wishes he had founded, and why now is the right time for the $5B lending protocol to launch its GHO stablecoin. Watch Episode 22 of the gm podcast and make sure to subscribe on Apple or Spotify.</description>
+  
+  <dc:creator></dc:creator>
+  
+  
+    <guid isPermaLink="false">https://decrypt.co/videos/interviews/8W6PejVC/gm-aave-founder-stani-talks-stablecoins-and-next-era-of-defi</guid>
+  
+  
+    <enclosure url="https://cdn.jwplayer.com/v2/media/8W6PejVC/poster.jpg" length="1000000" type="image/png" />
+  
+  
+    
+      <category></category>
+    
+  
+  
+  
+  
+  
+  
+    
+    
+      <media:thumbnail url="https://cdn.jwplayer.com/v2/media/8W6PejVC/poster.jpg"/>
+    
+  
+  
+  
+  
+  
+  
+  
+  
+</item>
+    
+      <item>
+  <title>In the Alien Worlds Metaverse Game, DAOs Are Game Pieces</title>
+  <link>https://decrypt.co/videos/interviews/Fc5Wabrj/in-the-alien-worlds-metaverse-game-daos-are-game-pieces</link>
+  <pubDate>Thu, 20 Oct 2022 23:13:21 +0000</pubDate>
+  
+    <description>Stacy Neale of Dacoco, producer of Alien Worlds, tells Decrypt&#39;s Jason Nelson  at NFT Expoverse 2022 how Alien Worlds has a &#34;DAO ecosystem&#34; inside its game, and says it&#39;s &#34;more than a game, more than DAOs, more than a  metaverse.&#34;</description>
+  
+  <dc:creator></dc:creator>
+  
+  
+    <guid isPermaLink="false">https://decrypt.co/videos/interviews/Fc5Wabrj/in-the-alien-worlds-metaverse-game-daos-are-game-pieces</guid>
+  
+  
+    <enclosure url="https://cdn.jwplayer.com/v2/media/Fc5Wabrj/poster.jpg" length="1000000" type="image/png" />
+  
+  
+    
+      <category>Science</category>
+    
+  
+  
+  
+  
+  
+  
+    
+    
+      <media:thumbnail url="https://cdn.jwplayer.com/v2/media/Fc5Wabrj/poster.jpg"/>
+    
+  
+  
+  
+  
+  
+  
+  
+  
+</item>
+    
+      <item>
+  <title>gm: Meet the Bored Apes</title>
+  <link>https://decrypt.co/videos/interviews/vbNCzIrd/gm-meet-the-bored-apes</link>
+  <pubDate>Wed, 19 Oct 2022 19:50:04 +0000</pubDate>
+  
+    <description>Bored Ape Yacht Club co-founders Wylie Aronow (&#34;Gordon Goner&#34;) and Greg Solano (&#34;Garga&#34;) joined Dan Roberts and Kate Irwin on the gm podcast to talk about BAYC parent company Yuga Labs and its size and influence in the space, Ape haters, NFT haters, the SEC investigating Yuga, Buzzfeed &#34;doxxing&#34; Aronow and Solano earlier this year, their vision for the Otherside metaverse realm, and much more. Watch Episode 21 of the gm podcast and make sure to subscribe on Apple or Spotify.</description>
+  
+  <dc:creator></dc:creator>
+  
+  
+    <guid isPermaLink="false">https://decrypt.co/videos/interviews/vbNCzIrd/gm-meet-the-bored-apes</guid>
+  
+  
+    <enclosure url="https://cdn.jwplayer.com/v2/media/vbNCzIrd/poster.jpg" length="1000000" type="image/png" />
+  
+  
+    
+      <category>Events and Attractions</category>
+    
+  
+  
+  
+  
+  
+  
+    
+    
+      <media:thumbnail url="https://cdn.jwplayer.com/v2/media/vbNCzIrd/poster.jpg"/>
+    
+  
+  
+  
+  
+  
+  
+  
+  
+</item>
+    
+      <item>
+  <title>Cryptex Is Launching a Token That Tracks the Overall NFT Market Cap</title>
+  <link>https://decrypt.co/videos/live-events/jQizHun3/cryptex-is-launching-a-token-that-tracks-the-overall-nft-market-cap</link>
+  <pubDate>Thu, 13 Oct 2022 22:06:17 +0000</pubDate>
+  
+    <description>Cryptex CEO Joe Sticco joined Decrypt&#39;s Dan Roberts and Stacy Elliott at Chainlink SmartCon 2022 to talk about how Cryptex is working with Chainlink and Coinbase Cloud to launch a token that tracks the performance of the entire NFT market and why such an asset might bring new people into NFTs and make the market more accessible.</description>
+  
+  <dc:creator></dc:creator>
+  
+  
+    <guid isPermaLink="false">https://decrypt.co/videos/live-events/jQizHun3/cryptex-is-launching-a-token-that-tracks-the-overall-nft-market-cap</guid>
+  
+  
+    <enclosure url="https://cdn.jwplayer.com/v2/media/jQizHun3/poster.jpg" length="1000000" type="image/png" />
+  
+  
+    
+      <category></category>
+    
+  
+  
+  
+  
+  
+  
+    
+    
+      <media:thumbnail url="https://cdn.jwplayer.com/v2/media/jQizHun3/poster.jpg"/>
+    
+  
+  
+  
+  
+  
+  
+  
+  
+</item>
+    
+      <item>
+  <title>Joe Lubin: How the Ethereum Merge Went, Why ETH Is Down, NFTs, Metaverse, and the &#39;Killer App&#39;</title>
+  <link>https://decrypt.co/videos/interviews/GZfKIhwV/joe-lubin-how-the-ethereum-merge-went-why-eth-is-down-nfts-metaverse-and-the-killer-app</link>
+  <pubDate>Thu, 13 Oct 2022 21:55:06 +0000</pubDate>
+  
+    <description>Ethereum co-founder and ConsenSys CEO Joe Lubin joined Decrypt&#39;s Dan Roberts on October 4 for a deep-dive chat on the Ethereum merge and aftermath, what&#39;s keeping the crypto market down, why he&#39;s super bullish on NFTs and the metaverse, whether it&#39;s really a multichain future, and much more.</description>
+  
+  <dc:creator></dc:creator>
+  
+  
+    <guid isPermaLink="false">https://decrypt.co/videos/interviews/GZfKIhwV/joe-lubin-how-the-ethereum-merge-went-why-eth-is-down-nfts-metaverse-and-the-killer-app</guid>
+  
+  
+    <enclosure url="https://cdn.jwplayer.com/v2/media/GZfKIhwV/poster.jpg" length="1000000" type="image/png" />
+  
+  
+    
+      <category>News and Politics</category>
+    
+  
+  
+  
+  
+  
+  
+    
+    
+      <media:thumbnail url="https://cdn.jwplayer.com/v2/media/GZfKIhwV/poster.jpg"/>
+    
+  
+  
+  
+  
+  
+  
+  
+  
+</item>
+    
+      <item>
+  <title>gm: All Things Solana With Anatoly Yakovenko</title>
+  <link>https://decrypt.co/videos/interviews/MCNS0Ues/gm-all-things-solana-with-anatoly-yakovenko</link>
+  <pubDate>Fri, 07 Oct 2022 14:36:09 +0000</pubDate>
+  
+    <description>Solana has had a year of amazing growth—but also multiple network outages. Co-founder Anatoly Yakovenko joined Dan Roberts and Stacy Elliott on the gm podcast to talk about the outages, what&#39;s next for Solana at its upcoming Breakpoint event, how it competes with Ethereum, how long he expects the bear market to last, what&#39;s happening with NFTs on Solana, and much more. Watch Episode 20 of the gm podcast and make sure to subscribe on Apple or Spotify.</description>
+  
+  <dc:creator></dc:creator>
+  
+  
+    <guid isPermaLink="false">https://decrypt.co/videos/interviews/MCNS0Ues/gm-all-things-solana-with-anatoly-yakovenko</guid>
+  
+  
+    <enclosure url="https://cdn.jwplayer.com/v2/media/MCNS0Ues/poster.jpg" length="1000000" type="image/png" />
+  
+  
+    
+      <category></category>
+    
+  
+  
+  
+  
+  
+  
+    
+    
+      <media:thumbnail url="https://cdn.jwplayer.com/v2/media/MCNS0Ues/poster.jpg"/>
+    
+  
+  
+  
+  
+  
+  
+  
+  
+</item>
+    
+  </channel>
+</rss>
