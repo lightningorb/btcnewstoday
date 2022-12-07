@@ -10,7 +10,6 @@
     <h5>Title</h5>
     <Input type="textarea" bind:value={article.title}/>
 {:else}
-  <Play article={article}/>
   {#if show_dates}
     {(new Date(article.date*1000)).toISOString().slice(0, 10)}
   {/if}

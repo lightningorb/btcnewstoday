@@ -52,7 +52,7 @@
 
 </script>
 
-<Social article={article}/>
+<Social article={article} edit={edit}/>
 <Title article={article} edit={edit} show_dates={show_dates}/>
 <Blurb article={article} edit={edit}/>
 <Tweets article={article} edit={edit}/>

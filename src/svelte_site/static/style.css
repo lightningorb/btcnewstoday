@@ -11,7 +11,7 @@ p {
   font-size: 0.9em;
 }
 
-body div nav {
+body div nav.main-nav {
   padding-left: 10px;
   background-color: #ff9500;
   line-height: 24px;
@@ -19,7 +19,7 @@ body div nav {
 }
 
 
-body div nav a {
+body div nav.main-nav a {
   padding-left: 10px;
   text-transform: uppercase;
   text-align: left;

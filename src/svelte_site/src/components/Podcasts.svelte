@@ -10,19 +10,21 @@
 
 <Styles/>
 
-<h2>Podcasts</h2>
+<div class='section'>
 
-<Table striped>
-  <thead>
-    <tr>
-      <th width='110px'>Date</th>
-      <th>Name</th>
-      <th>Episode</th>
-    </tr>
-  </thead>
-  <tbody>
-    {#each podcasts as podcast}
-      <Podcast podcast={podcast} />
-    {/each}
-  </tbody>
-</Table>
+<h2>Podcasts</h2>
+  <Table striped>
+    <thead>
+      <tr>
+        <th width='110px'>Date</th>
+        <th>Name</th>
+        <th>Episode</th>
+      </tr>
+    </thead>
+    <tbody>
+      {#each podcasts as podcast}
+        <Podcast podcast={podcast} />
+      {/each}
+    </tbody>
+  </Table>
+</div>

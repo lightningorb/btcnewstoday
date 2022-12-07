@@ -6,7 +6,7 @@
 <Container>
   <Row cols={1}>
     <Col>
-      <nav>
+      <nav class='main-nav'>
         <ul class="nav justify-content-center">
         <li class='nav-item'>
           <a class='nav-link' href="/" data-sveltekit-prefetch>Home</a>
