@@ -16,18 +16,9 @@
     <Col><Latest show_dates={false} articles={data.articles} title={'Latest'}/></Col>
     <Col>
       <Row cols={1}>
-        <Col><Events events={data.events}/></Col>
         <Col><Podcasts podcasts={data.podcasts}/></Col>
-        <Col><Jobs jobs={data.jobs}/></Col>
+        <Col><Latest articles={data.longforms} title='Longform'/></Col>
       </Row>
     </Col>
-  </Row>
-  <Row cols={{ lg: 2, md: 2, sm: 1 }}>
-    <Col><Latest articles={data.longforms} title='Longform'/></Col>
-<!--     <Col>
-      <Row cols={1}>
-        <Col><Jobs jobs={data.jobs}/></Col>
-      </Row>
-    </Col> -->
   </Row>
 </Container>
