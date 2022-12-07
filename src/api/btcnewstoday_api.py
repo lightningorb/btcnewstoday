@@ -13,6 +13,7 @@ from datetime import datetime, timedelta
 from typing import Union
 from secrets import *
 from ingest_articles import main as ingest_articles_func
+from ingest_podcasts import main as ingest_podcasts_func
 
 from fastapi import Depends, FastAPI, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
@@ -302,13 +303,12 @@ def create_podcast(podcast: Podcast):
         session.refresh(podcast)
         return podcast
 
+
 # , current_user: User = Depends(get_current_active_user)
 @app.post("/api/update_podcast/", response_model=Optional[Podcast])
 def update_podcast(podcast: PodcastUpdate):
     with Session(engine) as session:
-        db_podcast = session.exec(
-            select(Podcast).where(Podcast.id == podcast.id)
-        ).one()
+        db_podcast = session.exec(select(Podcast).where(Podcast.id == podcast.id)).one()
         if not db_podcast:
             print("Podcast ID not found")
             return None
@@ -438,3 +438,8 @@ def create_event(Event: Event):
 @app.post("/api/ingest/articles/")
 def ingest_articles():
     ingest_articles_func()
+
+
+@app.post("/api/ingest/podcasts/")
+def ingest_podcasts():
+    ingest_podcasts_func()
