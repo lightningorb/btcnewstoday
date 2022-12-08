@@ -115,3 +115,14 @@ i.bi-pause {
   top: -5px;
   left: -6px;
 }
+
+.center {
+  margin: auto;
+  width: 50%;
+  padding: 10px;
+}
+
+.audio-player {
+  margin: auto;
+  width: 100%;
+}

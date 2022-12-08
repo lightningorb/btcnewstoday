@@ -5,5 +5,6 @@ import { writable } from 'svelte-local-storage-store'
 export const preferences = writable('preferences', {
   theme: 'dark',
   pane: '50%',
+  podcast: '',
   access_token: ''
 })
