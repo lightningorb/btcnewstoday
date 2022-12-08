@@ -26,7 +26,9 @@
     axios(request)
     .then((response) => {
         console.log(response);
-        preferences.set({access_token: response.data.access_token});
+        let p = get(preferences);
+        p.access_token = response.data.access_token
+        preferences.set(p);
     })
     .catch((error) => {
         console.log(error);
