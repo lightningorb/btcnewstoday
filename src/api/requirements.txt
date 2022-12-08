@@ -2,6 +2,7 @@ alembic
 python-simplexml
 arrow
 fastapi
+slowapi
 uvicorn[standard]
 sqlmodel
 passlib[bcrypt]

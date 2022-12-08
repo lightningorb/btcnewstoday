@@ -6,7 +6,7 @@ from typing import Optional, List
 import arrow
 from functools import lru_cache
 from models import *
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 from sqlmodel import Field, Session, SQLModel, create_engine, select
 from fastapi.middleware.cors import CORSMiddleware
 from datetime import datetime, timedelta
@@ -19,6 +19,13 @@ from fastapi import Depends, FastAPI, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from jose import JWTError, jwt
 from passlib.context import CryptContext
+
+from slowapi.errors import RateLimitExceeded
+from slowapi import Limiter, _rate_limit_exceeded_handler
+from slowapi.util import get_remote_address
+
+limiter = Limiter(key_func=get_remote_address)
+
 
 # to get a string like this run:
 # openssl rand -hex 32
@@ -44,6 +51,9 @@ def create_db_and_tables():
 
 
 app = FastAPI()
+app.state.limiter = limiter
+app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
+
 
 origins = ["http://127.0.0.1:5173", "https://btcnews.today", "*"]
 
@@ -117,7 +127,10 @@ async def get_current_active_user(current_user: User = Depends(get_current_user)
 
 
 @app.post("/token/", response_model=Token)
-async def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends()):
+@limiter.limit("5/minute")
+async def login_for_access_token(
+    request: Request, form_data: OAuth2PasswordRequestForm = Depends()
+):
     user = authenticate_user(fake_users_db, form_data.username, form_data.password)
     if not user:
         raise HTTPException(
@@ -150,9 +163,10 @@ def on_startup():
     # add_fixtures()
 
 
-# , current_user: User = Depends(get_current_active_user)
 @app.post("/api/articles/", response_model=Optional[Article])
-def create_article(article: Article):
+def create_article(
+    article: Article, current_user: User = Depends(get_current_active_user)
+):
     with Session(engine) as session:
         articles = session.exec(
             select(Article).where(Article.link == article.link)
@@ -190,9 +204,10 @@ def create_article(article: Article):
         return article
 
 
-# , current_user: User = Depends(get_current_active_user)
 @app.post("/api/delete_article/{article_id}/")
-def delete_article(article_id: int):
+def delete_article(
+    article_id: int, current_user: User = Depends(get_current_active_user)
+):
     with Session(engine) as session:
         db_article = session.exec(select(Article).where(Article.id == article_id)).one()
         if not db_article:
@@ -206,9 +221,10 @@ def delete_article(article_id: int):
         print("deleted")
 
 
-# , current_user: User = Depends(get_current_active_user)
 @app.post("/api/update_article/{article_id}/", response_model=Optional[Article])
-def update_article(article: Article):
+def update_article(
+    article: Article, current_user: User = Depends(get_current_active_user)
+):
     with Session(engine) as session:
         db_article = session.exec(
             select(Article).where(Article.link == article.link)
@@ -230,9 +246,8 @@ def update_article(article: Article):
         return db_article
 
 
-# , current_user: User = Depends(get_current_active_user)
 @app.post("/api/tweets/", response_model=Tweet)
-def add_tweet(tweet: Tweet):
+def add_tweet(tweet: Tweet, current_user: User = Depends(get_current_active_user)):
     with Session(engine) as session:
         print(f"adding tweet: {tweet.id}")
         session.add(tweet)
@@ -288,9 +303,10 @@ def get_past_articles():
         return [x for x in dict(dd).items()]
 
 
-# , current_user: User = Depends(get_current_active_user)
 @app.post("/api/podcasts/", response_model=Optional[Podcast])
-def create_podcast(podcast: Podcast):
+def create_podcast(
+    podcast: Podcast, current_user: User = Depends(get_current_active_user)
+):
     with Session(engine) as session:
         db_podcast = session.exec(
             select(Podcast).where(Podcast.link == podcast.link)
@@ -304,9 +320,10 @@ def create_podcast(podcast: Podcast):
         return podcast
 
 
-# , current_user: User = Depends(get_current_active_user)
 @app.post("/api/update_podcast/", response_model=Optional[Podcast])
-def update_podcast(podcast: PodcastUpdate):
+def update_podcast(
+    podcast: PodcastUpdate, current_user: User = Depends(get_current_active_user)
+):
     with Session(engine) as session:
         db_podcast = session.exec(select(Podcast).where(Podcast.id == podcast.id)).one()
         if not db_podcast:
@@ -321,9 +338,8 @@ def update_podcast(podcast: PodcastUpdate):
         return db_podcast
 
 
-# , current_user: User = Depends(get_current_active_user)
 @app.post("/api/jobs/", response_model=Job)
-def create_job(Job: Job):
+def create_job(Job: Job, current_user: User = Depends(get_current_active_user)):
     with Session(engine) as session:
         session.add(Job)
         session.commit()
@@ -331,9 +347,8 @@ def create_job(Job: Job):
         return Job
 
 
-# , current_user: User = Depends(get_current_active_user)
 @app.post("/api/events/", response_model=Event)
-def create_event(Event: Event):
+def create_event(Event: Event, current_user: User = Depends(get_current_active_user)):
     with Session(engine) as session:
         session.add(Event)
         session.commit()
@@ -341,9 +356,8 @@ def create_event(Event: Event):
         return Event
 
 
-# , current_user: User = Depends(get_current_active_user)
 @app.post("/api/delete_event/{event_id}/")
-def delete_event(event_id: int):
+def delete_event(event_id: int, current_user: User = Depends(get_current_active_user)):
     with Session(engine) as session:
         db_event = session.exec(select(Event).where(Event.id == event_id)).one()
         if not db_event:
@@ -354,9 +368,10 @@ def delete_event(event_id: int):
         print("deleted")
 
 
-# , current_user: User = Depends(get_current_active_user)
 @app.post("/api/delete_podcast/{podcast_id}/")
-def delete_podcast(podcast_id: int):
+def delete_podcast(
+    podcast_id: int, current_user: User = Depends(get_current_active_user)
+):
     with Session(engine) as session:
         db_podcast = session.exec(select(Podcast).where(Podcast.id == podcast_id)).one()
         if not db_podcast:
@@ -367,9 +382,8 @@ def delete_podcast(podcast_id: int):
         print("deleted")
 
 
-# , current_user: User = Depends(get_current_active_user)
 @app.post("/api/delete_job/{job_id}/")
-def delete_podcast(job_id: int):
+def delete_podcast(job_id: int, current_user: User = Depends(get_current_active_user)):
     with Session(engine) as session:
         db_job = session.exec(select(Job).where(Job.id == job_id)).one()
         if not db_job:
@@ -425,9 +439,8 @@ def get_tweet_text(tweet_id: int):
     return tweet[0].text
 
 
-# , current_user: User = Depends(get_current_active_user)
 @app.post("/api/events/", response_model=Event)
-def create_event(Event: Event):
+def create_event(Event: Event, current_user: User = Depends(get_current_active_user)):
     with Session(engine) as session:
         session.add(Event)
         session.commit()
@@ -436,10 +449,12 @@ def create_event(Event: Event):
 
 
 @app.post("/api/ingest/articles/")
-def ingest_articles():
+@limiter.limit("1/hour")
+def ingest_articles(request: Request):
     ingest_articles_func()
 
 
 @app.post("/api/ingest/podcasts/")
-def ingest_podcasts():
+@limiter.limit("1/hour")
+def ingest_podcasts(request: Request):
     ingest_podcasts_func()

@@ -12,12 +12,13 @@ sync:
 	rsync -azv . btcnewstoday:~/dev/btcnewstoday/ --delete --exclude src/svelte_site/node_modules/ --exclude src/svelte_site/build/ --exclude src/api/venv/ --exclude src/api/database.db
 
 front:
+# 	nvm use 16.14
 	cd src/svelte_site && npm run dev
 
 install_front:
 	rm -rf src/svelte_site/node_modules
 	cd src/svelte_site && npm install
-# 	nvm use 12.18.3
+# 	nvm use 16.14
 #	src/svelte_site/node_modules/@popperjs/core/package.json
 
 back:
