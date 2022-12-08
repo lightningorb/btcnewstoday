@@ -6,6 +6,8 @@
   import Footer from '../components/Footer.svelte';
   import { Col, Container, Row } from 'sveltestrap';
   export const prerender = true;
+  import '$lib/interceptors.js';
+
 </script>
 
 <Banner/>
