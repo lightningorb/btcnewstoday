@@ -11,11 +11,11 @@
 
 <Container>
   <Row cols={{ lg: 2, md: 2, sm: 1 }}>
-    <Col><Latest slug={null} show_dates={false} articles={data.articles} title={'Latest'}/></Col>
+    <Col><Latest slug={data.latest_snapshot} show_dates={false} articles={data.articles} title={'Latest'}/></Col>
     <Col>
       <Row cols={1}>
         <Col><Podcasts podcasts={data.podcasts}/></Col>
-        <Col><Latest slug={null} articles={data.longforms} title='Longform'/></Col>
+        <Col><Latest slug={data.latest_snapshot} articles={data.longforms} title='Longform'/></Col>
       </Row>
     </Col>
   </Row>

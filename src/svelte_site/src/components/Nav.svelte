@@ -1,6 +1,8 @@
 <script lang="ts">
+  import { page } from '$app/stores';
   import { preferences } from '$lib/store.js';
   import { Col, Container, Row } from 'sveltestrap';
+  import {base} from '$app/paths';
 </script>
 
 <Container>
@@ -9,32 +11,32 @@
       <nav class='main-nav'>
         <ul class="nav justify-content-center">
         <li class='nav-item'>
-          <a class='nav-link' href="/" data-sveltekit-prefetch>Home</a>
+          <a class='nav-link' href={`${base}/`} data-sveltekit-prefetch>Home</a>
         </li>
         <li class='nav-item'>
-          <a class='nav-link' href="/latest" data-sveltekit-prefetch>Latest</a>
+          <a class='nav-link' href={`${base}/latest`} data-sveltekit-prefetch>Latest</a>
         </li>
         <li class='nav-item'>
-          <a class='nav-link' href="/longform" data-sveltekit-prefetch>Longform</a>
+          <a class='nav-link' href={`${base}/longform`} data-sveltekit-prefetch>Longform</a>
         </li>
         <li class='nav-item'>
-          <a class='nav-link' href="/past" data-sveltekit-prefetch>Past</a>
+          <a class='nav-link' href={`${base}/past`} data-sveltekit-prefetch>Past</a>
         </li>
         <li class='nav-item'>
-          <a class='nav-link' href="/about" data-sveltekit-prefetch>About</a>
+          <a class='nav-link' href={`${base}/about`} data-sveltekit-prefetch>About</a>
         </li>
         <li class='nav-item'>
-          <a class='nav-link' href="/events" data-sveltekit-prefetch>Events</a>
+          <a class='nav-link' href={`${base}/events`} data-sveltekit-prefetch>Events</a>
         </li>
         <li class='nav-item'>
-          <a class='nav-link' href="/podcasts" data-sveltekit-prefetch>Podcasts</a>
+          <a class='nav-link' href={`${base}/podcasts`} data-sveltekit-prefetch>Podcasts</a>
         </li>
         <li class='nav-item'>
-          <a class='nav-link' href="/jobs" data-sveltekit-prefetch>Jobs</a>
+          <a class='nav-link' href={`${base}/jobs`} data-sveltekit-prefetch>Jobs</a>
         </li>
         {#if $preferences.access_token != ''}
           <li class='nav-item'>
-            <a href="/dashboard" data-sveltekit-prefetch>Dashboard</a>
+            <a href={`${base}/dashboard`} data-sveltekit-prefetch>Dashboard</a>
           </li>
         {/if}
         </ul>

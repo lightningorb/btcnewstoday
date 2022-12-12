@@ -10,6 +10,7 @@ fix_annotations()
 from src.build_system import provision
 from src.build_system import configure
 from src.build_system import build
+from src.build_system import snapshot
 
 
 @task(
@@ -53,4 +54,4 @@ def deploy(
         print(f"Site deployed to: http://{ip}")
 
 
-namespace = Collection(deploy, provision, configure, build)
+namespace = Collection(deploy, provision, configure, build, snapshot)

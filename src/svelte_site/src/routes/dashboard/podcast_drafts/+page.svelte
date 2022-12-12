@@ -1,5 +1,5 @@
 <script>
-  import PodcastDrafts from '$components/PodcastDrafts.svelte';
+  import PodcastDrafts from '../../../components/PodcastDrafts.svelte';
 
   /** @type {import('./$types').PageData} */
   export let data;
