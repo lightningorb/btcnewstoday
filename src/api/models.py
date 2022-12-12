@@ -2,7 +2,20 @@ from typing import Optional, List, Union
 from pydantic import BaseModel
 import arrow
 
-from sqlmodel import Field, Session, SQLModel, create_engine, select, Relationship
+from sqlalchemy import TIMESTAMP, func, cast
+from sqlalchemy.orm import column_property, declared_attr
+from sqlmodel import DateTime, Field, Column
+
+from sqlmodel import (
+    Field,
+    Session,
+    SQLModel,
+    create_engine,
+    select,
+    Relationship,
+    JSON,
+    Column,
+)
 
 
 class Token(BaseModel):
@@ -40,11 +53,17 @@ class ArticleBase(SQLModel):
     is_draft: Optional[bool] = Field(index=True, default=False)
     is_longform: bool = Field(index=True, default=False)
     date: int = Field(index=True, default=arrow.utcnow().timestamp(), nullable=True)
+    # date_id: str = Field()
 
 
 class Article(ArticleBase, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
     tweets: List["Tweet"] = Relationship(back_populates="article")
+
+    # @declared_attr
+    # def date_id(self):
+    #     # return column_property(select(self.date))
+    #     return column_property(func.extract("epoch", cast(self.date, TIMESTAMP)))
 
 
 class TweetBase(SQLModel):
@@ -64,10 +83,18 @@ class TweetRead(TweetBase):
 
 class ArticleRead(ArticleBase):
     id: int
+    # prop_date_id: str = Field(alias="date_id")
 
 
 class ArticleReadWithTweets(ArticleRead):
     tweets: List[TweetRead] = []
+
+
+# func.extract(
+#     'epoch',
+#     cast(self.end, TIMESTAMP) -
+#     cast(self.start, TIMESTAMP)
+# )
 
 
 class PodcastUpdate(SQLModel):
@@ -75,7 +102,7 @@ class PodcastUpdate(SQLModel):
     outlet: str = Field(index=True)
     episode_title: str = Field(index=True, default="", nullable=True)
     is_draft: Optional[bool] = Field(index=True, default=False)
-    
+
 
 class Podcast(SQLModel, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
@@ -100,3 +127,14 @@ class Job(SQLModel, table=True):
     company: str = Field(index=True)
     role: str = Field(index=True)
     date: int = Field(index=True)
+
+
+class Snapshot(SQLModel, table=True):
+    id: Optional[int] = Field(default=None, primary_key=True)
+    type: str = Field(index=True)
+    date: int = Field(index=True)
+    ids: List[str] = Field(sa_column=Column(JSON))
+
+    # Needed for Column(JSON)
+    class Config:
+        arbitrary_types_allowed = True

@@ -13,6 +13,7 @@
   import { Input, Icon } from 'sveltestrap';
   import { Col, Row } from 'sveltestrap';
   import {API_FQDN} from '$lib/constants.js';
+  export let slug;
   export let article;
   export let show_dates = false;
   $: edit = false;
@@ -52,7 +53,9 @@
 
 </script>
 
-<Social article={article} edit={edit}/>
+<div id={article.id}></div>
+
+<Social article={article} edit={edit} slug={slug}/>
 <Title article={article} edit={edit} show_dates={show_dates}/>
 <Blurb article={article} edit={edit}/>
 <Tweets article={article} edit={edit}/>
