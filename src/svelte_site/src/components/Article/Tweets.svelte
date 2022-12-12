@@ -1,7 +1,6 @@
 <script>
   import { Popover } from 'sveltestrap';
   export let article;
-  export let edit;
   article.tweets.sort((a, b) => a.id - b.id);
 </script>
 
@@ -20,7 +19,7 @@
   >
     {tweet.text}
   </Popover>
-  <a class='tweet' id={'id-'+tweet.id} target='_blank' href={`https://twitter.com/${tweet.username}/status/${tweet.id}`}>@{tweet.username}</a> <span style='width: 3px;'></span>
+  <a rel="noreferrer" class='tweet' id={'id-'+tweet.id} target='_blank' href={`https://twitter.com/${tweet.username}/status/${tweet.id}`}>@{tweet.username}</a> <span style='width: 3px;'></span>
 {/each}
 
 </div>

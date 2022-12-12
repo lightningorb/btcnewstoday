@@ -46,7 +46,7 @@
       <td><Input type="text" label="Name" bind:value={podcast.outlet}/></td>
       <td><Input type="text" label="Episode" bind:value={podcast.episode_title}/></td>
     {:else}
-      <td><Play podcast={podcast}/><a target='_blank' href='{podcast.link}'>{podcast.outlet}</a></td>
+      <td><Play podcast={podcast}/><a rel='noreferrer' target='_blank' href='{podcast.link}'>{podcast.outlet}</a></td>
       <td>
         {podcast.episode_title}
         {#if $preferences.access_token != ''}

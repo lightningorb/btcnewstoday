@@ -58,7 +58,7 @@
 <Social article={article} edit={edit} slug={slug}/>
 <Title article={article} edit={edit} show_dates={show_dates}/>
 <Blurb article={article} edit={edit}/>
-<Tweets article={article} edit={edit}/>
+<Tweets article={article}/>
 
 {#if edit}
   <FormGroup>
