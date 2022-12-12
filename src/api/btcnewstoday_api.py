@@ -256,33 +256,52 @@ def add_tweet(tweet: Tweet, current_user: User = Depends(get_current_active_user
         return tweet
 
 
+@app.get("/api/latest_snapshot/", response_model=Optional[str])
+def get_latest_snapshot():
+    session = Session(engine)
+    midnight = arrow.utcnow().replace(hour=0, minute=0, second=0)
+    date = midnight.timestamp()
+    next_day = arrow.utcnow().shift(days=1).timestamp()
+    snaps = session.exec(
+        select(Snapshot).where(Snapshot.date > date, Snapshot.date < next_day)
+    ).all()
+    if len(snaps):
+        return f"{midnight.format('YYYY-MM-DD')}:{len(snaps) // 3 - 1}"
+
+
 @app.get("/api/articles/", response_model=List[ArticleReadWithTweets])
 def get_articles(
     longform: bool = False, is_draft: bool = False, limit: int = 25, snapshot: str = ""
 ):
     session = Session(engine)
+    articles = []
     if snapshot:
-        date, aid = snapshot.split(":")
+        date, sn = snapshot.split(":")
+        sn = int(sn)
         date = arrow.get(date).replace(tzinfo="utc").timestamp()
         next_day = arrow.get(date).replace(tzinfo="utc").shift(days=1).timestamp()
+        sn_type = ("Article", "Longform")[int(longform)]
         snaps = session.exec(
-            select(Snapshot).where(Snapshot.date > date, Snapshot.date < next_day)
+            select(Snapshot).where(
+                Snapshot.date > date, Snapshot.date < next_day, Snapshot.type == sn_type
+            )
         ).all()
         if snaps:
-            snap = next(iter(x for x in snaps if aid in x.ids), None)
-            return session.exec(
+            snap = snaps[sn]
+            articles = session.exec(
                 select(Article)
                 .where(Article.id.in_(snap.ids))
                 .order_by(Article.date.desc())
             ).all()
     else:
-        return session.exec(
+        articles = session.exec(
             select(Article)
             .order_by(Article.date.desc())
             .limit(limit)
             .where(Article.is_longform == longform)
             .where(Article.is_draft == is_draft)
         ).all()
+    return articles
 
 
 @app.get("/api/past_articles/")
@@ -403,7 +422,8 @@ def delete_podcast(job_id: int, current_user: User = Depends(get_current_active_
 def get_podcasts(is_draft: bool = False, limit: int = 25, snapshot: str = ""):
     session = Session(engine)
     if snapshot:
-        date, aid = snapshot.split(":")
+        date, sn = snapshot.split(":")
+        sn = int(sn)
         date = arrow.get(date).replace(tzinfo="utc").timestamp()
         next_day = arrow.get(date).replace(tzinfo="utc").shift(days=1).timestamp()
         snaps = session.exec(
@@ -414,7 +434,7 @@ def get_podcasts(is_draft: bool = False, limit: int = 25, snapshot: str = ""):
             )
         ).all()
         if snaps:
-            snap = snaps[0]
+            snap = snaps[sn]
             return session.exec(
                 select(Podcast)
                 .where(Podcast.id.in_(snap.ids))

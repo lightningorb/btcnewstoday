@@ -2,6 +2,7 @@
   /** @type {import('./$types').LayoutData} */
   export let data;
   import { preferences } from '$lib/store.js';
+  import {base} from '$app/paths';
 </script>
 
 <slot></slot>
@@ -10,12 +11,12 @@
 
 <div class="submenu">
   {#if $preferences.access_token == ''}
-    <a href="/dashboard/login">Log in</a>
+    <a href={`${base}/dashboard/login`}>Log in</a>
     <br>
   {/if}
   {#each data.sections as section}
     {#if ((section.auth == true && $preferences.access_token))}
-    <a href="/dashboard/{section.slug}">{section.title}</a>
+    <a href={`${base}/dashboard/${section.slug}`}>{section.title}</a>
     <br>
     {/if}
   {/each}
