@@ -22,7 +22,7 @@
   {#if edit}
       <Input type="textarea" bind:value={article.outlet}/>
   {:else}
-    <Col xs="6"><cite><a target='_blank'>{article.outlet}</a></cite></Col>
+    <Col xs="6"><cite><a href='javascript;' target='_blank'>{article.outlet}</a></cite></Col>
   {/if}
 
   {#if $preferences.access_token != ''}

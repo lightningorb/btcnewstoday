@@ -21,7 +21,7 @@
 
 <tr>
   <td>{(new Date(event.date*1000)).toISOString().slice(0, 10)}</td>
-  <td><a target='_blank' href='{event.link}'>{event.name}</a></td>
+  <td><a rel='noreferrer' target='_blank' href='{event.link}'>{event.name}</a></td>
   <td>{event.place}</td>
   {#if edit}
     <button on:click={() => _delete()}><Icon name="trash"/></button>

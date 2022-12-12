@@ -9,7 +9,7 @@
       <nav>
         <ul class="nav justify-content-center">
         <li class='nav-item'>
-          <a class='nav-link' href="https://twitter.com/btcnews_today" target='_blank' data-sveltekit-prefetch><Icon name="twitter"/></a>
+          <a rel='noreferrer' class='nav-link' href="https://twitter.com/btcnews_today" target='_blank' data-sveltekit-prefetch><Icon name="twitter"/></a>
         </li>
         </ul>
       </nav>
