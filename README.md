@@ -17,6 +17,12 @@ cd btcnewstoday
 repo_root=`pwd`
 ```
 
+## Provisioning a new host
+
+```
+src/admin/deploy_fresh.sh
+```
+
 ## Installing node, npm and python
 
 Currently, recommended versions are:

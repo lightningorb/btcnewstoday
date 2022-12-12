@@ -11,7 +11,7 @@ from sqlmodel import Field, Session, SQLModel, create_engine, select
 from fastapi.middleware.cors import CORSMiddleware
 from datetime import datetime, timedelta
 from typing import Union
-from secrets import *
+from bn_secrets import *
 from ingest_articles import main as ingest_articles_func
 from ingest_podcasts import main as ingest_podcasts_func
 
@@ -257,27 +257,32 @@ def add_tweet(tweet: Tweet, current_user: User = Depends(get_current_active_user
 
 
 @app.get("/api/articles/", response_model=List[ArticleReadWithTweets])
-def get_articles(longform: bool = False, is_draft: bool = False, limit: int = 25):
+def get_articles(
+    longform: bool = False, is_draft: bool = False, limit: int = 25, snapshot: str = ""
+):
     session = Session(engine)
-    articles = session.exec(
-        select(Article)
-        .order_by(Article.date.desc())
-        .limit(limit)
-        .where(Article.is_longform == longform)
-        .where(Article.is_draft == is_draft)
-    ).all()
-    return articles
-    res = []
-    for a in articles:
-        tweets = [json.loads(t.json()) for t in a.tweets]
-        ids = [t.id for t in a.tweets]
-        for t, i in zip(tweets, ids):
-            t["id"] = i
-        a = json.loads(a.json())
-        a["tweets"] = tweets
-        res.append(a)
-    print(res)
-    return res
+    if snapshot:
+        date, aid = snapshot.split(":")
+        date = arrow.get(date).replace(tzinfo="utc").timestamp()
+        next_day = arrow.get(date).replace(tzinfo="utc").shift(days=1).timestamp()
+        snaps = session.exec(
+            select(Snapshot).where(Snapshot.date > date, Snapshot.date < next_day)
+        ).all()
+        if snaps:
+            snap = next(iter(x for x in snaps if aid in x.ids), None)
+            return session.exec(
+                select(Article)
+                .where(Article.id.in_(snap.ids))
+                .order_by(Article.date.desc())
+            ).all()
+    else:
+        return session.exec(
+            select(Article)
+            .order_by(Article.date.desc())
+            .limit(limit)
+            .where(Article.is_longform == longform)
+            .where(Article.is_draft == is_draft)
+        ).all()
 
 
 @app.get("/api/past_articles/")
@@ -395,8 +400,27 @@ def delete_podcast(job_id: int, current_user: User = Depends(get_current_active_
 
 
 @app.get("/api/podcasts/", response_model=List[Podcast])
-def get_podcasts(is_draft: bool = False, limit: int = 25):
-    with Session(engine) as session:
+def get_podcasts(is_draft: bool = False, limit: int = 25, snapshot: str = ""):
+    session = Session(engine)
+    if snapshot:
+        date, aid = snapshot.split(":")
+        date = arrow.get(date).replace(tzinfo="utc").timestamp()
+        next_day = arrow.get(date).replace(tzinfo="utc").shift(days=1).timestamp()
+        snaps = session.exec(
+            select(Snapshot).where(
+                Snapshot.type == "Podcast",
+                Snapshot.date > date,
+                Snapshot.date < next_day,
+            )
+        ).all()
+        if snaps:
+            snap = snaps[0]
+            return session.exec(
+                select(Podcast)
+                .where(Podcast.id.in_(snap.ids))
+                .order_by(Podcast.date.desc())
+            ).all()
+    else:
         podcasts = session.exec(
             select(Podcast)
             .order_by(Podcast.date.desc())
@@ -458,3 +482,24 @@ def ingest_articles(request: Request):
 @limiter.limit("1/hour")
 def ingest_podcasts(request: Request):
     ingest_podcasts_func()
+
+
+@app.post("/api/snapshot/")
+@limiter.limit("4/hour")
+def create_snapshot(request: Request):
+    ts = int(arrow.utcnow().timestamp())
+    to_snap = [
+        [
+            "Article",
+            [x.id for x in get_articles(longform=False, is_draft=False, limit=25)],
+        ],
+        [
+            "Longform",
+            [x.id for x in get_articles(longform=True, is_draft=False, limit=25)],
+        ],
+        ["Podcast", [x.id for x in get_podcasts(is_draft=False, limit=25)]],
+    ]
+    with Session(engine) as session:
+        for snap_type, ids in to_snap:
+            session.add(Snapshot(type=snap_type, date=ts, ids=ids))
+            session.commit()

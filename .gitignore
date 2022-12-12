@@ -1,5 +1,7 @@
+.envrc
+*.pem
 .DS_Store
-secrets.py
+bn_secrets.py
 tmp.py
 *.db
 __pycache__

@@ -1,8 +1,6 @@
 <script>
   import Latest from '../components/Latest.svelte';
-  import Events from '../components/Events.svelte';
   import Podcasts from '../components/Podcasts.svelte';
-  import Jobs from '../components/Jobs.svelte';
   import { Styles } from 'sveltestrap';
   import { Col, Container, Row } from 'sveltestrap';
   /** @type {import('./$types').PageData} */
