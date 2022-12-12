@@ -1,5 +1,5 @@
 <script>
-  import Past from '../../components/Past.svelte';
+  import Past from '$components/Past.svelte';
   /** @type {import('./$types').PageData} */
   export let data;
   import { onMount } from 'svelte';

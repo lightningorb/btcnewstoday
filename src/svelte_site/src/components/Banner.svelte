@@ -18,7 +18,7 @@
   </Row>
   <Row cols={1}>
     <Col>
-      <h1><a href={API_FQDN}>BTCNews.Today</a></h1>
+      <h1><a href='https://btcnews.today'>BTCNews.Today</a></h1>
       <p>Come for the news, stay for the low time preference.</p>
     </Col>
   </Row>

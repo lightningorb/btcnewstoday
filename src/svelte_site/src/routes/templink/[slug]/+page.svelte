@@ -8,8 +8,8 @@
 
 
 <script>
-  import Latest from '../../../components/Latest.svelte';
-  import Podcasts from '../../../components/Podcasts.svelte';
+  import Latest from '$components/Latest.svelte';
+  import Podcasts from '$components/Podcasts.svelte';
   import { Styles } from 'sveltestrap';
   import { Col, Container, Row } from 'sveltestrap';
   /** @type {import('./$types').PageData} */
