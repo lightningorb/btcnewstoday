@@ -9,7 +9,6 @@ export function load() {
       { slug: 'add_event', title: 'Add Event', auth: true },
       { slug: 'add_job', title: 'Add Job', auth: true },
       { slug: 'article_drafts', title: 'View Article Drafts', auth: true },
-      { slug: 'job_drafts', title: 'View Job Drafts', auth: true },
       { slug: 'podcast_drafts', title: 'View Podcast Drafts', auth: true }
     ]
   };

@@ -1,5 +1,5 @@
 <script>
-  import Jobs from '../../components/Jobs.svelte';
+  import Jobs from '$components/Jobs.svelte';
   /** @type {import('./$types').PageData} */
   export let data;
   import { onMount } from 'svelte';

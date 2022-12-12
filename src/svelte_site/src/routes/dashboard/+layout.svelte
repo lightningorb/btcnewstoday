@@ -19,7 +19,6 @@
     <br>
     {/if}
   {/each}
-  <a href='https://github.com/lightningorb/btcnewstoday/issues' target="_blank">Github Issues</a>
   <br>
 </div>
 
