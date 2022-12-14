@@ -2,7 +2,7 @@
 
 upstream front {
         server 127.0.0.1:3000;
-        server btcnewstoday.s3-website.us-east-2.amazonaws.com backup;
+        # server btcnewstoday.s3-website.us-east-2.amazonaws.com backup;
 }
 
 server {

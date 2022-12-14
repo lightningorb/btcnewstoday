@@ -14,6 +14,7 @@ from typing import Union
 from bn_secrets import *
 from ingest_articles import main as ingest_articles_func
 from ingest_podcasts import main as ingest_podcasts_func
+from collections import namedtuple
 
 from fastapi import Depends, FastAPI, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
@@ -505,8 +506,30 @@ def ingest_podcasts(request: Request):
 
 
 @app.post("/api/snapshot/")
-@limiter.limit("4/hour")
+# @limiter.limit("1/minute")
 def create_snapshot(request: Request):
+    """
+    ------------------------------------------------------------------------------------------------
+    H 0   1   2   3   4   5   6   7   8   9   10  11  12  13  14  15  16  17  18  19  20  21  22  23
+    ------------------------------------------------------------------------------------------------
+      D:0             D:1             D:2             D:3             D:4             D:5
+    """
+    snaps = {(0, 3): 0, (4, 7): 1, (8, 11): 2, (12, 15): 3, (16, 19): 4, (20, 23): 5}
+    h = arrow.utcnow().hour
+    timeslot = (int(h / 4) * 4, int(h / 4) * 4 + 3)
+    slot = snaps[timeslot]
+
+    session = Session(engine)
+    midnight = arrow.utcnow().replace(hour=0, minute=0, second=0)
+    date = midnight.timestamp()
+    next_day = arrow.utcnow().shift(days=1).timestamp()
+    snaps = session.exec(
+        select(Snapshot)
+        .where(Snapshot.date > date, Snapshot.date < next_day)
+        .order_by(Snapshot.date)
+    ).all()
+    num_snaps = len(snaps) // 3
+
     ts = int(arrow.utcnow().timestamp())
     to_snap = [
         [
@@ -519,7 +542,30 @@ def create_snapshot(request: Request):
         ],
         ["Podcast", [x.id for x in get_podcasts(is_draft=False, limit=25)]],
     ]
-    with Session(engine) as session:
+
+    #     slot:            2
+    # num snaps     2
+    #            ______
+    #            x    x
+    #           ----------------
+    #            0    1    2    3
+
+    if num_snaps - 1 == slot:
+        print("Update latest snap")
+        session.delete(snaps[-1])
+        session.delete(snaps[-2])
+        session.delete(snaps[-3])
+        session.commit()
         for snap_type, ids in to_snap:
             session.add(Snapshot(type=snap_type, date=ts, ids=ids))
             session.commit()
+
+    #
+    #            2 - 1 < 2
+    elif num_snaps - 1 < slot:
+        diff = slot - (num_snaps - 1)
+        for i in range(diff):
+            print("adding missing snaps")
+            for snap_type, ids in to_snap:
+                session.add(Snapshot(type=snap_type, date=ts, ids=ids))
+                session.commit()

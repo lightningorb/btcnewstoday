@@ -26,7 +26,15 @@ front:
 
 build_static:
 # 	nvm use 16.14
-	cd src/svelte_site && npm run build && cd build && python3 -m http.server 8888
+	rm -rf build
+	cd src/svelte_site && cp svelte.config.static.js src/svelte.config.js 
+	cd src/svelte_site && npm run build #&& cd build && python3 -m http.server 8888
+
+build_node:
+# 	nvm use 16.14
+	rm -rf build
+	cd src/svelte_site && cp svelte.config.node.js src/svelte.config.js
+	cd src/svelte_site && npm run build #&& cd build && python3 -m http.server 8888
 
 install_front:
 	rm -rf src/svelte_site/node_modules
@@ -38,7 +46,7 @@ back:
 	cd src/api && ./venv/bin/uvicorn btcnewstoday_api:app --reload
 
 get_db:
-	rsync --progress bndev-us-west-2:/home/ubuntu/btcnewstoday/src/api/database.db src/api/
+	rsync --progress bndev-us-east-2:/home/ubuntu/btcnewstoday/src/api/database.db src/api/
 # 	cd src/api && . venv/bin/activate && alembic upgrade head
 
 put_db:
