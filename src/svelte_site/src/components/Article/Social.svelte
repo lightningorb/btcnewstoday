@@ -9,7 +9,7 @@
   export let article;
   export let edit;
   let perm;
-  perm = `/permalink/${slug}#${article.id}`
+  perm = `/${slug}#${article.id}`
 </script>
 
 <Row>

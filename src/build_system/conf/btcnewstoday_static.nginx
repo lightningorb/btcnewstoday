@@ -1,22 +1,17 @@
 server {
        proxy_read_timeout 5m;
        listen 80;
-       proxy_intercept_errors on;
-       proxy_redirect off;
-       proxy_set_header Host btcnewstoday.s3-website.us-east-2.amazonaws.com;
-       proxy_set_header X-Real-IP $remote_addr;
-       proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-       proxy_hide_header x-amz-id-2;
-       proxy_hide_header x-amz-request-id;
 
       location / {
-             proxy_pass http://btcnewstoday.s3-website.us-east-2.amazonaws.com/;
+              proxy_intercept_errors on;
+              proxy_redirect off;
+              proxy_set_header Host btcnewstoday.s3-website.us-east-2.amazonaws.com;
+              proxy_set_header X-Real-IP $remote_addr;
+              proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+              proxy_hide_header x-amz-id-2;
+              proxy_hide_header x-amz-request-id;
+              proxy_pass http://btcnewstoday.s3-website.us-east-2.amazonaws.com/;
       }
-
-       location /permalink/ {
-            #rewrite /permalink/(.*) /snapshots/$1  break;
-                proxy_pass http://btcnewstoday.s3-website.us-east-2.amazonaws.com/snapshots/;
-       }
 }
 
 

@@ -55,7 +55,10 @@ def get_certs_from_s3(c):
     c.run(f"aws s3 cp {src} {dst}")
     with c.cd("/tmp"):
         c.run("sudo tar xvf letsencrypt.tar.gz")
-    c.sudo(f"mv /tmp/letsencrypt/live/{c.host}-0002 /tmp/letsencrypt/live/{c.host}")
+    c.sudo(
+        f"mv /tmp/letsencrypt/live/{c.host}-0002 /tmp/letsencrypt/live/{c.host}",
+        warn=True,
+    )
     c.sudo(f"mv /tmp/letsencrypt /etc/")
 
 
