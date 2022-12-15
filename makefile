@@ -22,7 +22,7 @@ sync_b:
 
 front:
 # 	nvm use 16.14
-	cd src/svelte_site && npm run dev
+	. ~/.bash_profile && nvm use 16.14 && cd src/svelte_site && npm run dev
 
 build_static:
 # 	nvm use 16.14
@@ -50,7 +50,7 @@ get_db:
 # 	cd src/api && . venv/bin/activate && alembic upgrade head
 
 put_db:
-	rsync src/api/database.db btcnewstoday:/home/ubuntu/dev/btcnewstoday/src/api/
+	rsync src/api/database.db bndev-us-west-2:/home/ubuntu/
 
 
 # @task

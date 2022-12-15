@@ -40,7 +40,7 @@ pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
 
-sqlite_file_name = "database.db"
+sqlite_file_name = os.path.expanduser("~/database.db")
 sqlite_url = f"sqlite:///{sqlite_file_name}"
 
 connect_args = {"check_same_thread": False}
@@ -257,63 +257,44 @@ def add_tweet(tweet: Tweet, current_user: User = Depends(get_current_active_user
         return tweet
 
 
-@app.get("/api/latest_snapshot/", response_model=Optional[str])
-def get_latest_snapshot():
-    session = Session(engine)
-    midnight = arrow.utcnow().replace(hour=0, minute=0, second=0)
-    date = midnight.timestamp()
-    next_day = arrow.utcnow().shift(days=1).timestamp()
-    snaps = session.exec(
-        select(Snapshot).where(Snapshot.date > date, Snapshot.date < next_day)
-    ).all()
-    if len(snaps):
-        return f"{midnight.format('YYYY-MM-DD')}:{len(snaps) // 3 - 1}"
-
-
 @app.get("/api/articles/", response_model=List[ArticleReadWithTweets])
 def get_articles(
-    longform: bool = False, is_draft: bool = False, limit: int = 25, snapshot: str = ""
+    longform: bool = False, is_draft: bool = False, limit: int = 25, date: str = None
 ):
-    session = Session(engine)
-    articles = []
-    if snapshot:
-        date, sn = snapshot.split(":")
-        sn = int(sn)
-        date = arrow.get(date).replace(tzinfo="utc").timestamp()
-        next_day = arrow.get(date).replace(tzinfo="utc").shift(days=1).timestamp()
-        sn_type = ("Article", "Longform")[int(longform)]
-        snaps = session.exec(
-            select(Snapshot).where(
-                Snapshot.date > date, Snapshot.date < next_day, Snapshot.type == sn_type
-            )
-        ).all()
-        if snaps:
-            snap = snaps[sn]
-            articles = session.exec(
-                select(Article)
-                .where(Article.id.in_(snap.ids))
-                .order_by(Article.date.desc())
-            ).all()
+    if date is None:
+        date = int(arrow.utcnow().shift(days=1).timestamp())
     else:
-        articles = session.exec(
-            select(Article)
-            .order_by(Article.date.desc())
-            .limit(limit)
-            .where(Article.is_longform == longform)
-            .where(Article.is_draft == is_draft)
-        ).all()
+        date = int(arrow.get(date).timestamp())
+
+    session = Session(engine)
+    query = (
+        select(Article)
+        .order_by(Article.date.desc())
+        .limit(limit)
+        .where(Article.is_longform == longform)
+        .where(Article.is_draft == is_draft)
+        .where(Article.date <= date)
+    )
+
+    articles = session.exec(query).all()
     return articles
 
 
 @app.get("/api/past_articles/")
-def get_past_articles():
+def get_past_articles(date: str = None):
     from collections import defaultdict
+
+    if date is None:
+        date = int(arrow.utcnow().timestamp())
+    else:
+        date = int(arrow.get(date).shift(days=1).timestamp())
 
     dd = defaultdict(list)
     with Session(engine) as session:
         articles = session.exec(
             select(Article)
             .where(Article.is_draft == False)
+            .where(Article.date <= date)
             .order_by(Article.date.desc())
             .limit(100)
         ).all()
@@ -420,35 +401,19 @@ def delete_podcast(job_id: int, current_user: User = Depends(get_current_active_
 
 
 @app.get("/api/podcasts/", response_model=List[Podcast])
-def get_podcasts(is_draft: bool = False, limit: int = 25, snapshot: str = ""):
-    session = Session(engine)
-    if snapshot:
-        date, sn = snapshot.split(":")
-        sn = int(sn)
-        date = arrow.get(date).replace(tzinfo="utc").timestamp()
-        next_day = arrow.get(date).replace(tzinfo="utc").shift(days=1).timestamp()
-        snaps = session.exec(
-            select(Snapshot).where(
-                Snapshot.type == "Podcast",
-                Snapshot.date > date,
-                Snapshot.date < next_day,
-            )
-        ).all()
-        if snaps:
-            snap = snaps[sn]
-            return session.exec(
-                select(Podcast)
-                .where(Podcast.id.in_(snap.ids))
-                .order_by(Podcast.date.desc())
-            ).all()
+def get_podcasts(is_draft: bool = False, limit: int = 25, date: str = None):
+    if date is None:
+        date = int(arrow.utcnow().timestamp())
     else:
-        podcasts = session.exec(
-            select(Podcast)
-            .order_by(Podcast.date.desc())
-            .limit(limit)
-            .where(Podcast.is_draft == is_draft)
-        ).all()
-        return podcasts
+        date = int(arrow.get(date).shift(days=1).timestamp())
+    session = Session(engine)
+    return session.exec(
+        select(Podcast)
+        .order_by(Podcast.date.desc())
+        .limit(limit)
+        .where(Podcast.date <= date)
+        .where(Podcast.is_draft == is_draft)
+    ).all()
 
 
 @app.get("/api/events/", response_model=List[Event])
@@ -505,67 +470,7 @@ def ingest_podcasts(request: Request):
     ingest_podcasts_func()
 
 
-@app.post("/api/snapshot/")
-# @limiter.limit("1/minute")
-def create_snapshot(request: Request):
-    """
-    ------------------------------------------------------------------------------------------------
-    H 0   1   2   3   4   5   6   7   8   9   10  11  12  13  14  15  16  17  18  19  20  21  22  23
-    ------------------------------------------------------------------------------------------------
-      D:0             D:1             D:2             D:3             D:4             D:5
-    """
-    snaps = {(0, 3): 0, (4, 7): 1, (8, 11): 2, (12, 15): 3, (16, 19): 4, (20, 23): 5}
-    h = arrow.utcnow().hour
-    timeslot = (int(h / 4) * 4, int(h / 4) * 4 + 3)
-    slot = snaps[timeslot]
-
-    session = Session(engine)
+@app.get("/api/latest_snapshot/", response_model=Optional[str])
+def get_latest_snapshot():
     midnight = arrow.utcnow().replace(hour=0, minute=0, second=0)
-    date = midnight.timestamp()
-    next_day = arrow.utcnow().shift(days=1).timestamp()
-    snaps = session.exec(
-        select(Snapshot)
-        .where(Snapshot.date > date, Snapshot.date < next_day)
-        .order_by(Snapshot.date)
-    ).all()
-    num_snaps = len(snaps) // 3
-
-    ts = int(arrow.utcnow().timestamp())
-    to_snap = [
-        [
-            "Article",
-            [x.id for x in get_articles(longform=False, is_draft=False, limit=25)],
-        ],
-        [
-            "Longform",
-            [x.id for x in get_articles(longform=True, is_draft=False, limit=25)],
-        ],
-        ["Podcast", [x.id for x in get_podcasts(is_draft=False, limit=25)]],
-    ]
-
-    #     slot:            2
-    # num snaps     2
-    #            ______
-    #            x    x
-    #           ----------------
-    #            0    1    2    3
-
-    if num_snaps - 1 == slot:
-        print("Update latest snap")
-        session.delete(snaps[-1])
-        session.delete(snaps[-2])
-        session.delete(snaps[-3])
-        session.commit()
-        for snap_type, ids in to_snap:
-            session.add(Snapshot(type=snap_type, date=ts, ids=ids))
-            session.commit()
-
-    #
-    #            2 - 1 < 2
-    elif num_snaps - 1 < slot:
-        diff = slot - (num_snaps - 1)
-        for i in range(diff):
-            print("adding missing snaps")
-            for snap_type, ids in to_snap:
-                session.add(Snapshot(type=snap_type, date=ts, ids=ids))
-                session.commit()
+    return f"{midnight.format('YYYY-MM-DD')}"

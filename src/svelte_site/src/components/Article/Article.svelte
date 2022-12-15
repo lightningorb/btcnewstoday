@@ -50,7 +50,6 @@
     });
   }
 
-
 </script>
 
 <div id={article.id}></div>
