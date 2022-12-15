@@ -2,6 +2,21 @@ from time import sleep
 import os
 from invoke import task
 from fabric import Connection
+from textwrap import dedent
+
+
+@task
+def write_env(c, prerender, ssr, csr, dest):
+    env = dedent(
+        f"""\
+    VITE_PRERENDER = {prerender}
+    VITE_SSR = {ssr}
+    VITE_CSR = {csr}
+    """
+    )
+    with open("/tmp/.env", "w") as w:
+        w.write(env)
+    c.put("/tmp/.env", dest)
 
 
 @task
@@ -14,7 +29,7 @@ def build(c, env=os.environ):
             f"git clone https://{github_token}@github.com/lightningorb/btcnewstoday.git"
         )
     with c.cd("btcnewstoday"):
-        c.run("git checkout deploy")
+        c.run("git checkout permalinks_og_tags")
         copy_stuff(c)
         c.run("pip3 install virtualenv")
         c.run(
@@ -29,15 +44,19 @@ def build(c, env=os.environ):
         c.run(
             "cp src/svelte_site/svelte.config.node.js src/svelte_site/svelte.config.js"
         )
-        c.run(
-            "cp -f src/svelte_site/src/routes/layout.js.node src/svelte_site/src/routes/+layout.js"
+        write_env(
+            c,
+            prerender="false",
+            ssr="true",
+            csr="true",
+            dest="btcnewstoday/src/svelte_site/.env",
         )
         c.run(". ~/.nvm/nvm.sh && cd src/svelte_site && npm install")
         c.run(
             """sed -i '2i "type": "module",' src/svelte_site/node_modules/@popperjs/core/package.json"""
         )
         c.run(". ~/.nvm/nvm.sh && cd src/svelte_site && npm run build")
-        c.run("mv src/svelte_site/build ~/build_node")
+        # c.run("mv src/svelte_site/build ~/build_node")
         # build_static(c)
 
 
@@ -51,7 +70,7 @@ def build_static(c):
             f"git clone https://{github_token}@github.com/lightningorb/btcnewstoday.git btcnewstoday_static"
         )
     with c.cd("btcnewstoday_static"):
-        c.run("git checkout deploy")
+        c.run("git checkout permalinks_og_tags")
         c.run(
             f"""echo 'export const API_FQDN = "https://{c.host}";' > src/svelte_site/src/lib/constants.js"""
         )
@@ -67,11 +86,14 @@ def build_static(c):
         c.run(
             "cp src/svelte_site/svelte.config.static.js src/svelte_site/svelte.config.js"
         )
-        c.run(
-            "cp -f src/svelte_site/src/routes/layout.js.static src/svelte_site/src/routes/+layout.js"
+        write_env(
+            c,
+            prerender="true",
+            ssr="true",
+            csr="true",
+            dest="btcnewstoday_static/src/svelte_site/.env",
         )
         c.run(". ~/.nvm/nvm.sh && cd src/svelte_site && npm run build")
-        c.run("mv src/svelte_site/build ~/build_static")
 
 
 @task
@@ -102,7 +124,9 @@ def nginx_conf(c):
 @task
 def copy_stuff(c):
     c.put("src/api/bn_secrets.py", "btcnewstoday/src/api/")
-    c.put("src/api/database.db", "btcnewstoday/src/api/database.db")
+    home = c.run("echo $HOME").stdout.strip()
+    path = f"{home}/database.db"
+    c.put("src/api/database.db", f"{home}/database.db")
 
 
 def cron_cmd(c, job):
@@ -116,11 +140,12 @@ def cron(c, env=os.environ):
     cron_cmd(c, "0 * * * *     curl -X POST http://localhost:8000/api/ingest/articles/")
     cron_cmd(c, "0 * * * *     curl -X POST http://localhost:8000/api/ingest/podcasts/")
     cron_cmd(c, "0 */4 * * *   curl -X POST http://localhost:8000/api/snapshot/")
+    cmd = "0 */12 * * *   bndev_bucket=btcnewstoday cd ~/btcnewstoday_static && . src/api/venv/bin/activate && timeout 43200 fab snapshot.snapshot-past"
+    cron_cmd(cmd)
     cron_cmd(
         c,
         f"*/5 * * * *   bndev_bucket={env['bndev_bucket']} cd ~/btcnewstoday_static && . src/api/venv/bin/activate && fab snapshot.snapshot",
     )
-    c.run("curl -X POST http://localhost:8000/api/snapshot/")
 
 
 @task
