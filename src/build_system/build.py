@@ -29,7 +29,7 @@ def build(c, env=os.environ):
             f"git clone https://{github_token}@github.com/lightningorb/btcnewstoday.git"
         )
     with c.cd("btcnewstoday"):
-        c.run("git checkout permalinks_og_tags")
+        c.run("git checkout archive")
         copy_stuff(c)
         c.run("pip3 install virtualenv")
         c.run(
@@ -126,7 +126,7 @@ def copy_stuff(c):
     c.put("src/api/bn_secrets.py", "btcnewstoday/src/api/")
     home = c.run("echo $HOME").stdout.strip()
     path = f"{home}/database.db"
-    c.put("src/api/database.db", f"{home}/database.db")
+    c.put(path, f"{home}/database.db")
 
 
 def cron_cmd(c, job):
@@ -145,6 +145,10 @@ def cron(c, env=os.environ):
     cron_cmd(
         c,
         f"*/5 * * * *   bndev_bucket={env['bndev_bucket']} cd ~/btcnewstoday_static && . src/api/venv/bin/activate && fab snapshot.snapshot",
+    )
+    cron_cmd(
+        c,
+        "0 * * * *   aws s3 cp database.db s3://btcnews-db-backups/bndev-us-west-2/`date +%s`/",
     )
 
 

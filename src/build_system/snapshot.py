@@ -167,6 +167,50 @@ def snapshot_past(c):
 
 
 @task()
+def create_daily_indices(c):
+    with c.cd("src/svelte_site"):
+        bndev_bucket = os.environ["bndev_bucket"]
+        now = arrow.utcnow().replace(hour=0, minute=0, second=0)
+        start_date = arrow.get("2022-11-11")
+        dates = [start_date.format("YYYY-MM-DD")]
+        while True:
+            start_date = start_date.shift(days=1)
+            dates.append(start_date.format("YYYY-MM-DD"))
+            if start_date.format("YYYY-MM-DD") == arrow.utcnow().replace(
+                hour=0, minute=0, second=0
+            ).format("YYYY-MM-DD"):
+                break
+            print(start_date)
+
+        print(dates)
+        env = {}
+
+        for date in dates:
+            short = requests.get(
+                f"http://localhost:8000/api/articles?date={date}"
+            ).json()
+            long = requests.get(
+                f"http://localhost:8000/api/articles?longform=true&date={date}"
+            ).json()
+            articles = [x["id"] for x in short + long]
+            with open("/tmp/index.html", "w") as w:
+                items = "<br>".join(
+                    f'<a href="/{date}/{x}">/{date}/{x}</a>' for x in articles
+                )
+                content = dedent(
+                    f"""\
+                        <html>
+                        {items}
+                        </html>"""
+                )
+                w.write(content)
+                print(content)
+            c.run(
+                f"aws s3 cp /tmp/index.html s3://{bndev_bucket}/{date}/",
+            )
+
+
+@task()
 def snapshot_past_remote(c):
     with c.cd("btcnewstoday_static"):
         c.run(
