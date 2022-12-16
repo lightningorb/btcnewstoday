@@ -15,7 +15,7 @@
     <br>
   {/if}
   {#each data.sections as section}
-    {#if ((section.auth == true && $preferences.access_token))}
+    {#if ((section.auth == true && $preferences.access_token)) || section.auth == false}
     <a href={`${base}/dashboard/${section.slug}`}>{section.title}</a>
     <br>
     {/if}
