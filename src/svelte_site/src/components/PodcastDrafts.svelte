@@ -5,7 +5,7 @@
   export let podcasts;
 </script>
 
-<Styles/>
+
 
 <h2>Podcast Drafts</h2>
 

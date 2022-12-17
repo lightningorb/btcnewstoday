@@ -7,12 +7,14 @@
   import Article from './Article/Article.svelte';
 </script>
 
-<Styles/>
+
 
 <div class='section'>
   <h2>{title}</h2>
-  {#each articles as article}
+  {#each articles as article, i}
     <Article slug={slug} article={article} show_dates={show_dates}/>
-    <hr/>
+    {#if i < articles.length -1}
+      <hr/>
+    {/if}
   {/each}
 </div>

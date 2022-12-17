@@ -34,6 +34,9 @@
         <li class='nav-item'>
           <a class='nav-link' href={`${base}/jobs`} data-sveltekit-prefetch>Jobs</a>
         </li>
+        <li class='nav-item'>
+          <a class='nav-link' href={`${base}/prefs`} data-sveltekit-prefetch>Prefs</a>
+        </li>
         {#if $preferences.access_token != ''}
           <li class='nav-item'>
             <a href={`${base}/dashboard`} data-sveltekit-prefetch>Dashboard</a>

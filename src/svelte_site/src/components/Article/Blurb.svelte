@@ -9,6 +9,6 @@
     <h5>Blurb</h5>
     <Input type="textarea" bind:value={article.blurb}/>
 {:else}
-    <div style='padding-bottom: 10px;'>{article.blurb}</div>
+    <div style='padding-bottom: 10px;'><p>{article.blurb}</p></div>
 {/if}
 

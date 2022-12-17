@@ -1,0 +1,112 @@
+body {
+  font-family: Optima, "Century Gothic", sans-serif;
+  padding: 10px;
+}
+
+html body div {
+  background-color: #f2f2f2;
+}
+
+p {
+  font-size: 0.9em;
+}
+
+body div nav.main-nav {
+  padding-left: 10px;
+  background-color: #ff9500;
+  line-height: 24px;
+  font-size: .8em;
+}
+
+body div nav.main-nav a {
+  padding-left: 10px;
+  text-transform: uppercase;
+  text-align: left;
+  color: #000000;
+  text-decoration: none;
+}
+
+h1,
+h2 {
+  color: #660000;
+}
+
+.show-on-hover {
+  color: #00000000 !important;
+  background-color: #00000000 !important;
+  border-color: #00000000 !important;
+}
+
+.show-on-hover:hover {
+  color: white !important;
+  background-color: gray !important;
+  border-color: darkgray !important;
+}
+
+a.nav-link {
+  color: #000000 !important;
+  padding-top: 0px;
+  padding-bottom: 0px;
+}
+
+a {
+  text-decoration: none !important;
+  color: #002a64 !important;
+}
+
+div cite a {
+  color: #666666 !important;
+}
+
+div div b {
+  color: #3a4a64 !important;
+  background-color: #efefef !important;
+}
+
+a.tweet {
+  color: #0e2a4e !important;
+  font-size: 14px !important;
+}
+
+div.section {
+  padding-top: 10px;
+}
+
+div div h1 {
+  color: #152e56 !important;
+}
+
+div div h2 {
+  color: #152e56 !important;
+}
+
+button.play-button {
+  position: relative;
+  top: 5px;
+  border-color: transparent;
+  width: 20px;
+  height: 20px;
+  border-radius: 10px;
+}
+
+button.pause-button {
+  position: relative;
+  top: 5px;
+  background-color: #ff9900;
+  border-color: transparent;
+  width: 20px;
+  height: 20px;
+  border-radius: 10px;
+}
+
+i.bi-play {
+  position: relative;
+  top: -5px;
+  left: -5px;
+}
+
+i.bi-pause {
+  position: relative;
+  top: -5px;
+  left: -6px;
+}

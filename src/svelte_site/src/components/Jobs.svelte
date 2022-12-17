@@ -9,7 +9,7 @@
 
 </script>
 
-<Styles/>
+
 
 <h2>Jobs</h2>
 

@@ -6,16 +6,14 @@
   import { Col, Container, Row } from 'sveltestrap';
 </script>
 
-<Styles/>
-
 <Container>
+  {#if $preferences.podcast}
   <Row cols={1}>
     <Col>
-      {#if $preferences.podcast}
-        <AudioPlayer src={$preferences.podcast}/>
-      {/if}
+      <AudioPlayer src={$preferences.podcast}/>
     </Col>
   </Row>
+  {/if}
   <Row cols={1}>
     <Col>
       <h1><a href='https://btcnews.today'>BTCNews.Today</a></h1>

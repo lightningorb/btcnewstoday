@@ -16,8 +16,6 @@
   export let data;
 </script>
 
-<Styles />
-
 <Container>
   <Row cols={{ lg: 2, md: 2, sm: 1 }}>
     <Col><Latest slug={data.slug} show_dates={false} articles={data.articles} title={'Latest'}/></Col>

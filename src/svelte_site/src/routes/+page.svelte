@@ -26,7 +26,11 @@
       <meta property="og:type" content="website" />
       <meta property="og:title" content={article.title} />
       <meta property="og:description" content={article.blurb} />
-      <meta property="og:image" content="https://btcnews.today/favicon.png" />
+      {#if article.image != ''}
+        <meta property="og:image" content={article.image} />
+      {:else}
+        <meta property="og:image" content="https://btcnews.today/favicon.png" />
+      {/if}
 {:else}
       <meta name="viewport" content="width=device-width" />
       <meta property="og:url" content="https://btcnews.today" />
@@ -50,3 +54,5 @@
     </Col>
   </Row>
 </Container>
+
+<br>

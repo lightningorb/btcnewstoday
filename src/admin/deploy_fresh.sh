@@ -29,6 +29,5 @@ fab -i ${bndev_name}.pem -H ubuntu@${bndev_url} configure.get-certs-from-s3
 fab -i ${bndev_name}.pem -H ubuntu@${bndev_url} build.supervisord-conf
 fab -i ${bndev_name}.pem -H ubuntu@${bndev_url} build.build
 fab -i ${bndev_name}.pem -H ubuntu@${bndev_url} build.build-static
-fab -i ${bndev_name}.pem -H ubuntu@${bndev_url} build.migrate-db
 fab -i ${bndev_name}.pem -H ubuntu@${bndev_url} build.nginx-conf
 fab -i ${bndev_name}.pem -H ubuntu@${bndev_url} build.cron

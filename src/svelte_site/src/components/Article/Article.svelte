@@ -11,8 +11,8 @@
   import { Button } from 'sveltestrap';
   import { Popover } from 'sveltestrap';
   import { Input, Icon } from 'sveltestrap';
-  import { Col, Row } from 'sveltestrap';
   import {API_FQDN} from '$lib/constants.js';
+  import { Col, Container, Row } from 'sveltestrap';
   export let slug;
   export let article;
   export let show_dates = false;
@@ -54,10 +54,21 @@
 
 <div id={article.id}></div>
 
-<Social article={article} edit={edit} slug={slug}/>
-<Title article={article} edit={edit} show_dates={show_dates}/>
-<Blurb article={article} edit={edit}/>
-<Tweets article={article}/>
+<div class="container">
+  <div class="row">
+    <div class="col-lg-12 pt-4 pt-lg-0">
+      <Social article={article} edit={edit} slug={slug}/>
+        {#if $preferences.show_images}
+          <img src={article.image} class="article-hero-image float-end imgshadow" alt="">
+        {/if}
+      <Title article={article} edit={edit} show_dates={show_dates}/>
+    <Blurb article={article} edit={edit}/>
+    <Tweets article={article}/>
+    </div>
+    <div style="text-align: left;" class="col-lg-5">
+    </div>
+  </div>
+</div>
 
 {#if edit}
   <FormGroup>

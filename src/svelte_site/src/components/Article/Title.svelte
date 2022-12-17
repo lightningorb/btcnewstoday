@@ -11,7 +11,7 @@
     <Input type="textarea" bind:value={article.title}/>
 {:else}
   {#if show_dates}
-    {(new Date(article.date*1000)).toISOString().slice(0, 10)}
+    <span>{(new Date(article.date*1000)).toISOString().slice(0, 10)}</span>
   {/if}
-  <span style='font-size: 1.3em;'><a rel='noreferrer' target='_blank' href='{article.link}'>{article.title}</a></span>
+  <span style='font-size: 1.3em;'><a rel='noreferrer' target='_blank' href='{article.link}' class='title'>{article.title}</a></span>
 {/if}

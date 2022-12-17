@@ -7,7 +7,7 @@ from fabric import Connection
 def setup(c):
     c.sudo("apt-get update")
     c.sudo(
-        "apt-get install nginx git make zip python3-pip supervisor certbot python3-certbot-nginx unzip -y"
+        "apt-get install mosh nginx git make zip python3-pip supervisor certbot python3-certbot-nginx unzip -y"
     )
     c.sudo("systemctl start nginx")
     cmd = "curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash"
