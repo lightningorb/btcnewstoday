@@ -264,7 +264,7 @@ def get_articles(
     if date is None:
         date = int(arrow.utcnow().shift(days=1).timestamp())
     else:
-        date = int(arrow.get(date).timestamp())
+        date = int(arrow.get(date).shift(days=1).timestamp())
 
     session = Session(engine)
     query = (
@@ -474,3 +474,25 @@ def ingest_podcasts(request: Request):
 def get_latest_snapshot():
     midnight = arrow.utcnow().replace(hour=0, minute=0, second=0)
     return f"{midnight.format('YYYY-MM-DD')}"
+
+
+@app.get("/api/images/")
+def get_latest_snapshot():
+    from bs4 import BeautifulSoup
+
+    session = Session(engine)
+    query = select(Article)
+    articles = session.exec(query).all()
+    for a in articles:
+        if a.image or a.is_draft == 1:
+            continue
+        if a.link:
+            text = requests.get(a.link).text
+            soup = BeautifulSoup(text)
+            for tag in soup.find_all("meta"):
+                if tag.get("property", None) == "og:image":
+                    image = tag.get("content", None)
+                    if image:
+                        a.image = image
+                        print(image)
+                        session.commit()

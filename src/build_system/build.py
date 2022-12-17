@@ -28,8 +28,9 @@ def build(c, env=os.environ):
         c.run(
             f"git clone https://{github_token}@github.com/lightningorb/btcnewstoday.git"
         )
+    branch = c.local("git rev-parse --abbrev-ref HEAD").stdout.strip()
     with c.cd("btcnewstoday"):
-        c.run("git checkout archive")
+        c.run(f"git checkout {branch}")
         copy_stuff(c)
         c.run("pip3 install virtualenv")
         c.run(
@@ -39,6 +40,7 @@ def build(c, env=os.environ):
         c.run(
             "cd src/api && python3 -m virtualenv venv && . venv/bin/activate && pip3 install -r requirements.txt && pip3 install -r requirements-dev.txt"
         )
+        migrate_db(c)
         c.run("sudo supervisorctl reload")
         sleep(10)
         c.run(
@@ -56,8 +58,6 @@ def build(c, env=os.environ):
             """sed -i '2i "type": "module",' src/svelte_site/node_modules/@popperjs/core/package.json"""
         )
         c.run(". ~/.nvm/nvm.sh && cd src/svelte_site && npm run build")
-        # c.run("mv src/svelte_site/build ~/build_node")
-        # build_static(c)
 
 
 @task
@@ -69,8 +69,9 @@ def build_static(c):
         c.run(
             f"git clone https://{github_token}@github.com/lightningorb/btcnewstoday.git btcnewstoday_static"
         )
+    branch = c.local("git rev-parse --abbrev-ref HEAD").stdout.strip()
     with c.cd("btcnewstoday_static"):
-        c.run("git checkout permalinks_og_tags")
+        c.run(f"git checkout {branch}")
         c.run(
             f"""echo 'export const API_FQDN = "https://{c.host}";' > src/svelte_site/src/lib/constants.js"""
         )
@@ -122,10 +123,11 @@ def nginx_conf(c):
 
 
 @task
-def copy_stuff(c):
+def copy_stuff(c, env=os.environ):
     c.put("src/api/bn_secrets.py", "btcnewstoday/src/api/")
+    # c.run(f"aws s3 cp s3://btcnews-db-backups/{env['bndev_name']}/database.s3 .")
     home = c.run("echo $HOME").stdout.strip()
-    path = f"{home}/database.db"
+    path = os.path.expanduser("~/database.db")
     c.put(path, f"{home}/database.db")
 
 
@@ -139,20 +141,21 @@ def cron_cmd(c, job):
 def cron(c, env=os.environ):
     cron_cmd(c, "0 * * * *     curl -X POST http://localhost:8000/api/ingest/articles/")
     cron_cmd(c, "0 * * * *     curl -X POST http://localhost:8000/api/ingest/podcasts/")
-    cron_cmd(c, "0 */4 * * *   curl -X POST http://localhost:8000/api/snapshot/")
-    cmd = "0 */12 * * *   bndev_bucket=btcnewstoday cd ~/btcnewstoday_static && . src/api/venv/bin/activate && timeout 43200 fab snapshot.snapshot-past"
-    cron_cmd(cmd)
+    cron_cmd(c, "0 * * * *     curl -X POST http://localhost:8000/api/images/")
+    f"""*/5 * * * *   cd ~/btcnewstoday_static && . src/api/venv/bin/activate && timeout 300 bndev_bucket=btcnewstoday fab snapshot.snapshot"""
     cron_cmd(
         c,
         f"*/5 * * * *   bndev_bucket={env['bndev_bucket']} cd ~/btcnewstoday_static && . src/api/venv/bin/activate && fab snapshot.snapshot",
     )
     cron_cmd(
         c,
-        "0 * * * *   aws s3 cp database.db s3://btcnews-db-backups/bndev-us-west-2/`date +%s`/",
+        f"0 * * * *   aws s3 cp database.db s3://btcnews-db-backups/{env['bndev_name']}/`date +%s`/",
     )
 
 
 @task
 def migrate_db(c):
-    with c.cd("btcnewstoday/src/api"):
+    with c.cd("/home/ubuntu/btcnewstoday/src/api"):
+        c.run("cp ~/database.db .")
         c.run(". venv/bin/activate && alembic upgrade head")
+        c.run("mv database.db ~/")

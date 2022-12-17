@@ -7,17 +7,16 @@
 <div>
 
 {#if article.tweets.length > 0}
-  <b>Tweets:</b>
+  <b class='tweets-title'>Tweets:</b>
 {/if}
 
 {#each article.tweets as tweet}
   <Popover
     trigger="hover"
-    placement="right"
     target={'id-'+tweet.id}
     title={'@'+tweet.username}
   >
-    {tweet.text}
+    <p>{tweet.text}</p>
   </Popover>
   <a rel="noreferrer" class='tweet' id={'id-'+tweet.id} target='_blank' href={`https://twitter.com/${tweet.username}/status/${tweet.id}`}>@{tweet.username}</a> <span style='width: 3px;'></span>
 {/each}

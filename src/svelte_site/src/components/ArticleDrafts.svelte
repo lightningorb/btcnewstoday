@@ -5,7 +5,7 @@
   export let articles;
 </script>
 
-<Styles/>
+
 
 <h2>Article Drafts</h2>
 

@@ -1,5 +1,4 @@
 <script>
-  import { Styles } from 'sveltestrap';
   import { onMount } from 'svelte';
   import { browser, dev } from '$app/environment';
   // import { PUBLIC_BASE_URL } from '$env/static/public';
@@ -8,7 +7,7 @@
   });
 </script>
 
-<Styles/>
+
 
 <h1>Debug</h1>
 

@@ -50,12 +50,6 @@ class BuildSettings:
 def snapshot(c, env=os.environ):
     with c.cd("src/svelte_site"):
         assert env["bndev_bucket"]
-        today = arrow.utcnow().format("YYYY-MM-DD")
-        short = requests.get(f"http://localhost:8000/api/articles?date={today}").json()
-        long = requests.get(
-            f"http://localhost:8000/api/articles?longform=true&date={today}"
-        ).json()
-        articles = [x["id"] for x in short + long]
         main_page_settings = BuildSettings(base="", destination="")
 
         nvm = ". ~/.bash_profile && nvm use 16.14"
@@ -68,8 +62,6 @@ def snapshot(c, env=os.environ):
             csr="true",
             dest="/home/ubuntu/btcnewstoday_static/src/svelte_site/.env",
         )
-
-        print(main_page_settings.base)
         c.run(
             ". ~/.nvm/nvm.sh && nvm use 16.14 && npm run build",
             warn=True,
@@ -78,6 +70,11 @@ def snapshot(c, env=os.environ):
         c.run(
             f"aws s3 cp build/ s3://{env['bndev_bucket']}/ --recursive",
         )
+
+        today = arrow.utcnow().format("YYYY-MM-DD")
+        short = requests.get(f"http://localhost:8000/api/articles").json()
+        long = requests.get(f"http://localhost:8000/api/articles?longform=true").json()
+        articles = [x["id"] for x in short + long]
 
         for aid in articles:
             settings = BuildSettings(

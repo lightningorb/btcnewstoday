@@ -1,27 +1,4 @@
-build_a:
-	echo 'export const API_FQDN = "https://btcnews.today";' > src/svelte_site/src/lib/constants.js
-	cd src/svelte_site && npm install && npm run build
-	rm -rf src/api/venv
-	cd src/api && python3 -m virtualenv venv && . venv/bin/activate && pip3 install -r requirements.txt
-	sudo supervisorctl reload
-
-build_b:
-	echo "present working directory is"
-	echo 'export const API_FQDN = "https://btcnews.today";' > src/svelte_site/src/lib/constants.js
-	cd src/svelte_site && npm install && npm run build
-	rm -rf src/api/venv
-	cd src/api && python3 -m virtualenv venv && . venv/bin/activate && pip3 install -r requirements.txt
-# 	sudo supervisorctl reload
-
-
-build_remote_b: sync_b
-	ssh btcnewstoday 'bash -ic "cd dev/btcnewstoday_b && make build_b"'
-
-sync_b:
-	rsync -azv . btcnewstoday:~/dev/btcnewstoday_b/ --delete --exclude src/svelte_site/node_modules/ --exclude src/svelte_site/build/ --exclude src/api/venv/ --exclude src/api/database.db
-
 front:
-# 	nvm use 16.14
 	. ~/.bash_profile && nvm use 16.14 && cd src/svelte_site && npm run dev
 
 build_static:
@@ -50,7 +27,7 @@ get_db:
 # 	cd src/api && . venv/bin/activate && alembic upgrade head
 
 put_db:
-	rsync ~/database.db bndev-us-west-2:/home/ubuntu/
+	rsync ~/database.db bndev-us-east-2:/home/ubuntu/
 
 
 # @task
