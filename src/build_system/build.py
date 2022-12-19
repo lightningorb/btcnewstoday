@@ -58,6 +58,7 @@ def build(c, env=os.environ):
             """sed -i '2i "type": "module",' src/svelte_site/node_modules/@popperjs/core/package.json"""
         )
         c.run(". ~/.nvm/nvm.sh && cd src/svelte_site && npm run build")
+    c.run("sudo supervisorctl reload")
 
 
 @task
@@ -142,15 +143,10 @@ def cron(c, env=os.environ):
     cron_cmd(c, "0 * * * *     curl -X POST http://localhost:8000/api/ingest/articles/")
     cron_cmd(c, "0 * * * *     curl -X POST http://localhost:8000/api/ingest/podcasts/")
     cron_cmd(c, "0 * * * *     curl -X POST http://localhost:8000/api/images/")
-    f"""*/5 * * * *   cd ~/btcnewstoday_static && . src/api/venv/bin/activate && timeout 300 bndev_bucket=btcnewstoday fab snapshot.snapshot"""
-    cron_cmd(
-        c,
-        f"*/5 * * * *   bndev_bucket={env['bndev_bucket']} cd ~/btcnewstoday_static && . src/api/venv/bin/activate && fab snapshot.snapshot",
-    )
-    cron_cmd(
-        c,
-        f"0 * * * *   aws s3 cp database.db s3://btcnews-db-backups/{env['bndev_name']}/`date +%s`/",
-    )
+    cmd = f"""*/5 * * * *   cd ~/btcnewstoday_static && . src/api/venv/bin/activate && env bndev_bucket={env['bndev_bucket']} timeout 300 fab snapshot.snapshot"""
+    cron_cmd(c, cmd)
+    cmd = f"0 * * * *   aws s3 cp database.db s3://btcnews-db-backups/{env['bndev_name']}/`date +%s`/"
+    cron_cmd(c, cmd)
 
 
 @task
