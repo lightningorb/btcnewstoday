@@ -23,12 +23,15 @@ back:
 	cd src/api && ./venv/bin/uvicorn btcnewstoday_api:app --reload
 
 get_db:
-	rsync --progress bndev-us-west-2:/home/ubuntu/database.db ~/
+	rsync --progress bndev-us-east-2:/home/ubuntu/database.db ~/
 # 	cd src/api && . venv/bin/activate && alembic upgrade head
 
 put_db:
 	rsync ~/database.db bndev-us-east-2:/home/ubuntu/
 
+db_east_to_west:
+	rsync --progress bndev-us-east-2:/home/ubuntu/database.db ~/
+	rsync ~/database.db bndev-us-west-2:/home/ubuntu/
 
 # @task
 # def revision(c, message, env=os.environ):

@@ -208,3 +208,6 @@ audio::-webkit-media-controls-toggle-closed-captions-button {
   filter: invert(42%) brightness(150%);
 }
 
+.ad-b {
+  color: white !important;
+}

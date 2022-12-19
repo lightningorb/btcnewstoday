@@ -281,7 +281,7 @@ def get_articles(
 
 
 @app.get("/api/past_articles/")
-def get_past_articles(date: str = None):
+def get_past_articles(date: str = None, limit: int = 100):
     from collections import defaultdict
 
     if date is None:
@@ -296,7 +296,7 @@ def get_past_articles(date: str = None):
             .where(Article.is_draft == False)
             .where(Article.date <= date)
             .order_by(Article.date.desc())
-            .limit(100)
+            .limit(limit)
         ).all()
         for a in articles:
             date = int(

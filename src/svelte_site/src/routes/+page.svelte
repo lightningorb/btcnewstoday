@@ -1,6 +1,7 @@
 <script>
   import Latest from '../components/Latest.svelte';
   import Podcasts from '../components/Podcasts.svelte';
+  import Ads from '../components/Ads.svelte';
   import { Styles } from 'sveltestrap';
   import { Col, Container, Row } from 'sveltestrap';
   /** @type {import('./$types').PageData} */
@@ -48,7 +49,12 @@
     <Col><Latest slug={data.latest_snapshot} show_dates={false} articles={data.articles} title={'Latest'}/></Col>
     <Col>
       <Row cols={1}>
+        <Col><br/><Ads/></Col>
+      </Row>
+      <Row cols={1}>
         <Col><Podcasts podcasts={data.podcasts}/></Col>
+      </Row>
+      <Row cols={1}>
         <Col><Latest slug={data.latest_snapshot} articles={data.longforms} title='Longform'/></Col>
       </Row>
     </Col>
