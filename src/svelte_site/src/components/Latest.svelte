@@ -10,7 +10,9 @@
 
 
 <div class='section'>
-  <h2>{title}</h2>
+  {#if articles.length}
+    <h2>{title}</h2>
+  {/if}
   {#each articles as article, i}
     <Article slug={slug} article={article} show_dates={show_dates}/>
     {#if i < articles.length -1}
