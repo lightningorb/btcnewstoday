@@ -8,6 +8,7 @@ from functools import lru_cache
 from models import *
 from fastapi import FastAPI, Request
 from sqlmodel import Field, Session, SQLModel, create_engine, select
+from sqlalchemy.sql.expression import not_
 from fastapi.middleware.cors import CORSMiddleware
 from datetime import datetime, timedelta
 from typing import Union
@@ -162,6 +163,15 @@ def on_startup():
     #     os.unlink("database.db")
     create_db_and_tables()
     # add_fixtures()
+    with Session(engine) as session:
+        articles = session.exec(select(Article))
+        for a in articles:
+            if a.is_draft is None:
+                a.is_draft = True
+            for attr in ("category", "author", "image"):
+                if getattr(a, attr) is None:
+                    setattr(a, attr, "")
+        session.commit()
 
 
 @app.post("/api/articles/", response_model=Optional[Article])
@@ -257,9 +267,22 @@ def add_tweet(tweet: Tweet, current_user: User = Depends(get_current_active_user
         return tweet
 
 
+# , response_model=List[str]
+@app.get("/api/articles/categories/")
+def get_article_categories():
+    session = Session(engine)
+    query = select(Article.category.distinct())
+    return set(session.exec(query).all()) - set([None]) | set(["BN: Tech & Dev"])
+
+
 @app.get("/api/articles/", response_model=List[ArticleReadWithTweets])
 def get_articles(
-    longform: bool = False, is_draft: bool = False, limit: int = 25, date: str = None
+    longform: bool = False,
+    is_draft: bool = False,
+    limit: int = 25,
+    date: str = None,
+    category_include: str = "",
+    category_exclude: str = "",
 ):
     if date is None:
         date = int(arrow.utcnow().shift(days=1).timestamp())
@@ -276,7 +299,14 @@ def get_articles(
         .where(Article.date <= date)
     )
 
+    if category_include:
+        query = query.where(Article.category.in_(category_include.split(",")))
+
+    if category_exclude:
+        query = query.where(Article.category.not_in(category_exclude.split(",")))
+
     articles = session.exec(query).all()
+
     return articles
 
 
@@ -477,7 +507,7 @@ def get_latest_snapshot():
 
 
 @app.get("/api/images/")
-def get_latest_snapshot():
+def get_images():
     from bs4 import BeautifulSoup
 
     session = Session(engine)

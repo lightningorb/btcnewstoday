@@ -51,6 +51,10 @@
       <Row cols={1}>
         <Col><br/><Ads/></Col>
       </Row>
+
+      <Row cols={1}>
+        <Col><Latest slug={data.latest_snapshot} show_dates={false} articles={data.techdev} title={'Tech & Dev'}/></Col>
+      </Row>
       <Row cols={1}>
         <Col><Podcasts podcasts={data.podcasts}/></Col>
       </Row>
