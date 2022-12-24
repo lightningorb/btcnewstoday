@@ -59,6 +59,7 @@ class ArticleBase(SQLModel):
 class Article(ArticleBase, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
     tweets: List["Tweet"] = Relationship(back_populates="article")
+    nostr_notes: List["NostrNote"] = Relationship(back_populates="article")
     meta: List["Meta"] = Relationship(back_populates="article")
 
 
@@ -80,11 +81,28 @@ class TweetBase(SQLModel):
     article_id: int = Field(index=True, foreign_key="article.id")
 
 
+class NostrNoteBase(SQLModel):
+    id: Optional[int] = Field(default=None, primary_key=True)
+    username: str = Field(index=True)
+    author_pk: str = Field(index=True)
+    note_id: str = Field(index=True)
+    text: str = Field(index=True)
+    article_id: int = Field(index=True, foreign_key="article.id")
+
+
 class Tweet(TweetBase, table=True):
     article: Optional[Article] = Relationship(back_populates="tweets")
 
 
+class NostrNote(NostrNoteBase, table=True):
+    article: Optional[Article] = Relationship(back_populates="nostr_notes")
+
+
 class TweetRead(TweetBase):
+    id: str
+
+
+class NostrNoteRead(NostrNoteBase):
     id: str
 
 
@@ -94,6 +112,7 @@ class ArticleRead(ArticleBase):
 
 class ArticleReadWithTweets(ArticleRead):
     tweets: List[TweetRead] = []
+    nostr_notes: List[NostrNoteRead] = []
 
 
 class PodcastUpdate(SQLModel):

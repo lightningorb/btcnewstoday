@@ -26,14 +26,14 @@ install_back:
 	. src/api/venv/bin/activate && pip3 install -r requirements.txt
 
 back:
-	cd src/api && ./venv/bin/uvicorn btcnewstoday_api:app --reload
+	cd src/api && ./venv/bin/uvicorn btcnewstoday_api:app --reload --workers 3
 
 get_db:
 	rsync --progress bndev-us-east-2:/home/ubuntu/database.db ~/
 # 	cd src/api && . venv/bin/activate && alembic upgrade head
 
-# put_db:
-# 	rsync ~/database.db bndev-us-east-2:/home/ubuntu/
+put_db:
+	rsync ~/database.db bndev-us-east-2:/home/ubuntu/
 
 db_east_to_west:
 	rsync --progress bndev-us-east-2:/home/ubuntu/database.db ~/
@@ -44,7 +44,7 @@ db_west_to_east:
 	rsync ~/database.db bndev-us-east-2:/home/ubuntu/
 
 rev:
-	. src/api/venv/bin/activate && cd src/api/ && alembic revision -m "meta" --autogenerate
+	. src/api/venv/bin/activate && cd src/api/ && alembic revision -m "nostr notes" --autogenerate
 
 
 upgrade:

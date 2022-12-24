@@ -224,3 +224,7 @@ audio::-webkit-media-controls-toggle-closed-captions-button {
 .bi-search{
   color: white;
 }
+
+.form-label{
+  color: white !important;
+}

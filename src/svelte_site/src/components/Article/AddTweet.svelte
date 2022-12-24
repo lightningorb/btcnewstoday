@@ -54,7 +54,7 @@
 </script>
 
 <div>
-  <Button size="sm" on:click={toggle}><Icon name='plus-circle-fill' /></Button>
+  <Button size="sm" on:click={toggle}><Icon name='twitter' /></Button>
 
   <Modal body header="Add Tweet" isOpen={open} {toggle}>
     <FormGroup>

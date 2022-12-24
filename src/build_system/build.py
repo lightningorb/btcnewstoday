@@ -145,9 +145,9 @@ def cron(c, env=os.environ):
     cron_cmd(c, "5 * * * *     curl -X GET http://localhost:8000/api/meta/index/")
     cmd = f"0 * * * *   aws s3 cp database.db s3://btcnews-db-backups/{env['bndev_name']}/`date +%s`/"
     cron_cmd(c, cmd)
-    if env["bndev_is_prod_server"]:
-        cmd = f"""*/5 * * * *   cd ~/btcnewstoday_static && . src/api/venv/bin/activate && env bndev_bucket={env['bndev_bucket']} timeout 300 fab snapshot.snapshot"""
-        cron_cmd(c, cmd)
+    # if env.get("bndev_is_prod_server") == "yes":
+    cmd = f"""# */5 * * * *   cd ~/btcnewstoday_static && . src/api/venv/bin/activate && env bndev_bucket={env['bndev_bucket']} timeout 300 fab snapshot.snapshot"""
+    cron_cmd(c, cmd)
 
 
 @task

@@ -2,10 +2,12 @@
   import { preferences } from '$lib/store.js';
   import axios from 'axios';
   import AddTweet from './AddTweet.svelte';
+  import AddNostrNote from './AddNostrNote.svelte';
   import Blurb from './Blurb.svelte';
   import Title from './Title.svelte';
   import { Form, FormGroup, FormText, Label } from 'sveltestrap';
   import Tweets from './Tweets.svelte';
+  import NostrNotes from './NostrNotes.svelte';
   import Social from './Social.svelte';
   import More from './More.svelte';
   import { Button } from 'sveltestrap';
@@ -64,6 +66,7 @@
         {/if}
       <Title article={article} edit={edit} show_dates={show_dates}/>
     <Blurb article={article} edit={edit}/>
+    <NostrNotes article={article}/>
     <Tweets article={article}/>
     </div>
     <div style="text-align: left;" class="col-lg-5">
@@ -86,6 +89,7 @@
       </Col>
       <Col xs='2'>
         <AddTweet article_id={article.id}/><br/>
+        <AddNostrNote article_id={article.id}/><br/>
       </Col>
     </Row>
   {/if}

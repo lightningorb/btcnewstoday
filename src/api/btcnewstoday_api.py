@@ -1,3 +1,4 @@
+import ssl
 import os
 import requests
 import simplexml
@@ -6,6 +7,9 @@ from typing import Optional, List
 import arrow
 from functools import lru_cache
 from models import *
+
+import time
+
 from fastapi import FastAPI, Request
 from sqlmodel import Field, Session, SQLModel, create_engine, select
 from sqlalchemy.sql.expression import not_
@@ -158,6 +162,12 @@ async def read_own_items(current_user: User = Depends(get_current_active_user)):
     return [{"item_id": "Foo", "owner": current_user.username}]
 
 
+@app.on_event("shutdown")
+def shutdown_event():
+    # relay_manager.close_connections()
+    pass
+
+
 @app.on_event("startup")
 def on_startup():
     # if os.path.exists("database.db"):
@@ -266,6 +276,18 @@ def add_tweet(tweet: Tweet, current_user: User = Depends(get_current_active_user
         session.commit()
         session.refresh(tweet)
         return tweet
+
+
+@app.post("/api/nostr_notes/", response_model=NostrNote)
+def add_nostr_notes(
+    nost_note: NostrNote, current_user: User = Depends(get_current_active_user)
+):
+    with Session(engine) as session:
+        print(f"adding NostrNote: {nost_note.note_id}")
+        session.add(nost_note)
+        session.commit()
+        session.refresh(nost_note)
+        return nost_note
 
 
 # , response_model=List[str]
@@ -480,13 +502,11 @@ def get_tweet_text(tweet_id: int):
     return tweet[0].text
 
 
-@app.post("/api/events/", response_model=Event)
-def create_event(Event: Event, current_user: User = Depends(get_current_active_user)):
-    with Session(engine) as session:
-        session.add(Event)
-        session.commit()
-        session.refresh(Event)
-        return Event
+# @app.get("/api/third_party/nostr_note_text/")
+# def get_nostr_text(note_id: str, author_pk: str):
+#     from get_nostr_post import get_post
+
+#     return get_post(sender_publickey=author_pk, note_id=note_id)
 
 
 @app.post("/api/ingest/articles/")
