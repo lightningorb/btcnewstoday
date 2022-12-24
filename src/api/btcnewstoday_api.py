@@ -17,6 +17,7 @@ from ingest_articles import main as ingest_articles_func
 from ingest_podcasts import main as ingest_podcasts_func
 from collections import namedtuple
 
+import ingest_plain_text
 from fastapi import Depends, FastAPI, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from jose import JWTError, jwt
@@ -526,3 +527,21 @@ def get_images():
                         a.image = image
                         print(image)
                         session.commit()
+
+
+@app.get("/api/meta/")
+def get_meta():
+    session = Session(engine)
+    ingest_plain_text.ingest_plain_text(session)
+
+
+@app.get("/api/meta/index/")
+def create_meta_index():
+    session = Session(engine)
+    ingest_plain_text.create_index(session)
+
+
+@app.get("/api/meta/search/")
+def search_meta_index(term: str):
+    session = Session(engine)
+    return ingest_plain_text.search_index(session, term)

@@ -59,6 +59,18 @@ class ArticleBase(SQLModel):
 class Article(ArticleBase, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
     tweets: List["Tweet"] = Relationship(back_populates="article")
+    meta: List["Meta"] = Relationship(back_populates="article")
+
+
+class MetaBase(SQLModel):
+    id: Optional[int] = Field(default=None, primary_key=True)
+    data: str = Field(index=False)
+    type: str = Field(index=True)
+    article_id: int = Field(index=True, foreign_key="article.id")
+
+
+class Meta(MetaBase, table=True):
+    article: Optional[Article] = Relationship(back_populates="meta")
 
 
 class TweetBase(SQLModel):

@@ -14,8 +14,7 @@
 <h2>Jobs</h2>
 
 {#if $preferences.access_token != ''}
-  {#if edit}
-  {:else}
+  {#if !edit}
     <button on:click={() => edit=true}><Icon name="pencil-square"/></button>
   {/if}
 {/if}

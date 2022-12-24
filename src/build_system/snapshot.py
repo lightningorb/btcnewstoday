@@ -54,13 +54,13 @@ def snapshot(c, env=os.environ):
 
         nvm = ". ~/.bash_profile && nvm use 16.14"
         # nvm = ". ~/.nvm/nvm.sh && nvm use 16.14"
-
+        home = c.run("echo $HOME").stdout.strip()
         write_plain_env(
             c,
             prerender="true",
             ssr="true",
             csr="true",
-            dest="/home/ubuntu/btcnewstoday_static/src/svelte_site/.env",
+            dest=f"{home}/btcnewstoday_static/src/svelte_site/.env",
         )
         c.run(
             ". ~/.nvm/nvm.sh && nvm use 16.14 && npm run build",
@@ -88,7 +88,7 @@ def snapshot(c, env=os.environ):
                 csr="true",
                 snapshot=today,
                 aid=aid,
-                dest="/home/ubuntu/btcnewstoday_static/src/svelte_site/.env",
+                dest=f"{home}/btcnewstoday_static/src/svelte_site/.env",
             )
             c.run("rm -rf build")
             print(settings.base)
@@ -104,11 +104,16 @@ def snapshot(c, env=os.environ):
 
 
 @task()
-def snapshot_past(c):
+def snapshot_past(c, static_dir=None):
+    if not static_dir:
+        home = c.run("echo $HOME").stdout.strip()
+        static_dir = f"{home}/btcnewstoday_static"
+
+    c.run("cp src/svelte_site/svelte.config.static.js src/svelte_site/svelte.config.js")
+
     with c.cd("src/svelte_site"):
         bndev_bucket = os.environ["bndev_bucket"]
-        now = arrow.utcnow().replace(hour=0, minute=0, second=0)
-        start_date = now.shift(days=-3)
+        start_date = arrow.get("2022-11-10")
         dates = [start_date.format("YYYY-MM-DD")]
         while True:
             start_date = start_date.shift(days=1)
@@ -150,7 +155,7 @@ def snapshot_past(c):
                     csr="true",
                     snapshot=date,
                     aid=aid,
-                    dest="/home/ubuntu/btcnewstoday_static/src/svelte_site/.env",
+                    dest=f"{static_dir}/src/svelte_site/.env",
                 )
                 while attempts < 5:
                     ok = c.run(f"{nvm} && npm run build", env=env, warn=True).ok

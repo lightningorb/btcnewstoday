@@ -57,6 +57,7 @@
 <div class="container">
   <div class="row">
     <div class="col-lg-12 pt-4 pt-lg-0">
+      <!-- <span>{(new Date(article.date*1000)).toISOString()}</span> -->
       <Social article={article} edit={edit} slug={slug}/>
         {#if $preferences.show_images}
           <img src={article.image} class="article-hero-image float-end imgshadow" alt="">

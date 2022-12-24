@@ -18,7 +18,9 @@
   }
 </script>
 
-<!-- {import.meta.env.VITE_PRERENDER} -->
+{#if import.meta.env.VITE_SNAPSHOT != undefined}
+  <span> Snapshot: {import.meta.env.VITE_SNAPSHOT}</span>
+{/if}
 
 <svelte:head>
 {#if article != null}

@@ -8,23 +8,22 @@
 
 </script>
 
-
-
-<div class='section'>
-
-<h2>Podcasts</h2>
-  <Table striped>
-    <thead>
-      <tr>
-        <th width='110px'>Date</th>
-        <th>Name</th>
-        <th>Episode</th>
-      </tr>
-    </thead>
-    <tbody>
-      {#each podcasts as podcast}
-        <Podcast podcast={podcast} />
-      {/each}
-    </tbody>
-  </Table>
-</div>
+{#if podcasts.length != 0}
+  <div class='section'>
+  <h2>Podcasts</h2>
+    <Table striped>
+      <thead>
+        <tr>
+          <th width='110px'>Date</th>
+          <th>Name</th>
+          <th>Episode</th>
+        </tr>
+      </thead>
+      <tbody>
+        {#each podcasts as podcast}
+          <Podcast podcast={podcast} />
+        {/each}
+      </tbody>
+    </Table>
+  </div>
+{/if}

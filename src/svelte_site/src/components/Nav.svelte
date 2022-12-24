@@ -3,6 +3,7 @@
   import { preferences } from '$lib/store.js';
   import { Col, Container, Row } from 'sveltestrap';
   import {base} from '$app/paths';
+  import { Icon } from 'sveltestrap';
 </script>
 
 <Container>
@@ -42,6 +43,9 @@
             <a href={`${base}/dashboard`} data-sveltekit-prefetch>Dashboard</a>
           </li>
         {/if}
+        <li>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='{base}/search'><Icon name="search"/></a>
+        </li>
         </ul>
       </nav>
     </Col>

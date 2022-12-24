@@ -76,8 +76,6 @@ def build_static(c):
         c.run(
             f"""echo 'export const API_FQDN = "https://{c.host}";' > src/svelte_site/src/lib/constants.js"""
         )
-        c.run("pip3 install virtualenv")
-        c.run("rm -rf src/api/venv")
         c.run(
             "cd src/api && python3 -m virtualenv venv && . venv/bin/activate && pip3 install -r requirements.txt && pip3 install -r requirements-dev.txt"
         )
@@ -142,11 +140,14 @@ def cron_cmd(c, job):
 def cron(c, env=os.environ):
     cron_cmd(c, "0 * * * *     curl -X POST http://localhost:8000/api/ingest/articles/")
     cron_cmd(c, "0 * * * *     curl -X POST http://localhost:8000/api/ingest/podcasts/")
-    cron_cmd(c, "0 * * * *     curl -X POST http://localhost:8000/api/images/")
-    cmd = f"""*/5 * * * *   cd ~/btcnewstoday_static && . src/api/venv/bin/activate && env bndev_bucket={env['bndev_bucket']} timeout 300 fab snapshot.snapshot"""
-    cron_cmd(c, cmd)
+    cron_cmd(c, "0 * * * *     curl -X GET http://localhost:8000/api/images/")
+    cron_cmd(c, "0 * * * *     curl -X GET http://localhost:8000/api/meta/")
+    cron_cmd(c, "5 * * * *     curl -X GET http://localhost:8000/api/meta/index/")
     cmd = f"0 * * * *   aws s3 cp database.db s3://btcnews-db-backups/{env['bndev_name']}/`date +%s`/"
     cron_cmd(c, cmd)
+    if env["bndev_is_prod_server"]:
+        cmd = f"""*/5 * * * *   cd ~/btcnewstoday_static && . src/api/venv/bin/activate && env bndev_bucket={env['bndev_bucket']} timeout 300 fab snapshot.snapshot"""
+        cron_cmd(c, cmd)
 
 
 @task

@@ -18,3 +18,8 @@
 .ad {
   max-width: 20px;
 }
+
+#search-box {
+  margin: auto;
+  max-width: 300px;
+}

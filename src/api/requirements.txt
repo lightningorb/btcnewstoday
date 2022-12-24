@@ -1,3 +1,5 @@
+readabilipy
+whoosh
 bs4
 alembic
 python-simplexml

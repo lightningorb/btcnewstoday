@@ -19,11 +19,17 @@ install_front:
 # 	nvm use 16.14
 #	src/svelte_site/node_modules/@popperjs/core/package.json
 
+
+install_back:
+	rm -rf src/api/venv
+	cd src/api && python3 -m virtualenv venv
+	. src/api/venv/bin/activate && pip3 install -r requirements.txt
+
 back:
 	cd src/api && ./venv/bin/uvicorn btcnewstoday_api:app --reload
 
 get_db:
-	rsync --progress bndev-us-west-2:/home/ubuntu/database.db ~/
+	rsync --progress bndev-us-east-2:/home/ubuntu/database.db ~/
 # 	cd src/api && . venv/bin/activate && alembic upgrade head
 
 # put_db:
@@ -37,13 +43,9 @@ db_west_to_east:
 	rsync --progress bndev-us-west-2:/home/ubuntu/database.db ~/
 	rsync ~/database.db bndev-us-east-2:/home/ubuntu/
 
-# @task
-# def revision(c, message, env=os.environ):
-#     with c.cd("server"):
-#         c.run(f'alembic revision -m "{message}" --autogenerate', env=env)
+rev:
+	. src/api/venv/bin/activate && cd src/api/ && alembic revision -m "meta" --autogenerate
 
 
-# @task
-# def upgrade(c, env=os.environ):
-#     with c.cd("server"):
-#         c.run(f"alembic upgrade head", env=env)
+upgrade:
+	alembic upgrade head

@@ -22,7 +22,7 @@
 
 <tr>
   <td>{job.company}</td>
-  <td><a target='_blank' href='{job.link}'>{job.role}</a></td>
+  <td><a rel='noreferrer' target='_blank' href='{job.link}'>{job.role}</a></td>
   {#if edit}
       <button on:click={() => _delete()}><Icon name="trash"/></button>
   {/if}

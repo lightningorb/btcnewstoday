@@ -3,7 +3,6 @@ import {getUTCDateString} from '$lib/utils.js'
 
 /** @type {import('./$types').PageServerLoad} */
 export async function load({fetch}) {
-  let AID = import.meta.env.VITE_AID;
   let SNAPSHOT = import.meta.env.VITE_SNAPSHOT;
   let date_param = '';
   let latest_snapshot = '';
@@ -13,7 +12,8 @@ export async function load({fetch}) {
   } else {
     latest_snapshot = getUTCDateString();
   }
-  const podcasts = await (await fetch(API_FQDN + '/api/podcasts/?' + date_param)).json();
+  const url = API_FQDN + '/api/podcasts/?' + date_param;
+  const podcasts = await (await fetch(url)).json();
   return {podcasts};
 }
 
