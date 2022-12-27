@@ -2,7 +2,7 @@ from typing import Optional, List, Union
 from pydantic import BaseModel
 import arrow
 
-from sqlalchemy import TIMESTAMP, func, cast
+from sqlalchemy import TIMESTAMP, func, cast, BigInteger
 from sqlalchemy.orm import column_property, declared_attr
 from sqlmodel import DateTime, Field, Column
 
@@ -27,15 +27,15 @@ class TokenData(BaseModel):
     username: Union[str, None] = None
 
 
-class User(BaseModel):
-    username: str
-    email: Union[str, None] = None
-    full_name: Union[str, None] = None
-    disabled: Union[bool, None] = None
+class UserBase(SQLModel):
+    username: str = Field(primary_key=True)
+    role: str = Field()
+    twitter_uid: str = Field()
+    twitter_username: str = Field()
 
 
-class UserInDB(User):
-    hashed_password: str
+class User(UserBase, table=True):
+    hashed_password: str = Field()
 
 
 class ArticleDeleted(SQLModel, table=True):
@@ -74,14 +74,27 @@ class Meta(MetaBase, table=True):
     article: Optional[Article] = Relationship(back_populates="meta")
 
 
-class TweetBase(SQLModel):
-    id: Optional[int] = Field(default=None, primary_key=True)
+class ContributionBase(SQLModel):
+    pass
+    # contributor_username: int = Field(
+    #     index=True, foreign_key="user.username", nullable=True
+    # )
+    # bounty_sats: int = Field(index=False, nullable=True)
+    # bounty_paid: bool = Field(index=False, nullable=True)
+
+
+class TweetBase(ContributionBase):
+    # id: Optional[int] = Field(default=None, primary_key=True)
+    id: Optional[int] = Field(
+        default_factory=lambda x: x + 1,
+        sa_column=Column(BigInteger(), primary_key=True, autoincrement=False),
+    )
     username: str = Field(index=True)
     text: str = Field(index=True)
     article_id: int = Field(index=True, foreign_key="article.id")
 
 
-class NostrNoteBase(SQLModel):
+class NostrNoteBase(ContributionBase):
     id: Optional[int] = Field(default=None, primary_key=True)
     username: str = Field(index=True)
     author_pk: str = Field(index=True)
@@ -145,3 +158,7 @@ class Job(SQLModel, table=True):
     company: str = Field(index=True)
     role: str = Field(index=True)
     date: int = Field(index=True)
+
+
+class AlembicVersion(SQLModel, table=True):
+    version_num: str = Field(default=None, primary_key=True)

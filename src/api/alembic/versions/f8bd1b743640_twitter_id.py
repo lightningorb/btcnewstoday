@@ -1,8 +1,8 @@
-"""tweets
+"""twitter_id
 
-Revision ID: 2ef8236b19e4
-Revises: d663013bd4a9
-Create Date: 2022-11-12 14:45:44.820446
+Revision ID: f8bd1b743640
+Revises: 
+Create Date: 2022-12-27 12:08:23.790745
 
 """
 from alembic import op
@@ -12,8 +12,8 @@ import sqlmodel # added
 
 
 # revision identifiers, used by Alembic.
-revision = '2ef8236b19e4'
-down_revision = 'd663013bd4a9'
+revision = 'f8bd1b743640'
+down_revision = None
 branch_labels = None
 depends_on = None
 

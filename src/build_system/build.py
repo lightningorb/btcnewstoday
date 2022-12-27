@@ -40,7 +40,7 @@ def build(c, env=os.environ):
         c.run(
             "cd src/api && python3 -m virtualenv venv && . venv/bin/activate && pip3 install -r requirements.txt && pip3 install -r requirements-dev.txt"
         )
-        migrate_db(c)
+        # migrate_db(c)
         c.run("sudo supervisorctl reload")
         sleep(10)
         c.run(

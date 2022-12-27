@@ -1,8 +1,9 @@
 <script>
-  import { Styles } from 'sveltestrap';
+	import { Styles } from 'sveltestrap';
 </script>
 
-
-
 <h1>About btcnews today</h1>
-<p>We're just scratching our own itch, looking for easy access to Bitcoin content from all the great sites and sources.</p>
+<p>
+	We're just scratching our own itch, looking for easy access to Bitcoin content from all the great
+	sites and sources.
+</p>

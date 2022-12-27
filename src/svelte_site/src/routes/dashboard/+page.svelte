@@ -1,12 +1,10 @@
 <script>
-  import { Styles } from 'sveltestrap';
-  import { onMount } from 'svelte';
-  onMount(() => {
-    document.title = 'Dashboard - BTCNews.today';
-  });
+	import { Styles } from 'sveltestrap';
+	import { onMount } from 'svelte';
+	onMount(() => {
+		document.title = 'Dashboard - BTCNews.today';
+	});
 </script>
-
-
 
 <h1>Dashboard</h1>
 

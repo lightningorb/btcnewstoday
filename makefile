@@ -44,7 +44,7 @@ db_west_to_east:
 	rsync ~/database.db bndev-us-east-2:/home/ubuntu/
 
 rev:
-	. src/api/venv/bin/activate && cd src/api/ && alembic revision -m "nostr notes" --autogenerate
+	. src/api/venv/bin/activate && cd src/api/ && alembic revision -m "contribution" --autogenerate
 
 
 upgrade:

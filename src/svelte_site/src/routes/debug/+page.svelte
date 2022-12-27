@@ -1,13 +1,11 @@
 <script>
-  import { onMount } from 'svelte';
-  import { browser, dev } from '$app/environment';
-  // import { PUBLIC_BASE_URL } from '$env/static/public';
-  onMount(() => {
-    document.title = 'Dashboard - BTCNews.today';
-  });
+	import { onMount } from 'svelte';
+	import { browser, dev } from '$app/environment';
+	// import { PUBLIC_BASE_URL } from '$env/static/public';
+	onMount(() => {
+		document.title = 'Dashboard - BTCNews.today';
+	});
 </script>
-
-
 
 <h1>Debug</h1>
 

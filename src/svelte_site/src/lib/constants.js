@@ -1,1 +1,1 @@
-export const API_FQDN = "http://localhost:8000";
+export const API_FQDN = "https://bndev-us-west-2.link";

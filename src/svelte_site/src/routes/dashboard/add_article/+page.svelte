@@ -1,5 +1,5 @@
 <script>
-    import AddArticle from '../../../components/AddArticle.svelte';
+	import AddArticle from '../../../components/AddArticle.svelte';
 </script>
 
-<AddArticle/>
+<AddArticle />

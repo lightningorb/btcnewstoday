@@ -1,3 +1,4 @@
+from textwrap import dedent
 import os
 from invoke import task
 from fabric import Connection
@@ -5,15 +6,46 @@ from fabric import Connection
 
 @task
 def setup(c):
+    c.sudo("""adduser --home /home/postgres --disabled-password --gecos "" postgres""")
+    c.sudo("adduser postgres sudo")
     c.sudo("apt-get update")
     c.sudo(
-        "apt-get install mosh nginx git make zip python3-pip supervisor certbot python3-certbot-nginx unzip -y"
+        "apt-get install postgresql postgresql-contrib mosh nginx git make zip python3-pip supervisor certbot python3-certbot-nginx unzip -y"
     )
     c.sudo("systemctl start nginx")
     cmd = "curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash"
     c.run(cmd)
     c.run(". .nvm/nvm.sh && nvm install v16.14.2")
     c.sudo(f"hostname {c.host}")
+    c.sudo("mkdir -p ../postgres/.ssh/")
+    c.sudo("cp .ssh/authorized_keys ../postgres/.ssh/")
+    c.sudo("chown postgres -R ../postgres")
+
+
+@task
+def setup_postgres(c):
+    """
+    TODO: fix me
+    """
+    c.sudo(
+        """echo "listen_addresses = '*'" >> /etc/postgresql/14/main/postgresql.conf"""
+    )
+
+    c.sudo(
+        """echo "host  all  all 0.0.0.0/0 md5" >> /etc/postgresql/14/main/pg_hba.conf"""
+    )
+    c.run(
+        dedent(
+            """\
+            psql -U postgres postgres <<OMG
+            CREATE USER btcnewstoday password 'abc_abc_123_abc_abc_123-abc_abc_123';
+            CREATE DATABASE btcnewstoday;
+            GRANT ALL PRIVILEGES ON DATABASE btcnewstoday TO btcnewstoday;
+            OMG
+           """
+        )
+    )
+    c.sudo("systemctl restart postgresql")
 
 
 @task
