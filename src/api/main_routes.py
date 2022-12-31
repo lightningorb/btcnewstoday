@@ -12,6 +12,8 @@ from auth_helpers import *
 
 import time
 
+from bs4 import BeautifulSoup
+from traceback import print_exc
 from fastapi import FastAPI, Request
 from pydantic import BaseModel
 from sqlalchemy.sql.expression import not_
@@ -422,25 +424,28 @@ def get_latest_snapshot():
 
 
 @router.get("/api/images/")
-def get_images():
-    from bs4 import BeautifulSoup
-
-    session = Session(engine)
+def get_images(session: Session = Depends(get_session)):
+    print("get_images")
     query = select(Article)
     articles = session.exec(query).all()
     for a in articles:
         if a.image or a.is_draft == 1:
             continue
         if a.link:
-            text = requests.get(a.link).text
-            soup = BeautifulSoup(text)
-            for tag in soup.find_all("meta"):
-                if tag.get("property", None) == "og:image":
-                    image = tag.get("content", None)
-                    if image:
-                        a.image = image
-                        print(image)
-                        session.commit()
+            print(f"image missing, let's get it for {a.id}")
+            print(f"link is: {a.link}")
+            try:
+                text = requests.get(a.link, timeout=10).text
+                soup = BeautifulSoup(text)
+                for tag in soup.find_all("meta"):
+                    if tag.get("property", None) == "og:image":
+                        image = tag.get("content", None)
+                        if image:
+                            a.image = image
+                            print(image)
+                            session.commit()
+            except:
+                print(print_exc())
 
 
 @router.get("/api/meta/")
