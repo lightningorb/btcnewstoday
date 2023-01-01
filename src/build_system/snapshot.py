@@ -53,7 +53,7 @@ class BuildSettings:
 def check_build():
     from bs4 import BeautifulSoup
 
-    text = open("build/index.html").read()
+    text = open("src/svelte_site/build/index.html").read()
 
     s = BeautifulSoup(text, features="lxml")
 
@@ -95,6 +95,7 @@ def snapshot(c, env=os.environ):
             warn=True,
             env=dict(BN_SVELTE_BASE=main_page_settings.base),
         )
+        check_build()
         c.run(
             f"aws s3 cp build/ s3://{env['bndev_bucket']}/ --recursive",
         )
