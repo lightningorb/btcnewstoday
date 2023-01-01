@@ -50,6 +50,30 @@ class BuildSettings:
         self.destination = destination
 
 
+def check_build():
+    from bs4 import BeautifulSoup
+
+    text = open("build/index.html").read()
+
+    s = BeautifulSoup(text, features="lxml")
+
+    assert s.find_all("title")[0].text == "BTCNews.today"
+
+    h2s = s.find_all("h2")
+
+    assert h2s[0].text == "Latest"
+    assert h2s[1].text == "Tech & Dev"
+    assert h2s[2].text == "Podcasts"
+    assert h2s[3].text == "Longform"
+
+    for h2 in h2s:
+        parent = h2.parent
+        assert len([*s.find_all(class_="tweets-title")]) > 5
+        assert len([*s.find_all(class_="bi-twitter")]) > 5
+        assert len([*s.find_all(class_="bi-link")]) > 5
+        assert len([*s.find_all("a")]) > 5
+
+
 @task()
 def snapshot(c, env=os.environ):
     with c.cd("src/svelte_site"):
@@ -107,6 +131,7 @@ def snapshot(c, env=os.environ):
                 warn=True,
                 env=dict(BN_SVELTE_BASE=settings.base),
             )
+            check_build()
             c.run(
                 f"aws s3 cp build/ s3://{env['bndev_bucket']}/{settings.destination} --recursive",
             )
