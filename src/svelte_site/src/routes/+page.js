@@ -19,7 +19,7 @@ export async function load({ fetch, params, slug }) {
 		await fetch(API_FQDN + '/api/articles/?longform=true&' + date_param)
 	).json();
 	const techdev = await (
-		await fetch(API_FQDN + '/api/articles/?category_include=BN%3A%20Tech%20%26%20Dev' + date_param)
+		await fetch(API_FQDN + '/api/articles/?category_include=BN%3A%20Tech%20%26%20Dev&' + date_param)
 	).json();
 	return { articles, podcasts, longforms, latest_snapshot, techdev };
 }

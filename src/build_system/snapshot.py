@@ -5,6 +5,10 @@ import requests
 import boto3
 from textwrap import dedent
 
+import boto3
+
+s3 = boto3.client("s3")
+
 
 @task
 def write_env(c, prerender, ssr, csr, snapshot, aid, dest):
@@ -77,6 +81,12 @@ def snapshot(c, env=os.environ):
         articles = [x["id"] for x in short + long]
 
         for aid in articles:
+            response = s3.list_objects(
+                Bucket=env["bndev_bucket"], Prefix=f"{today}/{aid}"
+            )
+            if "Contents" in response:
+                print(f"{today}/{aid} already exists - skipping")
+                continue
             settings = BuildSettings(
                 base=f"/{today}/{aid}",
                 destination=f"{today}/{aid}",
