@@ -17,7 +17,10 @@ def ingest_plain_text(session):
         if not a.meta:
             if "notable tweets" in a.title.lower():
                 continue
-            article_html = requests.get(a.link).text
+            try:
+                article_html = requests.get(a.link, timeout=10).text
+            except:
+                pass
             article = simple_json_from_html_string(article_html, use_readability=True)
             plain_text = " ".join(x["text"] for x in article["plain_text"])
             a.meta.append(Meta(article_id=a.id, type="plain_text", data=plain_text))
