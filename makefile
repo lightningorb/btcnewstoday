@@ -19,7 +19,6 @@ install_front:
 # 	nvm use 16.14
 #	src/svelte_site/node_modules/@popperjs/core/package.json
 
-
 install_back:
 	rm -rf src/api/venv
 	cd src/api && python3 -m virtualenv venv
@@ -28,24 +27,15 @@ install_back:
 back:
 	cd src/api && ./venv/bin/uvicorn btcnewstoday_api:app --reload --workers 3
 
-get_db:
-	rsync --progress bndev-us-east-2:/home/ubuntu/database.db ~/
-# 	cd src/api && . venv/bin/activate && alembic upgrade head
-
-put_db:
-	rsync ~/database.db bndev-us-east-2:/home/ubuntu/
-
-db_east_to_west:
-	rsync --progress bndev-us-east-2:/home/ubuntu/database.db ~/
-	rsync ~/database.db bndev-us-west-2:/home/ubuntu/
-
-db_west_to_east:
-	rsync --progress bndev-us-west-2:/home/ubuntu/database.db ~/
-	rsync ~/database.db bndev-us-east-2:/home/ubuntu/
-
 rev:
-	. src/api/venv/bin/activate && cd src/api/ && alembic revision -m "contribution" --autogenerate
-
+	. src/api/venv/bin/activate && cd src/api/ && alembic revision -m "bounties" --autogenerate
 
 upgrade:
-	alembic upgrade head
+	. src/api/venv/bin/activate && cd src/api/ && alembic upgrade head && python3 migrate.py
+
+test:
+	. src/api/venv/bin/activate && cd src/api/ && ./bn init-db && ./bn drop && ./bn fix-db-keys
+	pytest src/build_system/tests/ -s --full-trace -vv
+
+test_bounties:
+	pytest src/build_system/tests/test_bounties.py -s --full-trace -vv

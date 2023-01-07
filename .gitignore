@@ -1,9 +1,9 @@
+*.sql
 feeds
 indexdir
 .envrc
 *.pem
 .DS_Store
-bn_secrets.py
 tmp.py
 *.db
 __pycache__

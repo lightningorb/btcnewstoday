@@ -22,7 +22,6 @@ fab provision.create \
             --elastic-ip ${bndev_elastic_ip}
 
 fab -i ${bndev_name}.pem -H ubuntu@${bndev_url} configure.setup
-fab -i ${bndev_name}.pem -H ubuntu@${bndev_url} configure.setup-postgres
 fab -i ${bndev_name}.pem -H postgres@${bndev_url} configure.setup-postgres
 fab -i ${bndev_name}.pem -H ubuntu@${bndev_url} configure.aws-cli
 # fab -i ${bndev_name}.pem -H ubuntu@${bndev_url} configure.generate-cert

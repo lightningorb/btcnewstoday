@@ -13,13 +13,19 @@ export async function load({ fetch, params, slug }) {
 		latest_snapshot = getUTCDateString();
 	}
 	let url = API_FQDN + '/api/articles/?category_exclude=BN%3A%20Tech%20%26%20Dev&' + date_param;
-	const articles = await (await fetch(url)).json();
-	const podcasts = await (await fetch(API_FQDN + '/api/podcasts/?' + date_param)).json();
-	const longforms = await (
+	const fetchArticles = async () => await (await fetch(url)).json();
+	const fetchPodcasts = async () => await (await fetch(API_FQDN + '/api/podcasts/?' + date_param)).json();
+	const fetchLongforms = async () => await (
 		await fetch(API_FQDN + '/api/articles/?longform=true&' + date_param)
 	).json();
-	const techdev = await (
+	const fetchTechdev = async () => await (
 		await fetch(API_FQDN + '/api/articles/?category_include=BN%3A%20Tech%20%26%20Dev&' + date_param)
 	).json();
-	return { articles, podcasts, longforms, latest_snapshot, techdev };
+	return {
+		articles: fetchArticles(),
+		podcasts: fetchPodcasts(),
+		longforms: fetchLongforms(),
+		latest_snapshot,
+		techdev: fetchTechdev()
+	};
 }

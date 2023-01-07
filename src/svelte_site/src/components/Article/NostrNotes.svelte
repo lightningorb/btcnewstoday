@@ -1,27 +1,20 @@
 <script>
-	import { Popover } from 'sveltestrap';
+	import Note from './Note.svelte';
+    import { role_is_at_least } from '$lib/utils.js';
 	export let article;
 	article.nostr_notes.sort((a, b) => a.id - b.id);
-	let display = article.nostr_notes.length;
+	var notes = role_is_at_least('editor') ? article.nostr_notes : article.nostr_notes.filter((a) => a.approved);
+	let display = notes.length;
 </script>
 
 {#if display}
 <div style="padding-top: 10px;">
-	{#if article.nostr_notes.length > 0}
+	{#if notes.length > 0}
 		<b class="tweets-title">Nostr:</b>
 	{/if}
 
-	{#each article.nostr_notes as nostr_note}
-		<Popover trigger="hover" target={'id-' + nostr_note.note_id} title={'@' + nostr_note.username}>
-			<p>{nostr_note.text}</p>
-		</Popover>
-		<a
-			rel="noreferrer"
-			class="tweet"
-			id={'id-' + nostr_note.note_id}
-			target="_blank"
-			href="https://astral.ninja/note{nostr_note.note_id}">@{nostr_note.username}</a
-		> <span style="width: 3px;" />
+	{#each notes as note}
+		<Note note={note}/>
 	{/each}
 </div>
 {/if}

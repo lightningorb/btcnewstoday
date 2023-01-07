@@ -8,5 +8,6 @@ export const preferences = writable('preferences', {
 	access_token: '',
 	role: '',
 	username: '',
+	show_bounties: true,
 	show_images: false
 });

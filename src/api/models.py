@@ -32,15 +32,21 @@ class UserBase(SQLModel):
     role: str = Field()
     twitter_uid: str = Field()
     twitter_username: str = Field()
+    ln_address: str = Field(nullable=True)
 
 
 class User(UserBase, table=True):
     hashed_password: str = Field()
 
 
-class ArticleDeleted(SQLModel, table=True):
-    id: Optional[int] = Field(default=None, primary_key=True)
-    link: str = Field(index=True)
+class UserRead(UserBase):
+    num_tweets: int
+    num_notes: int
+    num_tweets_approved: int
+    num_notes_approved: int
+    redeemable_sats: int
+    redeemed_sats: int
+    ln_address: str
 
 
 class ArticleBase(SQLModel):
@@ -75,32 +81,39 @@ class Meta(MetaBase, table=True):
 
 
 class ContributionBase(SQLModel):
-    pass
-    # contributor_username: int = Field(
-    #     index=True, foreign_key="user.username", nullable=True
-    # )
-    # bounty_sats: int = Field(index=False, nullable=True)
-    # bounty_paid: bool = Field(index=False, nullable=True)
+    contributor_username: str = Field(
+        index=True, foreign_key="user.username", nullable=True
+    )
+    approved: bool = Field(index=True, nullable=True)
+    bounty_sats: int = Field(index=False, nullable=True)
+    bounty_paid: bool = Field(index=False, nullable=True)
 
 
 class TweetBase(ContributionBase):
-    # id: Optional[int] = Field(default=None, primary_key=True)
-    id: Optional[int] = Field(
-        default_factory=lambda x: x + 1,
-        sa_column=Column(BigInteger(), primary_key=True, autoincrement=False),
+    id: Optional[int] = Field(default=None, primary_key=True)
+    tweet_id: Optional[int] = Field(
+        sa_column=Column(BigInteger(), primary_key=False, autoincrement=False)
     )
     username: str = Field(index=True)
     text: str = Field(index=True)
     article_id: int = Field(index=True, foreign_key="article.id")
+    date: int = Field(index=True, default=arrow.utcnow().timestamp(), nullable=True)
+
+
+class TweetAdd(BaseModel):
+    tweet_id: int
+    username: str
+    text: str
+    article_id: int
 
 
 class NostrNoteBase(ContributionBase):
     id: Optional[int] = Field(default=None, primary_key=True)
     username: str = Field(index=True)
-    author_pk: str = Field(index=True)
     note_id: str = Field(index=True)
     text: str = Field(index=True)
     article_id: int = Field(index=True, foreign_key="article.id")
+    date: int = Field(index=True, default=arrow.utcnow().timestamp(), nullable=True)
 
 
 class Tweet(TweetBase, table=True):
@@ -109,6 +122,13 @@ class Tweet(TweetBase, table=True):
 
 class NostrNote(NostrNoteBase, table=True):
     article: Optional[Article] = Relationship(back_populates="nostr_notes")
+
+
+class NostrNoteAdd(BaseModel):
+    article_id: int
+    text: str
+    note_id: str
+    username: str
 
 
 class TweetRead(TweetBase):
@@ -158,6 +178,18 @@ class Job(SQLModel, table=True):
     company: str = Field(index=True)
     role: str = Field(index=True)
     date: int = Field(index=True)
+
+
+class BountyRates(SQLModel, table=True):
+    id: Optional[int] = Field(default=None, primary_key=True)
+    notes: int = Field(index=False)
+    tweets: int = Field(index=False)
+    date: int = Field(index=True, default=arrow.utcnow().timestamp(), nullable=False)
+
+
+class BountyRatesRead(BaseModel):
+    notes: int
+    tweets: int
 
 
 class AlembicVersion(SQLModel, table=True):

@@ -22,3 +22,23 @@
 	margin: auto;
 	max-width: 300px;
 }
+
+.dorrar {
+	font-size: 0.7em;
+	color: #FFCC00;
+}
+
+.grey-dorrar {
+	font-size: 0.7em;
+	color: #aaa;
+}
+
+.grey-dorrar:hover {
+	font-size: 0.7em;
+	color: orange;
+	cursor: default;
+}
+
+.default-cursor {
+	cursor: default;
+}

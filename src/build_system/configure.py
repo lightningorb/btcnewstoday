@@ -8,7 +8,10 @@ from fabric import Connection
 def setup(c):
     c.sudo("""adduser --home /home/postgres --disabled-password --gecos "" postgres""")
     c.sudo("adduser postgres sudo")
-    c.sudo("apt-get update")
+
+    c.sudo("apt-get update -y")
+    c.sudo("apt-get update -y")
+    c.sudo("apt-get update -y")
     c.sudo(
         "apt-get install postgresql postgresql-contrib mosh nginx git make zip python3-pip supervisor certbot python3-certbot-nginx unzip -y"
     )
@@ -20,20 +23,25 @@ def setup(c):
     c.sudo("mkdir -p ../postgres/.ssh/")
     c.sudo("cp .ssh/authorized_keys ../postgres/.ssh/")
     c.sudo("chown postgres -R ../postgres")
-
-
-@task
-def setup_postgres(c):
-    """
-    TODO: fix me
-    """
+    c.sudo("chmod a+w /etc/postgresql/14/main/postgresql.conf")
     c.sudo(
         """echo "listen_addresses = '*'" >> /etc/postgresql/14/main/postgresql.conf"""
     )
-
+    c.sudo("chmod a+w /etc/postgresql/14/main/pg_hba.conf")
     c.sudo(
         """echo "host  all  all 0.0.0.0/0 md5" >> /etc/postgresql/14/main/pg_hba.conf"""
     )
+    c.run(
+        "echo 'localhost:5432:btcnewstoday:btcnewstoday:abc_abc_123_abc_abc_123-abc_abc_123' >> ~/.pgpass"
+    )
+    c.run(
+        "echo 'localhost:5432:btcnewstoday:postgres:abc_abc_123_abc_abc_123-abc_abc_123' >> ~/.pgpass"
+    )
+    c.run("chmod 600 ~/.pgpass")
+
+
+@task
+def setup_postgres(c, env=os.environ):
     c.run(
         dedent(
             """\
@@ -41,11 +49,20 @@ def setup_postgres(c):
             CREATE USER btcnewstoday password 'abc_abc_123_abc_abc_123-abc_abc_123';
             CREATE DATABASE btcnewstoday;
             GRANT ALL PRIVILEGES ON DATABASE btcnewstoday TO btcnewstoday;
+            GRANT ALL ON SCHEMA public TO btcnewstoday;
             OMG
            """
-        )
+        ),
+        env=env,
     )
-    c.sudo("systemctl restart postgresql")
+    # c.sudo("systemctl restart postgresql")
+    c.run(
+        "echo 'localhost:5432:btcnewstoday:btcnewstoday:abc_abc_123_abc_abc_123-abc_abc_123' >> ~/.pgpass"
+    )
+    c.run(
+        "echo 'localhost:5432:btcnewstoday:postgres:abc_abc_123_abc_abc_123-abc_abc_123' >> ~/.pgpass"
+    )
+    c.run("chmod 600 ~/.pgpass")
 
 
 @task
@@ -56,8 +73,12 @@ def aws_cli(c, env=os.environ):
         )
         c.run("unzip awscliv2.zip")
         c.run("sudo ./aws/install")
-    aws_access_key_id = os.environ["aws_access_key_id"]
-    aws_secret_access_key = os.environ["aws_secret_access_key"]
+
+
+@task
+def aws_cli_credentials(c, env=os.environ):
+    aws_access_key_id = os.environ["AWS_ACCESS_KEY_ID"]
+    aws_secret_access_key = os.environ["AWS_SECRET_ACCESS_KEY"]
     c.run("mkdir -p .aws")
     c.run("echo '[default]' > .aws/credentials")
     c.run(f"echo 'aws_access_key_id = {aws_access_key_id}' >> .aws/credentials")

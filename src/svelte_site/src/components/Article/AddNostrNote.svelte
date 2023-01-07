@@ -7,23 +7,33 @@
 	import { Card, CardBody } from 'sveltestrap';
 
 	let open = false;
+	export let isOpen;
 	let text = '';
 
 	export var article_id;
+	export let sats_for_note;
 
-	async function get_note(note_id, author_pk) {
-		console.log('get_note', author_pk, note_id);
-		if (note_id == null || author_pk == null) return;
-		if (note_id == '' || author_pk == '') return;
+	async function get_note(note_id) {
+		if (note_id == null) return;
+		const decoded = bech32.decode(note_id)
+		const bytes = fromWords(decoded.words)
+		const value = hex_encode(bytes)
 		console.log('getting');
-		const res = await fetch(
-			API_FQDN + `/api/third_party/nostr_note_text/?note_id=${note_id}&author_pk=${author_pk}`
-		);
+		const res = await fetch(`/jsapi/nostr?note_id=${value}`);
 		const text = await res.json();
 		return text;
 	}
 
-	function add_note(note_id, author_pk, text, username) {
+	function astral_re(link) {
+		var rx = /https:\/\/astral\.ninja\/(.*)/g;
+		var arr = rx.exec(link);
+		if (arr && arr.length){
+			console.log(arr[1]);
+			return arr[1];
+		}
+	}
+
+	function add_note(note_id, text, username) {
 		const headers = {
 			'Content-Type': 'application/json'
 		};
@@ -31,7 +41,6 @@
 			article_id,
 			note_id,
 			username,
-			author_pk,
 			text
 		});
 		axios
@@ -46,38 +55,67 @@
 			});
 	}
 
-	$: author_pk = '';
-	$: username = '';
-	$: note_id = '';
-	$: note = '';
-	// get_note(note_id, author_pk);
 
-	const toggle = () => (open = !open);
+	function hex_char(val)
+	{
+		if (val < 10)
+			return String.fromCharCode(48 + val)
+		if (val < 16)
+			return String.fromCharCode(97 + val - 10)
+	}
+
+	function hex_encode(buf)
+	{
+		var str = ""
+		for (let i = 0; i < buf.length; i++) {
+			const c = buf[i]
+			str += hex_char(c >> 4)
+			str += hex_char(c & 0xF)
+		}
+		return str
+	}
+
+	$: username = '';
+	$: link = '';
+	$: note_id = astral_re(link);
+	$: note = get_note(note_id);
+
+	const toggle = () => {
+		open = !open;
+		if (!open)
+			setTimeout(() => isOpen = false, 1000)
+	};
 </script>
 
 <div>
-	<button style='border: 0;' on:click={toggle}><img src="/add-nostr-note.png" style="width: 14px;" /></button> Add Note
+	<button style='border: 0;' on:click={toggle}><img src="/add-nostr-note.png" style="width: 14px;" /></button> Add Note {#if sats_for_note}<span class='dorrar'>$</span>{/if}
 
-	<Modal body header="Add Nostr Note" isOpen={open} {toggle}>
+	<Modal body style='--bs-popover-zindex: 2000 !important;'  header="Add Nostr Note" isOpen={open} {toggle}>
+		<style>
+			.fade {
+				background: transparent;
+			}
+		</style>
 		<FormGroup>
-			<Label for="link">Author Pubkey:</Label>
+			<Label for="link">Astral Link:</Label>
 			<br />
-			<Input type="textarea" name="text" id="link" bind:value={author_pk} />
+			<Input type="textarea" name="text" id="link" bind:value={link} />
+			<br />
 			<Label for="link">Username:</Label>
 			<br />
-			<Input type="textarea" name="text" id="link" bind:value={username} />
+			<Input type="textarea" name="text" id="username" bind:value={username} />
 			<br />
-			<Label for="link">Note ID:</Label>
-			<br />
-			<Input type="textarea" name="text" id="link" bind:value={note_id} />
-			<br />
-			<Label for="link">Text:</Label>
-			<br />
-			<Input type="textarea" name="text" id="link" bind:value={text} />
-			<br />
-			<Button color="danger" on:click={() => add_note(note_id, author_pk, text, username)} size="sm"
-				>Add Note</Button
-			>
+			{#if note_id}
+				{#await note}
+					<p>fetching note...</p>
+				{:then note}
+					<Card>
+						<CardBody>{note.content}</CardBody>
+					</Card>
+					<br />
+					<Button color="danger" on:click={() => add_note(note_id, note.content, username)} size="sm">Add Note</Button>
+				{/await}
+			{/if}
 		</FormGroup>
 	</Modal>
 </div>

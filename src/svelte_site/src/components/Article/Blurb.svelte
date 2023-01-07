@@ -8,5 +8,5 @@
 	<h5>Blurb</h5>
 	<Input type="textarea" bind:value={article.blurb} />
 {:else}
-	<div><p>{article.blurb}</p></div>
+	<p>{article.blurb}</p>
 {/if}

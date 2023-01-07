@@ -1,4 +1,5 @@
 <script>
+    import { role_is_at_least } from '$lib/utils.js';
 	import { preferences } from '$lib/store.js';
 	import axios from 'axios';
 	import Contribute from './Contribute.svelte';
@@ -70,9 +71,9 @@
 			<Blurb {article} {edit} />
 			<NostrNotes {article} />
 			<Tweets {article} />
-			{#if $preferences.access_token != ''}
+        	<!-- {#if role_is_at_least('contributor')} -->
 				<Contribute article={article} bind:edit={edit}/>
-			{/if}
+			<!-- {/if} -->
 		</div>
 		<div style="text-align: left;" class="col-lg-5" />
 	</div>

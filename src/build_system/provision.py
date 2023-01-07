@@ -210,7 +210,10 @@ def create(
             sleep(5)
 
     connection = Connection(
-        ip, connect_kwargs={"key_filename": f"{keypair_name}.pem"}, user="ubuntu"
+        ip,
+        connect_timeout=60,
+        connect_kwargs={"key_filename": f"{keypair_name}.pem"},
+        user="ubuntu",
     )
 
     while True:

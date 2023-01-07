@@ -1,3 +1,4 @@
+bech32
 psycopg2-binary
 readabilipy
 whoosh

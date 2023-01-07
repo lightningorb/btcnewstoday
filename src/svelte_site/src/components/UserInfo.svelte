@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { preferences } from '$lib/store.js';
 	import {
 		Button,
 		Card,
@@ -9,12 +10,26 @@
 		CardText,
 		CardTitle
 	} from 'sveltestrap';
+	import { onMount } from 'svelte';
+	import axios from 'axios';
+	import { API_FQDN } from '$lib/constants.js';
+	let categories = [];
+	export let category = '';
+	let user_data = null;
 
-	import { preferences } from '$lib/store.js';
-	let tweets_added = 0;
-	let tweets_approved = 0;
-	let notes_added = 0;
-	let notes_approved = 0;
+	onMount(() => {
+		axios
+			.get(`${API_FQDN}/api/users/me/`)
+			.then(function (response) {
+				console.log(response);
+				user_data = response.data;
+			})
+			.catch(function (error) {
+				console.log(error);
+				confirm('Error');
+			});
+	});
+
 </script>
 
 <Card class="mb-3">
@@ -28,13 +43,17 @@
 			<br />
 			<span>Role: {$preferences.role}</span>
 			<br />
-			<span>Tweets added: {tweets_added}</span>
+			<span>Tweets added: {user_data ? user_data.num_tweets : 0}</span>
 			<br />
-			<span>Tweets approved: {tweets_approved}</span>
+			<span>Tweets approved: {user_data ? user_data.num_tweets_approved : 0}</span>
 			<br />
-			<span>Notes added: {notes_added}</span>
+			<span>Notes added: {user_data ? user_data.num_notes : 0}</span>
 			<br />
-			<span>Notes approved: {notes_approved}</span>
+			<span>Notes approved: {user_data ? user_data.num_notes_approved : 0}</span>
+			<br />
+			<span>Redeemable Sats: 丰{user_data ? user_data.redeemable_sats.toLocaleString() : 0}</span>
+			<br />
+			<span>Redeemed Sats: 丰{user_data ? user_data.redeemed_sats.toLocaleString() : 0}</span>
 			<br />
 		</CardText>
 	</CardBody>

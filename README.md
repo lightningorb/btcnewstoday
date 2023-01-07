@@ -112,22 +112,7 @@ Then ask for dev for `btcnewstoday.cer` and save it in `~/.ssh/btcnewstoday.cer`
 
 ### Getting the production database
 
-Currently we're using a simple sqlite database. This reduces time spent on DB admin, makes backups super easy, as well as upgrades, restoring etc.
-
-sqlite is fine for sites with less than 100k requests per day. Once the site grows, we'll need to move to something more production oriented like postgres.
-
-```
-cd ${repo_root}
-make get_db
-```
-
-The db lives in:
-
-```
-src/api/database.db
-```
-
-Take a look at it with something like: https://sqlitebrowser.org/
+[TBD]
 
 ### Modifying the DB schema
 
@@ -165,3 +150,38 @@ make build_remote
 ```
 
 Or check your changes into a branch, and ask another dev to review and deploy.
+
+
+### DB stuff
+
+I'm currently trying to make db ingestion an automatic process.
+
+This creates the database:
+
+psql -U postgres postgres <<OMG
+CREATE USER btcnewstoday password 'abc_abc_123_abc_abc_123-abc_abc_123';
+CREATE DATABASE btcnewstoday;
+GRANT ALL PRIVILEGES ON DATABASE btcnewstoday TO btcnewstoday;
+\c btcnewstoday;
+GRANT ALL ON SCHEMA public TO btcnewstoday;
+OMG
+
+This ingests the db:
+
+psql -h localhost -p 5432 -w -v --create --dbname btcnewstoday < db.sql
+
+To connect to the db, use:
+
+psql -U btcnewstoday --dbname btcnewstoday -W
+
+and password: abc_abc_123_abc_abc_123-abc_abc_123
+
+to list databases
+
+\l
+
+to connect:
+
+\c postgres;
+
+

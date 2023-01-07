@@ -7,6 +7,7 @@ from textwrap import dedent
 
 @task
 def write_env(c, prerender, ssr, csr, dest):
+
     env = dedent(
         f"""\
     VITE_PRERENDER = {prerender}
@@ -31,7 +32,6 @@ def build(c, env=os.environ):
     branch = c.local("git rev-parse --abbrev-ref HEAD").stdout.strip()
     with c.cd("btcnewstoday"):
         c.run(f"git checkout {branch}")
-        copy_stuff(c)
         c.run("pip3 install virtualenv")
         c.run(
             f"""echo 'export const API_FQDN = "https://{c.host}";' > src/svelte_site/src/lib/constants.js"""
@@ -40,7 +40,7 @@ def build(c, env=os.environ):
         c.run(
             "cd src/api && python3 -m virtualenv venv && . venv/bin/activate && pip3 install -r requirements.txt && pip3 install -r requirements-dev.txt"
         )
-        # migrate_db(c)
+        migrate_db(c)
         c.run("sudo supervisorctl reload")
         sleep(10)
         c.run(
@@ -93,6 +93,7 @@ def build_static(c):
             csr="true",
             dest="btcnewstoday_static/src/svelte_site/.env",
         )
+        c.run("rm -rf src/svelte_site/src/routes/jsapi")
         c.run(". ~/.nvm/nvm.sh && cd src/svelte_site && npm run build")
 
 
@@ -121,15 +122,6 @@ def nginx_conf(c):
     c.sudo("nginx -s reload")
 
 
-@task
-def copy_stuff(c, env=os.environ):
-    c.put("src/api/bn_secrets.py", "btcnewstoday/src/api/")
-    # c.run(f"aws s3 cp s3://btcnews-db-backups/{env['bndev_name']}/database.s3 .")
-    home = c.run("echo $HOME").stdout.strip()
-    path = os.path.expanduser("~/database.db")
-    c.put(path, f"{home}/database.db")
-
-
 def cron_cmd(c, job):
     c.run(
         f""" (crontab -l ; echo "{job}") 2>&1 | grep -v "no crontab" | sort | uniq | crontab - """
@@ -143,16 +135,32 @@ def cron(c, env=os.environ):
     cron_cmd(c, "0 * * * *     curl -X GET http://localhost:8000/api/images/")
     cron_cmd(c, "0 * * * *     curl -X GET http://localhost:8000/api/meta/")
     cron_cmd(c, "5 * * * *     curl -X GET http://localhost:8000/api/meta/index/")
-    cmd = f"0 * * * *   aws s3 cp database.db s3://btcnews-db-backups/{env['bndev_name']}/`date +%s`/"
-    cron_cmd(c, cmd)
-    # if env.get("bndev_is_prod_server") == "yes":
-    cmd = f"""# */5 * * * *   cd ~/btcnewstoday_static && . src/api/venv/bin/activate && env bndev_bucket={env['bndev_bucket']} timeout 300 fab snapshot.snapshot"""
-    cron_cmd(c, cmd)
+    cron_cmd(
+        c,
+        "0 * * * *     sudo su postgres -c 'cd /home/postgres && pg_dump -d postgres -Fc > postgres.sql' && sudo cp /home/postgres/postgres.sql .",
+    )
+    cron_cmd(
+        c,
+        f"*/10 * * * *  cd ~/btcnewstoday_static && . src/api/venv/bin/activate && env bndev_bucket={env['bndev_bucket']} timeout 600 fab snapshot.snapshot",
+    )
+    cron_cmd(
+        c,
+        "5 * * * *     /usr/local/bin/aws s3 cp postgres.sql s3://btcnews-db-backups/bndev-us-west-1/`date +%Y-%m-%d`/",
+    )
+
+
+@task
+def import_db(c):
+    c.run(
+        "aws s3 cp s3://btcnews-db-backups/bndev-us-west-2/`date +%Y-%m-%d`/postgres.sql ."
+    )
+    # c.run(
+    # "PGPASSWORD=abc_abc_123_abc_abc_123-abc_abc_123 psql -h localhost -p 5432 -w -v --create --dbname btcnewstoday < db.sql"
+    # )
+    c.run("pg_restore -v -d postgres < postgres.sql")
 
 
 @task
 def migrate_db(c):
-    with c.cd("/home/ubuntu/btcnewstoday/src/api"):
-        c.run("cp ~/database.db .")
-        c.run(". venv/bin/activate && alembic upgrade head")
-        c.run("mv database.db ~/")
+    c.run("cd src/api && . venv/bin/activate && alembic upgrade head")
+    c.run("cd src/api && . venv/bin/activate && python3 migrate.py")

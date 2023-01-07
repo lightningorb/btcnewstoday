@@ -16,6 +16,7 @@
 	let username = '';
 	let password = '';
 	let twitter_username = '';
+	let ln_address = '';
 
 	let rusername = '';
 	let rpassword = '';
@@ -54,7 +55,7 @@
 		const headers = {
 			'Content-Type': 'application/json'
 		};
-		let body = JSON.stringify({ username:rusername, password:rpassword, twitter_username:twitter_username });
+		let body = JSON.stringify({ username:rusername, password:rpassword, twitter_username:twitter_username, ln_address:ln_address });
 		axios
 			.post(`${API_FQDN}/api/register/`, body, { headers: headers })
 			.then(function (response) {
@@ -130,6 +131,14 @@
 				</td>
 				<td>
 					<Input placeholder="my_twitter_un" bind:value={twitter_username} />
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<InputGroupText>LN Address</InputGroupText>
+				</td>
+				<td>
+					<Input placeholder="<me>@walletofsatoshi.com" bind:value={ln_address} />
 				</td>
 			</tr>
 		</table>

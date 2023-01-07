@@ -1,0 +1,87 @@
+
+# name: integration-tests
+# on:
+#   push:
+#     branches: [ bounty ]
+# env:
+#     AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+#     AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+#     GITHUB_TOKEN: ${{secrets.GH_TOKEN}}
+#     CERT: ${{ secrets.CERT }}
+#     bndev_elastic_ip: 18.144.98.200
+#     bndev_bucket: btcnewstoday-dev
+#     bndev_url: bndev-us-west-1.link
+#     bndev_name: bndev-us-west-1
+#     bndev_region: us-west-1
+#     bndev_availability_zone: us-west-1b
+#     bndev_ami: ami-0a1a70369f0fce06a
+#     bndev_test_url: 'https://bndev-us-west-1.link'
+# jobs:
+#   deploy:
+#     runs-on: ubuntu-20.04
+#     steps:
+#       - uses: actions/checkout@v2
+#       - uses: actions/setup-python@v2
+#         with:
+#           python-version: '3.9'
+#           cache: 'pip'
+#       - run: pip install fabric semver requests boto3 arrow
+#       - run: fab provision.create --name ${bndev_name} --instance-type t2.medium --availability-zone ${bndev_availability_zone} --keypair-name ${bndev_name} --security-group-name ${bndev_name} --ami ${bndev_ami} --region ${bndev_region} --elastic-ip ${bndev_elastic_ip}
+#       - run: fab -i ${bndev_name}.pem -H ubuntu@${bndev_url} configure.setup
+#       - run: fab -i ${bndev_name}.pem -H postgres@${bndev_url} configure.setup-postgres
+#       - run: fab -i ${bndev_name}.pem -H ubuntu@${bndev_url} configure.aws-cli
+#       - run: fab -i ${bndev_name}.pem -H ubuntu@${bndev_url} configure.aws-cli-credentials
+#       - run: fab -i ${bndev_name}.pem -H postgres@${bndev_url} configure.aws-cli-credentials
+#  #     - run: # fab -i ${bndev_name}.pem -H ubuntu@${bndev_url} configure.generate-cert
+# #      - run: # fab -i ${bndev_name}.pem -H ubuntu@${bndev_url} configure.copy-certs-to-s3
+#       - run: fab -i ${bndev_name}.pem -H ubuntu@${bndev_url} configure.get-certs-from-s3
+#       - run: fab -i ${bndev_name}.pem -H ubuntu@${bndev_url} build.supervisord-conf
+#       - run: fab -i ${bndev_name}.pem -H ubuntu@${bndev_url} build.nginx-conf
+#       - run: fab -i ${bndev_name}.pem -H ubuntu@${bndev_url} build.cron
+#   import_db:
+#     runs-on: ubuntu-20.04
+#     needs: [deploy]
+#     steps:
+#       - uses: actions/checkout@v2
+#       - uses: actions/setup-python@v2
+#         with:
+#           python-version: '3.9'
+#           cache: 'pip'
+#       - run: pip install fabric semver requests boto3 arrow pytest pytest-order
+#       - run: fab -i ${bndev_name}.pem -H postgres@${bndev_url} build.import-db
+#   build:
+#     runs-on: ubuntu-20.04
+#     needs: [import_db]
+#     steps:
+#       - uses: actions/checkout@v2
+#       - uses: actions/setup-python@v2
+#         with:
+#           python-version: '3.9'
+#           cache: 'pip'
+#       - run: pip install fabric semver requests boto3 arrow
+#       - run: fab -i ${bndev_name}.pem -H ubuntu@${bndev_url} build.build
+#       - run: fab -i ${bndev_name}.pem -H ubuntu@${bndev_url} build.build-static
+#   # test_fresh:
+#   #   runs-on: ubuntu-20.04
+#   #   needs: [deploy]
+#   #   steps:
+#   #     - uses: actions/checkout@v2
+#   #     - uses: actions/setup-python@v2
+#   #       with:
+#   #         python-version: '3.9'
+#   #         cache: 'pip'
+#   #     - run: pip install fabric semver requests boto3 arrow pytest pytest-order
+#   #     - run: pytest src/build_system/tests/ -s --full-trace -vv
+  
+#   # cleanup:
+#   #   if: ${{ always() }}
+#   #   needs: [deploy, test_fresh, migrate_db]
+#   #   runs-on: ubuntu-20.04
+#   #   steps:
+#   #     - uses: actions/checkout@v2
+#   #     - uses: actions/setup-python@v2
+#   #       with:
+#   #         python-version: '3.9'
+#   #         cache: 'pip'
+#   #     - run: pip install fabric semver requests boto3 arrow
+#   #     - run: fab provision.kill --force --name ${bndev_name} --region ${bndev_region}

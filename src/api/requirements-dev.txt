@@ -1,2 +1,5 @@
 fabric
 boto3
+typer[all]
+pytest-order
+pytest

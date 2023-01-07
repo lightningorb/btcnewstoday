@@ -1,0 +1,52 @@
+#!/usr/bin/env python3
+
+import typer
+from models import *
+from db import create_db_and_tables as create_db_and_tables_
+from db import engine, get_session
+from sqlmodel import Field, Session, SQLModel, create_engine, select
+
+app = typer.Typer()
+
+
+@app.command()
+def init_db():
+    create_db_and_tables_()
+
+
+@app.command()
+def drop():
+    for tbl in reversed(SQLModel.metadata.sorted_tables):
+        print(tbl)
+    with Session(engine) as session:
+        models = [NostrNote, Tweet, Meta, Event, Job, Article, Podcast, User]
+        for M in models:
+            for x in session.exec(select(M)).all():
+                session.delete(x)
+            session.commit()
+
+
+@app.command()
+def fix_db_keys():
+    with Session(engine) as session:
+        session.exec(
+            """
+SELECT MAX(id) FROM public.article;
+SELECT nextval('public.article_id_seq');
+BEGIN;
+LOCK TABLE public.article IN EXCLUSIVE MODE;
+SELECT setval('public.article_id_seq', COALESCE((SELECT MAX(id)+1 FROM public.article), 1), false);
+COMMIT;
+
+SELECT MAX(id) FROM public.nostrnote;
+SELECT nextval('public.nostrnote_id_seq');
+BEGIN;
+LOCK TABLE public.nostrnote IN EXCLUSIVE MODE;
+SELECT setval('public.nostrnote_id_seq', COALESCE((SELECT MAX(id)+1 FROM public.nostrnote), 1), false);
+COMMIT;
+"""
+        )
+
+
+if __name__ == "__main__":
+    app()

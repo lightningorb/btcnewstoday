@@ -68,6 +68,11 @@ a.tweet {
 	font-size: 14px !important;
 }
 
+a.tweet-pending {
+	color: #aaa !important;
+	font-size: 14px !important;
+}
+
 div.section {
 	padding-top: 10px;
 }

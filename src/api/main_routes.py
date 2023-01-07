@@ -9,6 +9,7 @@ from functools import lru_cache
 from models import *
 from role_checker import *
 from auth_helpers import *
+from traceback import print_exc
 
 import time
 
@@ -37,25 +38,14 @@ router = APIRouter()
 
 @router.on_event("shutdown")
 def shutdown_event():
-    # relay_manager.close_connections()
     pass
+    # relay_manager.close_connections()
 
 
 @router.on_event("startup")
 def on_startup():
-    # if os.path.exists("database.db"):
-    #     os.unlink("database.db")
     create_db_and_tables()
-    # add_fixtures()
-    with Session(engine) as session:
-        articles = session.exec(select(Article))
-        for a in articles:
-            if a.is_draft is None:
-                a.is_draft = True
-            for attr in ("category", "author", "image"):
-                if getattr(a, attr) is None:
-                    setattr(a, attr, "")
-        session.commit()
+    # init_relays()
 
 
 @router.post(
@@ -64,43 +54,32 @@ def on_startup():
     dependencies=[Depends(allow_create_resource)],
 )
 def create_article(
-    article: Article, current_user: User = Depends(get_current_active_user)
+    article: Article,
+    current_user: User = Depends(get_current_active_user),
+    session: Session = Depends(get_session),
 ):
-    with Session(engine) as session:
-        articles = session.exec(
-            select(Article).where(Article.link == article.link)
-        ).all()
-        if articles:
+    articles = session.exec(select(Article).where(Article.link == article.link)).all()
+    if articles:
+        raise HTTPException(
+            status_code=400,
+            detail="Article with this link already exists",
+        )
+    if not (article.link.startswith("https://") or article.link.startswith("http://")):
+        raise HTTPException(
+            status_code=400,
+            detail="Link looks invalid, it should contain http:// or https://",
+        )
+    for field in ["title", "blurb", "outlet"]:
+        if not getattr(article, field):
             raise HTTPException(
                 status_code=400,
-                detail="Article with this link already exists",
+                detail=f"field: {field} is required",
             )
-        if not (
-            article.link.startswith("https://") or article.link.startswith("http://")
-        ):
-            raise HTTPException(
-                status_code=400,
-                detail="Link looks invalid, it should contain http:// or https://",
-            )
-        for field in ["title", "blurb", "outlet"]:
-            if not getattr(article, field):
-                raise HTTPException(
-                    status_code=400,
-                    detail=f"field: {field} is required",
-                )
-        deleted_article = session.exec(
-            select(ArticleDeleted).where(ArticleDeleted.link == article.link)
-        ).all()
-        if deleted_article:
-            raise HTTPException(
-                status_code=400,
-                detail="This link was previously added, then deleted",
-            )
-        session.add(article)
-        session.commit()
-        print("added")
-        session.refresh(article)
-        return article
+    session.add(article)
+    session.commit()
+    print("added")
+    session.refresh(article)
+    return article
 
 
 @router.post(
@@ -108,19 +87,17 @@ def create_article(
     dependencies=[Depends(allow_create_resource)],
 )
 def delete_article(
-    article_id: int, current_user: User = Depends(get_current_active_user)
+    article_id: int,
+    current_user: User = Depends(get_current_active_user),
+    session: Session = Depends(get_session),
 ):
-    with Session(engine) as session:
-        db_article = session.exec(select(Article).where(Article.id == article_id)).one()
-        if not db_article:
-            print("Article ID not found")
-            return None
-        session.add(ArticleDeleted(link=db_article.link))
-        for tweet in db_article.tweets:
-            session.delete(tweet)
-        session.delete(db_article)
-        session.commit()
-        print("deleted")
+    db_article = session.exec(select(Article).where(Article.id == article_id)).one()
+    if not db_article:
+        print("Article ID not found")
+        return None
+    db_article.is_draft = True
+    session.commit()
+    print("deleted")
 
 
 @router.post(
@@ -129,55 +106,115 @@ def delete_article(
     dependencies=[Depends(allow_create_resource)],
 )
 def update_article(
-    article: Article, current_user: User = Depends(get_current_active_user)
+    article: Article,
+    current_user: User = Depends(get_current_active_user),
+    session: Session = Depends(get_session),
 ):
-    with Session(engine) as session:
-        db_article = session.exec(
-            select(Article).where(Article.link == article.link)
-        ).one()
-        if not db_article:
-            print("Article ID not found")
-            return None
-        db_article.title = article.title
-        db_article.blurb = article.blurb
-        db_article.link = article.link
-        db_article.outlet = article.outlet
-        db_article.category = article.category
-        db_article.is_draft = article.is_draft
-        db_article.is_longform = article.is_longform
-        db_article.date = article.date
-        session.commit()
-        print("updated")
-        session.refresh(db_article)
-        return db_article
+    db_article = session.exec(select(Article).where(Article.link == article.link)).one()
+    if not db_article:
+        print("Article ID not found")
+        return None
+    db_article.title = article.title
+    db_article.blurb = article.blurb
+    db_article.link = article.link
+    db_article.outlet = article.outlet
+    db_article.category = article.category
+    db_article.is_draft = article.is_draft
+    db_article.is_longform = article.is_longform
+    db_article.date = article.date
+    session.commit()
+    print("updated")
+    session.refresh(db_article)
+    return db_article
 
 
-@router.post("/api/tweets/", response_model=Tweet)
-def add_tweet(tweet: Tweet, current_user: User = Depends(get_current_active_user)):
-    with Session(engine) as session:
-        print(f"adding tweet: {tweet.id}")
-        session.add(tweet)
-        session.commit()
-        session.refresh(tweet)
-        return tweet
+@router.post("/api/tweets/", response_model=TweetAdd)
+def add_tweet(
+    tweet: TweetAdd,
+    current_user: User = Depends(get_current_active_user),
+    dependencies=[Depends(allow_contribute_resource)],
+    session: Session = Depends(get_session),
+):
+    tweets = session.exec(select(Tweet)).all()
+    if tweets:
+        id = max(x.id for x in tweets) + 1
+    else:
+        id = 1
+    db_tweet = Tweet(
+        id=id,
+        tweet_id=tweet.tweet_id,
+        username=tweet.username,
+        text=tweet.text,
+        approved=role_is_at_least(user=current_user, role="editor"),
+        article_id=tweet.article_id,
+        contributor_username=current_user.username,
+        bounty_sats=500,
+        bounty_paid=False,
+    )
+    print(f"adding tweet: {db_tweet.id}")
+    session.add(db_tweet)
+    session.commit()
+    session.refresh(db_tweet)
+    return db_tweet
 
 
-@router.post("/api/nostr_notes/", response_model=NostrNote)
+@router.post("/api/tweets/approve/{id}/", response_model=TweetAdd)
+def approve_tweet(
+    id: int,
+    dependencies=[Depends(allow_edit_resource)],
+    current_user: User = Depends(get_current_active_user),
+    session: Session = Depends(get_session),
+):
+    db_tweet = session.exec(select(Tweet).where(Tweet.id == id)).one()
+    db_tweet.approved = True
+    session.commit()
+    session.refresh(db_tweet)
+    return db_tweet
+
+
+@router.post("/api/nostr_notes/", response_model=NostrNoteAdd)
 def add_nostr_notes(
-    nost_note: NostrNote, current_user: User = Depends(get_current_active_user)
+    nostr_note: NostrNoteAdd,
+    dependencies=[Depends(allow_contribute_resource)],
+    current_user: User = Depends(get_current_active_user),
+    session: Session = Depends(get_session),
 ):
-    with Session(engine) as session:
-        print(f"adding NostrNote: {nost_note.note_id}")
-        session.add(nost_note)
-        session.commit()
-        session.refresh(nost_note)
-        return nost_note
+    print(f"adding NostrNote: {nostr_note.note_id}")
+    db_note = NostrNote(
+        article_id=nostr_note.article_id,
+        text=nostr_note.text,
+        note_id=nostr_note.note_id,
+        username=nostr_note.username,
+        contributor_username=current_user.username,
+        approved=role_is_at_least(user=current_user, role="editor"),
+        bounty_sats=250,
+        bounty_paid=False,
+    )
+    session.add(db_note)
+    session.commit()
+    session.refresh(db_note)
+    return db_note
+
+
+@router.post("/api/nostr_notes/approve/{id}/", response_model=NostrNoteAdd)
+def approve_nostr_notes(
+    id: int,
+    dependencies=[Depends(allow_edit_resource)],
+    current_user: User = Depends(get_current_active_user),
+    session: Session = Depends(get_session),
+):
+    db_note = session.exec(select(NostrNote).where(NostrNote.id == id)).one()
+    db_note.approved = True
+    session.commit()
+    session.refresh(db_note)
+    return db_note
 
 
 # , response_model=List[str]
 @router.get("/api/articles/categories/")
-def get_article_categories():
-    session = Session(engine)
+def get_article_categories(
+    session: Session = Depends(get_session),
+):
     query = select(Article.category.distinct())
     return set(session.exec(query).all()) - set([None]) | set(["BN: Tech & Dev"])
 
@@ -190,13 +227,13 @@ def get_articles(
     date: str = None,
     category_include: str = "",
     category_exclude: str = "",
+    session: Session = Depends(get_session),
 ):
     if date is None:
         date = int(arrow.utcnow().shift(days=1).timestamp())
     else:
         date = int(arrow.get(date).shift(days=1).timestamp())
 
-    session = Session(engine)
     query = (
         select(Article)
         .order_by(Article.date.desc())
@@ -218,7 +255,11 @@ def get_articles(
 
 
 @router.get("/api/past_articles/")
-def get_past_articles(date: str = None, limit: int = 100):
+def get_past_articles(
+    date: str = None,
+    limit: int = 100,
+    session: Session = Depends(get_session),
+):
     from collections import defaultdict
 
     if date is None:
@@ -227,23 +268,22 @@ def get_past_articles(date: str = None, limit: int = 100):
         date = int(arrow.get(date).shift(days=1).timestamp())
 
     dd = defaultdict(list)
-    with Session(engine) as session:
-        articles = session.exec(
-            select(Article)
-            .where(Article.is_draft == False)
-            .where(Article.date <= date)
-            .order_by(Article.date.desc())
-            .limit(limit)
-        ).all()
-        for a in articles:
-            date = int(
-                arrow.get(a.date)
-                .replace(hour=0, minute=0, second=0, microsecond=0)
-                .timestamp()
-            )
-            dd[date].append(a)
+    articles = session.exec(
+        select(Article)
+        .where(Article.is_draft == False)
+        .where(Article.date <= date)
+        .order_by(Article.date.desc())
+        .limit(limit)
+    ).all()
+    for a in articles:
+        date = int(
+            arrow.get(a.date)
+            .replace(hour=0, minute=0, second=0, microsecond=0)
+            .timestamp()
+        )
+        dd[date].append(a)
 
-        return [x for x in dict(dd).items()]
+    return [x for x in dict(dd).items()]
 
 
 @router.post(
@@ -252,19 +292,18 @@ def get_past_articles(date: str = None, limit: int = 100):
     dependencies=[Depends(allow_create_resource)],
 )
 def create_podcast(
-    podcast: Podcast, current_user: User = Depends(get_current_active_user)
+    podcast: Podcast,
+    current_user: User = Depends(get_current_active_user),
+    session: Session = Depends(get_session),
 ):
-    with Session(engine) as session:
-        db_podcast = session.exec(
-            select(Podcast).where(Podcast.link == podcast.link)
-        ).all()
-        if db_podcast:
-            print("already exists")
-            return None
-        session.add(podcast)
-        session.commit()
-        session.refresh(podcast)
-        return podcast
+    db_podcast = session.exec(select(Podcast).where(Podcast.link == podcast.link)).all()
+    if db_podcast:
+        print("already exists")
+        return None
+    session.add(podcast)
+    session.commit()
+    session.refresh(podcast)
+    return podcast
 
 
 @router.post(
@@ -273,20 +312,21 @@ def create_podcast(
     dependencies=[Depends(allow_create_resource)],
 )
 def update_podcast(
-    podcast: PodcastUpdate, current_user: User = Depends(get_current_active_user)
+    podcast: PodcastUpdate,
+    current_user: User = Depends(get_current_active_user),
+    session: Session = Depends(get_session),
 ):
-    with Session(engine) as session:
-        db_podcast = session.exec(select(Podcast).where(Podcast.id == podcast.id)).one()
-        if not db_podcast:
-            print("Podcast ID not found")
-            return None
-        db_podcast.outlet = podcast.outlet
-        db_podcast.is_draft = podcast.is_draft
-        db_podcast.episode_title = podcast.episode_title
-        session.commit()
-        print("updated")
-        session.refresh(db_podcast)
-        return db_podcast
+    db_podcast = session.exec(select(Podcast).where(Podcast.id == podcast.id)).one()
+    if not db_podcast:
+        print("Podcast ID not found")
+        return None
+    db_podcast.outlet = podcast.outlet
+    db_podcast.is_draft = podcast.is_draft
+    db_podcast.episode_title = podcast.episode_title
+    session.commit()
+    print("updated")
+    session.refresh(db_podcast)
+    return db_podcast
 
 
 @router.post(
@@ -294,12 +334,15 @@ def update_podcast(
     response_model=Job,
     dependencies=[Depends(allow_create_resource)],
 )
-def create_job(Job: Job, current_user: User = Depends(get_current_active_user)):
-    with Session(engine) as session:
-        session.add(Job)
-        session.commit()
-        session.refresh(Job)
-        return Job
+def create_job(
+    Job: Job,
+    current_user: User = Depends(get_current_active_user),
+    session: Session = Depends(get_session),
+):
+    session.add(Job)
+    session.commit()
+    session.refresh(Job)
+    return Job
 
 
 @router.post(
@@ -307,27 +350,33 @@ def create_job(Job: Job, current_user: User = Depends(get_current_active_user)):
     response_model=Event,
     dependencies=[Depends(allow_create_resource)],
 )
-def create_event(Event: Event, current_user: User = Depends(get_current_active_user)):
-    with Session(engine) as session:
-        session.add(Event)
-        session.commit()
-        session.refresh(Event)
-        return Event
+def create_event(
+    Event: Event,
+    current_user: User = Depends(get_current_active_user),
+    session: Session = Depends(get_session),
+):
+    session.add(Event)
+    session.commit()
+    session.refresh(Event)
+    return Event
 
 
 @router.post(
     "/api/delete_event/{event_id}/",
     dependencies=[Depends(allow_create_resource)],
 )
-def delete_event(event_id: int, current_user: User = Depends(get_current_active_user)):
-    with Session(engine) as session:
-        db_event = session.exec(select(Event).where(Event.id == event_id)).one()
-        if not db_event:
-            print("Event ID not found")
-            return None
-        session.delete(db_event)
-        session.commit()
-        print("deleted")
+def delete_event(
+    event_id: int,
+    current_user: User = Depends(get_current_active_user),
+    session: Session = Depends(get_session),
+):
+    db_event = session.exec(select(Event).where(Event.id == event_id)).one()
+    if not db_event:
+        print("Event ID not found")
+        return None
+    db_event.is_draft = True
+    session.commit()
+    print("deleted")
 
 
 @router.post(
@@ -335,40 +384,48 @@ def delete_event(event_id: int, current_user: User = Depends(get_current_active_
     dependencies=[Depends(allow_create_resource)],
 )
 def delete_podcast(
-    podcast_id: int, current_user: User = Depends(get_current_active_user)
+    podcast_id: int,
+    current_user: User = Depends(get_current_active_user),
+    session: Session = Depends(get_session),
 ):
-    with Session(engine) as session:
-        db_podcast = session.exec(select(Podcast).where(Podcast.id == podcast_id)).one()
-        if not db_podcast:
-            print("Podcast ID not found")
-            return None
-        session.delete(db_podcast)
-        session.commit()
-        print("deleted")
+    db_podcast = session.exec(select(Podcast).where(Podcast.id == podcast_id)).one()
+    if not db_podcast:
+        print("Podcast ID not found")
+        return None
+    db_podcast.is_draft = True
+    session.commit()
+    print("deleted")
 
 
 @router.post(
     "/api/delete_job/{job_id}/",
     dependencies=[Depends(allow_create_resource)],
 )
-def delete_podcast(job_id: int, current_user: User = Depends(get_current_active_user)):
-    with Session(engine) as session:
-        db_job = session.exec(select(Job).where(Job.id == job_id)).one()
-        if not db_job:
-            print("Job ID not found")
-            return None
-        session.delete(db_job)
-        session.commit()
-        print("deleted")
+def delete_podcast(
+    job_id: int,
+    current_user: User = Depends(get_current_active_user),
+    session: Session = Depends(get_session),
+):
+    db_job = session.exec(select(Job).where(Job.id == job_id)).one()
+    if not db_job:
+        print("Job ID not found")
+        return None
+    db_job.is_draft = True
+    session.commit()
+    print("deleted")
 
 
 @router.get("/api/podcasts/", response_model=List[Podcast])
-def get_podcasts(is_draft: bool = False, limit: int = 25, date: str = None):
+def get_podcasts(
+    is_draft: bool = False,
+    limit: int = 25,
+    date: str = None,
+    session: Session = Depends(get_session),
+):
     if date is None:
         date = int(arrow.utcnow().timestamp())
     else:
         date = int(arrow.get(date).shift(days=1).timestamp())
-    session = Session(engine)
     return session.exec(
         select(Podcast)
         .order_by(Podcast.date.desc())
@@ -379,15 +436,13 @@ def get_podcasts(is_draft: bool = False, limit: int = 25, date: str = None):
 
 
 @router.get("/api/events/", response_model=List[Event])
-def get_events():
-    with Session(engine) as session:
-        return session.exec(select(Event)).all()
+def get_events(session: Session = Depends(get_session)):
+    return session.exec(select(Event)).all()
 
 
 @router.get("/api/jobs/", response_model=List[Job])
-def get_jobs():
-    with Session(engine) as session:
-        return session.exec(select(Job).order_by(Job.date.desc())).all()
+def get_jobs(session: Session = Depends(get_session)):
+    return session.exec(select(Job).order_by(Job.date.desc())).all()
 
 
 @lru_cache(maxsize=None)
@@ -396,13 +451,6 @@ def get_tweet_text(tweet_id: int):
     import twitter
 
     return twitter.get_tweet(tweet_id)
-
-
-# @router.get("/api/third_party/nostr_note_text/")
-# def get_nostr_text(note_id: str, author_pk: str):
-#     from get_nostr_post import get_post
-
-#     return get_post(sender_publickey=author_pk, note_id=note_id)
 
 
 @router.post("/api/ingest/articles/")
@@ -425,7 +473,6 @@ def get_latest_snapshot():
 
 @router.get("/api/images/")
 def get_images(session: Session = Depends(get_session)):
-    print("get_images")
     query = select(Article)
     articles = session.exec(query).all()
     for a in articles:
@@ -449,18 +496,15 @@ def get_images(session: Session = Depends(get_session)):
 
 
 @router.get("/api/meta/")
-def get_meta():
-    session = Session(engine)
+def get_meta(session: Session = Depends(get_session)):
     ingest_plain_text.ingest_plain_text(session)
 
 
 @router.get("/api/meta/index/")
-def create_meta_index():
-    session = Session(engine)
+def create_meta_index(session: Session = Depends(get_session)):
     ingest_plain_text.create_index(session)
 
 
 @router.get("/api/meta/search/")
-def search_meta_index(term: str):
-    session = Session(engine)
+def search_meta_index(term: str, session: Session = Depends(get_session)):
     return ingest_plain_text.search_index(session, term)
