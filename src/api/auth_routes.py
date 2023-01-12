@@ -1,3 +1,4 @@
+import re
 from db import *
 import twitter
 from fastapi import FastAPI, Request
@@ -15,6 +16,9 @@ from auth_helpers import *
 router = APIRouter()
 
 ACCESS_TOKEN_EXPIRE_MINUTES = 60 * 24 * 365
+email_regex = re.compile(
+    r"([-!#-'*+/-9=?A-Z^-~]+(\.[-!#-'*+/-9=?A-Z^-~]+)*|\"([]!#-[^-~ \t]|(\\[\t -~]))+\")@([-!#-'*+/-9=?A-Z^-~]+(\.[-!#-'*+/-9=?A-Z^-~]+)*|\[[\t -Z^-~]*])"
+)
 
 
 @router.post("/token/", response_model=Token)
@@ -56,6 +60,11 @@ async def register(info: RegisterInfo):
                     detail="Password length minimum 12 characters. Plain words are fine",
                 )
             ph = get_password_hash(password=info.password)
+            if not re.fullmatch(email_regex, info.ln_address):
+                raise HTTPException(
+                    status_code=400,
+                    detail="""Please provide a valid ln address (in the format of an email address).""",
+                )
             try:
                 if not test_account:
                     twitter_uid = twitter.get_user_id(info.twitter_username)

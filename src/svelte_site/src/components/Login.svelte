@@ -8,8 +8,6 @@
 	import { preferences } from '$lib/store.js';
 	import { save_user_info } from '$lib/utils.js';
 
-	const colors = ['primary'];
-
 	let reg_alert_visible = false;
 	let reg_alert_message = '';
 	let login_alert_visible = false;
@@ -163,12 +161,14 @@
 
 	<br />
 	<br />
-	{#each colors as color}
-		<Alert {color}>
-			<h4 class="alert-heading text-capitalize">Note: Twitter Username ✍</h4>
-			We'll DM your Twitter user id in case you need a <b>password reset</b>.
-		</Alert>
-	{/each}
+	<Alert primary>
+		<h4 class="alert-heading text-capitalize">Note: Twitter Username ✍</h4>
+		We'll DM your Twitter user id in case you need a <b>password reset</b>.
+	</Alert>
+	<Alert primary>
+		<h4 class="alert-heading text-capitalize">Note: LN Address ✍</h4>
+		To get LN address, download Wallet of Satoshi, click "Recieve" and copy the "Lightning Address" in the form of <b>...................@walletofsatoshi.com</b>.
+	</Alert>
 {/if}
 
 <br />
