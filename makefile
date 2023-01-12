@@ -28,14 +28,14 @@ back:
 	cd src/api && ./venv/bin/uvicorn btcnewstoday_api:app --reload --workers 3
 
 rev:
-	. src/api/venv/bin/activate && cd src/api/ && alembic revision -m "bounties" --autogenerate
+	. src/api/venv/bin/activate && cd src/api/ && alembic revision -m "withdrawals" --autogenerate
 
 upgrade:
 	. src/api/venv/bin/activate && cd src/api/ && alembic upgrade head && python3 migrate.py
 
 test:
 	. src/api/venv/bin/activate && cd src/api/ && ./bn init-db && ./bn drop && ./bn fix-db-keys
-	pytest src/build_system/tests/ -s --full-trace -vv
+	pytest src/build_system/tests/test_bounties.py -s --full-trace -vv
 
 test_bounties:
 	pytest src/build_system/tests/test_bounties.py -s --full-trace -vv

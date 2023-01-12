@@ -95,7 +95,7 @@ def delete_article(
     if not db_article:
         print("Article ID not found")
         return None
-    db_article.is_draft = True
+    session.delete(db_article)
     session.commit()
     print("deleted")
 
@@ -140,6 +140,9 @@ def add_tweet(
         id = max(x.id for x in tweets) + 1
     else:
         id = 1
+    rate = (
+        session.exec(select(BountyRates).order_by(BountyRates.date.desc())).one().tweets
+    )
     db_tweet = Tweet(
         id=id,
         tweet_id=tweet.tweet_id,
@@ -148,7 +151,7 @@ def add_tweet(
         approved=role_is_at_least(user=current_user, role="editor"),
         article_id=tweet.article_id,
         contributor_username=current_user.username,
-        bounty_sats=500,
+        bounty_sats=rate,
         bounty_paid=False,
     )
     print(f"adding tweet: {db_tweet.id}")
@@ -179,6 +182,9 @@ def add_nostr_notes(
     current_user: User = Depends(get_current_active_user),
     session: Session = Depends(get_session),
 ):
+    rate = (
+        session.exec(select(BountyRates).order_by(BountyRates.date.desc())).one().tweets
+    )
     print(f"adding NostrNote: {nostr_note.note_id}")
     db_note = NostrNote(
         article_id=nostr_note.article_id,
@@ -187,7 +193,7 @@ def add_nostr_notes(
         username=nostr_note.username,
         contributor_username=current_user.username,
         approved=role_is_at_least(user=current_user, role="editor"),
-        bounty_sats=250,
+        bounty_sats=rate,
         bounty_paid=False,
     )
     session.add(db_note)

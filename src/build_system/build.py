@@ -99,9 +99,8 @@ def build_static(c):
 
 @task
 def supervisord_conf(c):
-    for conf in ["btcnewstoday_api.conf", "btcnewstoday.conf"]:
+    for conf in ["btcnewstoday_api.conf", "btcnewstoday.conf", "post_withdrawal.conf"]:
         c.put(f"src/build_system/conf/{conf}", "/tmp/")
-        c.sudo(f"cp /tmp/{conf} /etc/supervisor/conf.d/")
         c.sudo(f"cp /tmp/{conf} /etc/supervisor/conf.d/")
     c.sudo("supervisorctl reload")
 
@@ -152,7 +151,7 @@ def cron(c, env=os.environ):
 @task
 def import_db(c):
     c.run(
-        "aws s3 cp s3://btcnews-db-backups/bndev-us-west-2/`date +%Y-%m-%d`/postgres.sql ."
+        "aws s3 cp s3://btcnews-db-backups/bndev-us-west-1/`date +%Y-%m-%d`/postgres.sql ."
     )
     # c.run(
     # "PGPASSWORD=abc_abc_123_abc_abc_123-abc_abc_123 psql -h localhost -p 5432 -w -v --create --dbname btcnewstoday < db.sql"

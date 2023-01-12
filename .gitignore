@@ -2,7 +2,6 @@
 feeds
 indexdir
 .envrc
-*.pem
 .DS_Store
 tmp.py
 *.db

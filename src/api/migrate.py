@@ -10,12 +10,7 @@ local_engine = create_engine(
 )
 
 local_session = Session(local_engine)
-for c in [Tweet, NostrNote]:
-    for t in local_session.exec(select(c)).all():
-        t.contributor_username = "rs"
-        t.bounty_sats = 100
-        t.bounty_paid = False
-        t.date = t.article.date
-        t.approved = True
-
-local_session.commit()
+# for t in data.tweets:
+#     tweet = local_session.exec(select(Tweet).where(Tweet.id == t)).one()
+#     tweet.bounty_paid = True
+#     print(tweet)

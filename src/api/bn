@@ -19,7 +19,17 @@ def drop():
     for tbl in reversed(SQLModel.metadata.sorted_tables):
         print(tbl)
     with Session(engine) as session:
-        models = [NostrNote, Tweet, Meta, Event, Job, Article, Podcast, User]
+        models = [
+            Withdrawal,
+            NostrNote,
+            Tweet,
+            Meta,
+            Event,
+            Job,
+            Article,
+            Podcast,
+            User,
+        ]
         for M in models:
             for x in session.exec(select(M)).all():
                 session.delete(x)
@@ -44,6 +54,14 @@ BEGIN;
 LOCK TABLE public.nostrnote IN EXCLUSIVE MODE;
 SELECT setval('public.nostrnote_id_seq', COALESCE((SELECT MAX(id)+1 FROM public.nostrnote), 1), false);
 COMMIT;
+
+SELECT MAX(id) FROM public.podcast;
+SELECT nextval('public.podcast_id_seq');
+BEGIN;
+LOCK TABLE public.podcast IN EXCLUSIVE MODE;
+SELECT setval('public.podcast_id_seq', COALESCE((SELECT MAX(id)+1 FROM public.podcast), 1), false);
+COMMIT;
+
 """
         )
 

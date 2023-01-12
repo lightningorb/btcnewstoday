@@ -93,7 +93,10 @@ def snapshot(c, env=os.environ):
         c.run(
             ". ~/.nvm/nvm.sh && nvm use 16.14 && npm run build",
             warn=True,
-            env=dict(BN_SVELTE_BASE=main_page_settings.base),
+            env=dict(
+                BN_SVELTE_BASE=main_page_settings.base,
+                NODE_OPTIONS="--max-old-space-size=7680",
+            ),
         )
         check_build()
         c.run(

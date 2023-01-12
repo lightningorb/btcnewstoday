@@ -1,0 +1,13 @@
+AMQP_URI: 'pyamqp://btcnewstoday:abc_abc_123_abc_abc_123-abc_abc_123@bndev-us-east-2.link'
+WEB_SERVER_ADDRESS: '0.0.0.0:8000'
+max_workers: 10
+parent_calls_tracked: 10
+
+LOGGING:
+    version: 1
+    handlers:
+        console:
+            class: logging.StreamHandler
+    root:
+        level: DEBUG
+        handlers: [console]

@@ -1,8 +1,9 @@
-from typing import Optional, List, Union
+from sqlalchemy.dialects import postgresql
+from typing import Optional, List, Union, Set
 from pydantic import BaseModel
 import arrow
 
-from sqlalchemy import TIMESTAMP, func, cast, BigInteger
+from sqlalchemy import TIMESTAMP, func, cast, BigInteger, Integer
 from sqlalchemy.orm import column_property, declared_attr
 from sqlmodel import DateTime, Field, Column
 
@@ -133,6 +134,7 @@ class NostrNoteAdd(BaseModel):
 
 class TweetRead(TweetBase):
     id: str
+    tweet_id: str
 
 
 class NostrNoteRead(NostrNoteBase):
@@ -185,6 +187,33 @@ class BountyRates(SQLModel, table=True):
     notes: int = Field(index=False)
     tweets: int = Field(index=False)
     date: int = Field(index=True, default=arrow.utcnow().timestamp(), nullable=False)
+
+
+class Withdrawal(SQLModel, table=True):
+    id: Optional[int] = Field(default=None, primary_key=True)
+    username: str = Field(index=True, foreign_key="user.username", nullable=True)
+    ln_address: str = Field(nullable=False)
+    date: int = Field(index=True, nullable=False)
+    notes: Optional[Set[int]] = Field(
+        default=None, sa_column=Column(postgresql.ARRAY(BigInteger()))
+    )
+    tweets: Optional[Set[int]] = Field(
+        default=None, sa_column=Column(postgresql.ARRAY(BigInteger()))
+    )
+    amount_msat: str = Field(index=False)
+    amount_sent_msat: str = Field(index=False)
+    api_version: str = Field(index=False)
+    created_at: int = Field(index=False)
+    destination: str = Field(index=False)
+    msatoshi: int = Field(index=False)
+    msatoshi_sent: int = Field(index=False)
+    parts: int = Field(index=False)
+    payment_hash: str = Field(index=False)
+    payment_preimage: str = Field(index=False)
+    status: str = Field(index=False)
+
+    def as_dict(self):
+        return {c.name: getattr(self, c.name) for c in self.__table__.columns}
 
 
 class BountyRatesRead(BaseModel):

@@ -98,8 +98,17 @@ async def register(info: RegisterInfo):
             )
 
 
+@router.delete("/api/users/me/")
+async def delete_me(
+    current_user: User = Depends(get_current_active_user),
+    session: Session = Depends(get_session),
+):
+    session.delete(current_user)
+    session.commit()
+
+
 @router.get("/api/users/me/", response_model=UserRead)
-async def read_users_me(
+def read_users_me(
     current_user: User = Depends(get_current_active_user),
     session: Session = Depends(get_session),
 ):
