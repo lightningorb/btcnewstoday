@@ -128,7 +128,10 @@
 					<InputGroupText>Twitter Username</InputGroupText>
 				</td>
 				<td>
-					<Input placeholder="my_twitter_un" bind:value={twitter_username} />
+					  <InputGroup>
+					    <InputGroupText>@</InputGroupText>
+					    <Input placeholder="my_twitter_un" bind:value={twitter_username} />
+					  </InputGroup>
 				</td>
 			</tr>
 			<tr>
