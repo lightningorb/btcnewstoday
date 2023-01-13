@@ -25,7 +25,7 @@
 	}
 
 	function astral_re(link) {
-		var rx = /https:\/\/astral\.ninja\/(.*)/g;
+		var rx = /(note1.*)/g;
 		var arr = rx.exec(link);
 		if (arr && arr.length){
 			console.log(arr[1]);
@@ -88,16 +88,16 @@
 </script>
 
 <div>
-	<button style='border: 0;' on:click={toggle}><img src="/add-nostr-note.png" style="width: 14px;" /></button> Add Note {#if sats_for_note}<span class='dorrar'>$</span>{/if}
+	<button style='border: 0;' on:click={toggle}><img src="/add-nostr-note.png" style="width: 14px;" /> Add Note </button> {#if sats_for_note}<span class='dorrar'>$</span>{/if}
 
-	<Modal body style='--bs-popover-zindex: 2000 !important;'  header="Add Nostr Note" isOpen={open} {toggle}>
+	<Modal body style='--bs-popover-zindex: 2000 !important;'  header="Add Note" isOpen={open} {toggle}>
 		<style>
 			.fade {
 				background: transparent;
 			}
 		</style>
 		<FormGroup>
-			<Label for="link">Astral Link:</Label>
+			<Label for="link">Note:</Label>
 			<br />
 			<Input type="textarea" name="text" id="link" bind:value={link} />
 			<br />

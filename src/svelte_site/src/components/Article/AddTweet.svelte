@@ -62,7 +62,7 @@
 </script>
 
 <div>
-	<button style='border: 0;' on:click={toggle}><Icon name="twitter"/></button> Add Tweet
+	<button style='border: 0;' on:click={toggle}><Icon name="twitter"/> Add Tweet</button>
 	{#if sats_for_tweet}
 		<span class='dorrar'>$</span>
 	{/if}
