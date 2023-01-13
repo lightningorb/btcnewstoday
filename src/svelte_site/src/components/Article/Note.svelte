@@ -32,7 +32,7 @@
         class={`tweet`}
         id={'id-' + note.note_id}
         target="_blank"
-        href="https://astral.ninja/note{note.note_id}">@{note.username}</a
+        href="https://astral.ninja/{note.note_id}">@{note.username}</a
     >
 {:else}
     <a class={`tweet-pending default-cursor`} id={'id-' + note.note_id} on:click={() => approve()}>@{note.username}</a>
