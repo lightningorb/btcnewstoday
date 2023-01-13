@@ -25,7 +25,7 @@
 		>
 	{/if}
 	<Col xs="2">
-	<a target='_blank' rel='noreferrer' href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(article.title)}${encodeURIComponent('\n\n'+perm)}`}>
+	<a target='_blank' rel='noreferrer' href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(article.title)}${encodeURIComponent('\n\n'+perm+'\n\n#bitcoin')}`}>
 		<Button secondary size="sm" class={vclass}><Icon name="twitter" /></Button>
 	</a>
 	</Col>

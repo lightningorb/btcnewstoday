@@ -60,7 +60,11 @@ div cite a {
 
 div div b {
 	color: #3a4a64 !important;
-	background-color: #efefef !important;
+/*	background-color: #efefef !important;*/
+}
+
+div.highlighted-article {
+	background: #fefefe !important;
 }
 
 a.tweet {

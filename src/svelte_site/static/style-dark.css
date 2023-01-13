@@ -77,7 +77,11 @@ div cite a {
 
 div div b {
 	color: #666 !important;
-	background-color: #3f3e4b !important;
+/*	background-color: #3f3e4b !important;*/
+}
+
+div.highlighted-article {
+	background: #3f3f4f !important;
 }
 
 a.tweet {

@@ -55,13 +55,18 @@
 				confirm('Error');
 			});
 	}
+	let AID = import.meta.env.VITE_AID;
+	let article_class = ''
+	if (AID == article.id) {
+		article_class = 'highlighted-article';
+	}
 </script>
 
 <div id={article.id} />
 
 <div class="container" on:mouseenter={() => show = true} on:mouseleave={() => show = false}>
 	<div class="row">
-		<div class="col-lg-12 pt-4 pt-lg-0">
+		<div class={`col-lg-12 pt-4 pt-lg-0 ${article_class}`}>
 			<!-- <span>{(new Date(article.date*1000)).toISOString()}</span> -->
 			<Social {article} {edit} {slug} {show}/>
 			{#if $preferences.show_images}
