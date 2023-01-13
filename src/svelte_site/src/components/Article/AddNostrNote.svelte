@@ -95,6 +95,9 @@
 			.fade {
 				background: transparent;
 			}
+			.modal {
+				--bs-modal-zindex: 2000;
+			}
 		</style>
 		<FormGroup>
 			<Label for="link">Note:</Label>

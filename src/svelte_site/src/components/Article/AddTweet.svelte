@@ -76,6 +76,9 @@
 		.sats {
 			font-size: 0.7em;
 		}
+		.modal {
+			--bs-modal-zindex: 2000;
+		}
 	</style>
 
 	<FormGroup>
