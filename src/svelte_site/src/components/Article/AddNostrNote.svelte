@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { API_FQDN } from '$lib/constants.js';
 	import { InputGroup, InputGroupText, Input, Icon } from 'sveltestrap';
 	import { Form, FormGroup, FormText, Label } from 'sveltestrap';
 	import axios from 'axios';
@@ -9,8 +8,6 @@
 	let open = false;
 	export let isOpen;
 	let text = '';
-	let host =  API_FQDN.slice(0, API_FQDN.length-5);
-	console.log(host);
 
 	export var article_id;
 	export let sats_for_note;
@@ -21,7 +18,7 @@
 		const bytes = fromWords(decoded.words)
 		const value = hex_encode(bytes)
 		console.log('getting');
-		const res = await fetch(API_FQDN+`/jsapi/nostr?note_id=${value}`);
+		const res = await fetch(`/jsapi/nostr?note_id=${value}`);
 		const text = await res.json();
 		return text;
 	}
@@ -35,20 +32,27 @@
 		}
 	}
 
-	function add_note(note_id, text, username) {
+	$: username = '';
+	$: link = '';
+
+	function add_note(note_id, text, un) {
 		const headers = {
 			'Content-Type': 'application/json'
 		};
 		let body = JSON.stringify({
-			article_id,
-			note_id,
-			username,
-			text
+			article_id:article_id,
+			note_id:note_id,
+			username:un,
+			text:text
 		});
 		axios
-			.post(API_FQDN+'/api/nostr_notes/', body, { headers: headers })
+			.post('/api/nostr_notes/', body, { headers: headers })
 			.then(function (response) {
 				console.log(response);
+				link = null;
+				username = '';
+				note_id = null;
+				note = null;
 				confirm('Looking good');
 			})
 			.catch(function (error) {
@@ -77,8 +81,6 @@
 		return str
 	}
 
-	$: username = '';
-	$: link = '';
 	$: note_id = astral_re(link);
 	$: note = get_note(note_id);
 

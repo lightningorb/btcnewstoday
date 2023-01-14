@@ -29,6 +29,9 @@
 		return text;
 	}
 
+	$: uid = tweet_re(link);
+	$: tweet = get_tweet(uid);
+
 	function add_tweet(username, id, text) {
 		const headers = {
 			'Content-Type': 'application/json'
@@ -43,6 +46,9 @@
 			.post(API_FQDN + '/api/tweets/', body, { headers: headers })
 			.then(function (response) {
 				console.log(response);
+				tweet = null;
+				uid = null;
+				link = null;
 				confirm('Looking good');
 			})
 			.catch(function (error) {
@@ -50,10 +56,6 @@
 				confirm('Error');
 			});
 	}
-
-	$: uid = tweet_re(link);
-	$: tweet = get_tweet(uid);
-
 	const toggle = () => {
 		open = !open;
 		if (!open)
