@@ -9,6 +9,8 @@
 	let open = false;
 	export let isOpen;
 	let text = '';
+	let host =  API_FQDN.slice(0, API_FQDN.length-5);
+	console.log(host);
 
 	export var article_id;
 	export let sats_for_note;
@@ -19,7 +21,7 @@
 		const bytes = fromWords(decoded.words)
 		const value = hex_encode(bytes)
 		console.log('getting');
-		const res = await fetch(`/jsapi/nostr?note_id=${value}`);
+		const res = await fetch(host+`/jsapi/nostr?note_id=${value}`);
 		const text = await res.json();
 		return text;
 	}
@@ -44,7 +46,7 @@
 			text
 		});
 		axios
-			.post('/api/nostr_notes/', body, { headers: headers })
+			.post(host+'/api/nostr_notes/', body, { headers: headers })
 			.then(function (response) {
 				console.log(response);
 				confirm('Looking good');
