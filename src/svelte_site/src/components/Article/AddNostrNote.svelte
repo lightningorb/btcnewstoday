@@ -21,7 +21,7 @@
 		const bytes = fromWords(decoded.words)
 		const value = hex_encode(bytes)
 		console.log('getting');
-		const res = await fetch(host+`/jsapi/nostr?note_id=${value}`);
+		const res = await fetch(API_FQDN+`/jsapi/nostr?note_id=${value}`);
 		const text = await res.json();
 		return text;
 	}
@@ -46,7 +46,7 @@
 			text
 		});
 		axios
-			.post(host+'/api/nostr_notes/', body, { headers: headers })
+			.post(API_FQDN+'/api/nostr_notes/', body, { headers: headers })
 			.then(function (response) {
 				console.log(response);
 				confirm('Looking good');
